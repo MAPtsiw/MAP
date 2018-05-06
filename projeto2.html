@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>2º Tentativa</title>
+    <title>Home Page - MAP</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -56,24 +56,27 @@
 
 <body>
 
+    <!-- Navbar que vai ser igual para todos -->
     <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Map</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
+        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+        <div class="navbar-collapse collapse w-100 order-3" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!-- Tinha active na class -->
+                    <a class="nav-link" href="#chupaAsMinhasTolas">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="projeto2_Agenda.html">Catálogo</a>
                 </li>
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         Dropdown
@@ -84,10 +87,15 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
-                </li>
+                </li> -->
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
                 </li>
+                
+                <li id="Perfil" class="nav-item" style="display: none"> <!-- Para tirar esta opçao remove se o "style" -->
+                    <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
+                </li>
+
                 <li class="nav-item">
                     <!-- Botao de Login -->
                     <input id="Login" class="form-inline my-2 my-lg-0 btn btn-primary" type="button" value="Log-In" data-toggle="modal" data-target="#ModalLogin">
@@ -104,12 +112,13 @@
 
                 </li>
             </ul>
-            <!-- <form class="form-inline my-2 my-lg-0"> O que fazer com isto????
-
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
         </div>
+        <!-- <form class="form-inline my-2 my-lg-0"> O que fazer com isto????
+        
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form> -->
+        <!-- </div> -->
     </nav>
 
     <!-- Carrosel, funciona como a puta que o pariu -->
@@ -172,7 +181,7 @@
         <div class="form-row">
             <h1 class="mx-auto">
                 Pesquisar por Eventos
-                <i id="btnAdicionarEventos" class="fas fa-plus-square" style="display: none;" data-toggle="modal" data-target = "#ModalAdicionnarEventos">
+                <i id="btnAdicionarEventos" class="fas fa-plus-square" style="display: none;" data-toggle="modal" data-target="#ModalAdicionnarEventos">
                     <!-- O botão não vai ficar aqui mas é só para tratar do JS -->
                     <small style="font-size: 10px; color: grey;">Adicionar</small>
                     <!-- Isto vai passar a ser uma tooltip ou o caralho-->
@@ -421,7 +430,7 @@
                         </div>
                         <div class="form-group">
                             <select name="" id="tipoUtilizador">
-                                <option value="Admin">Adminstrador</option>
+                                <option disabled selected hidden>Tipo de Utilizador</option>
                                 <option value="Docente">Docente</option>
                                 <option value="Estudante">Estudante</option>
                             </select>
@@ -510,7 +519,8 @@
 
                             <!-- Data -->
                             <label for="DataEvento">Data</label>
-                            <input id="DataEvento" type="date" class="form-group" required> <!-- Deixar alterar esta merda também -->
+                            <input id="DataEvento" type="date" class="form-group" required>
+                            <!-- Deixar alterar esta merda também -->
 
                             <!-- Hora, maneira simples -->
                             <label for="HoraEvento">Hora</label>
@@ -533,7 +543,8 @@
                             <textarea id="DescriçãoEvento" class="form-control" cols="30" rows="10"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="CategoriaEvento">Categoria</label> <!-- Pode ser um select depois -->
+                            <label for="CategoriaEvento">Categoria</label>
+                            <!-- Pode ser um select depois -->
                             <input id="CategoriaEvento" type="text" class="form-control" required>
                         </div>
                         <div class="form-group">

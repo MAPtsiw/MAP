@@ -9,6 +9,9 @@ let logged = false;
 //Vai simplificar saber qual é o indice no array utilizadores do utilizador loggado
 let indexUtilizador = 0;
 
+//Vai ser usada para por o mês a atualizar se automaticamente no calendário
+let mesNoCalendario = ""
+
 //------------------------------------------
 
 
@@ -17,6 +20,10 @@ window.onload = function () {
     //Data minima para marcar Eventos... Que belo português fds
     minDate();
 
+    //Definir a data e o ano no calendário
+    coco();
+
+
 
     //+-Global, só para o que estiver dentro do window.onload
     let btnAdicionar = document.getElementById('btnAdicionarEventos')
@@ -24,22 +31,25 @@ window.onload = function () {
 
     //Local Storage, encher os arrays, utilizadores e eventos
     if (localStorage.getItem('utilizadores')) {
-        let meninos = JSON.parse(localStorage.getItem('utilizadores'))
-        console.log(meninos)
+        utilizadores = JSON.parse(localStorage.getItem('utilizadores'))
+        console.log(utilizadores)
 
         //Tou a fazer isto porque ao fazer utilizadores.nome aos utilizadores que ficaram no localstorage, isto devolve undefined
         //mas se criar um novo objeto que não estava guardado já funciona, mas se fizer utilizadores._nome, já me dá o valor direito
         //e tenho as merdas bem na class....
         //Não funcionou...
 
-        for(let i = 0; i<meninos.length; i++){
-            utilizadores.push(meninos[i])
-        }
+        // for(let i = 0; i<meninos.length; i++){
+        //     utilizadores.push(meninos[i])
+        // }
     }
 
-    if(localStorage.getItem('eventos')){
+    if (localStorage.getItem('eventos')) {
         eventos = JSON.parse(localStorage.getItem('eventos'))
     }
+
+    //Marcar os dias que têm eventos, tem que estar aqui po que senão o array ainda não está preenchido
+    marcarDias();
 
 
     //Registar um utilizador
@@ -106,6 +116,9 @@ window.onload = function () {
             //Limpar as caixas das pass's
             password = ""
             confPass = ""
+
+            //FAzer focus na pass
+            document.getElementById('PassRegisto').focus()
         }
         else if (password == confPass && continuar == false) { //Caso as passes sejam iguais e o utilizador queira por uma foto 
 
@@ -119,6 +132,9 @@ window.onload = function () {
     //Limpar a modal ao fechar, não consegui fazer em JS
     $("#ModalRegistar").on('hide.bs.modal', function () {
         formRegistar.reset()
+
+        //Limpar a mensagem de erro 
+        document.getElementById('MsgErroRegistar').innerHTML = "";
     });
 
     //Fazer Login
@@ -137,7 +153,10 @@ window.onload = function () {
         let pass = document.getElementById('passLogin').value
 
         for (let i = 0; i < utilizadores.length; i++) { //Acho que bastava usar o indexUtilizador mas sbé
+            console.log(utilizadores[i]._mail)
+
             if (utilizadores[i]._mail == mail) { //Por agora vou trabalhar com as variáveis internas, e assim funciona
+
 
                 erroMail = false //Ou seja, não há erros
 
@@ -169,9 +188,13 @@ window.onload = function () {
 
             msgErro.innerHTML = "Bem vindo, " + utilizadores[indexUtilizador]._nome + " !!!"
 
-            if (utilizadores[indexUtilizador]._tipo == 'Docente') { //A variavel interna é _tipo e não tipoUtilizador
+            if (utilizadores[indexUtilizador]._tipo == 'Docente' && btnAdicionar != null) { //A variavel interna é _tipo e não tipoUtilizador
                 btnAdicionar.style.display = 'inline-block'
             }
+
+            //Função para adicionar a opção de ver o perfil do utilizador, se esta merda fosse com windows forms.....
+            verPerfil(true);
+
 
         }
         else {
@@ -183,6 +206,9 @@ window.onload = function () {
     //Limpar
     $("#ModalLogin").on('hide.bs.modal', function () {
         formRegistar.reset()
+
+        //Limpar a mensagem de erro
+        document.getElementById('MsgErroLogin').innerHTML = ""
     });
 
 
@@ -204,17 +230,20 @@ window.onload = function () {
         btnLogin.style.display = "inline-block"
 
         //Esconder o botão de Adicionar Eventos
+        if(btnAdicionar != null)
         btnAdicionar.style.display = 'none'
 
         indexUtilizador = 0
 
         logged = false; //Em principio vai ser esta variavel que vai dizer o que é que se mostra ou não nas páginas
 
+        verPerfil(false)
+
     })
 
-    //Meter merdas para o botão de adcionar Eventos 
+    //Meter merdas para o botão de adcionar Eventos (Modal Eventos)
     let formEvento = document.getElementById('FormRegistarEvento')
-    formEvento.addEventListener('submit', function(e){ //Verificar isto
+    formEvento.addEventListener('submit', function (e) { //Verificar isto
         e.preventDefault()
 
         let dataEhora = [] //Vai guardar a data e hora num arrray porque sinhe
@@ -234,26 +263,43 @@ window.onload = function () {
         let foto = document.getElementById('FotografiaEvento').value //Not required
         let responsavel = document.getElementById('ResponsavelEvento').value
 
+
+        //Nome
+        if (!verificar(nome)) {
+            continuar = false;
+            console.log('O nome do evento já existe');
+
+            //Personalizar a mensagem de Erro
+            msgErro.innerHTML = "O nome do Evento já existe"
+        }
+
+
         //Data e Hora
-        if(hora == ""){
+        if (hora == "") {
             let conf = confirm("Não indicou a hora do evento\nContinuar???") //VAi estar tudo em alerts, mudar isto para algo menos labajão
 
-            if(conf == true){
+            if (conf == true) {
                 let bla = data + ";" + hora
                 dataEhora.push(bla)
+                console.log(dataEhora)
             }
-            else{
+            else {
                 //por o cenas na hora.....
                 document.getElementById('HoraEvento').focus()
                 continuar = false; //Ou seja, não vai fazer submit
             }
         }
+        else {
+            let bla = data + ";" + hora
+            dataEhora.push(bla)
+            console.log(dataEhora)
+        }
 
         //Descrição
-        if(descricao == ""){
+        if (descricao == "") {
             let conf = confirm("Continuar sem explicar o que caralhos é o evento???")
 
-            if(!conf){
+            if (!conf) {
                 document.getElementById('DescriçãoEvento').focus()
                 continuar = false;
             } //Deve faltar cenas aqui
@@ -264,31 +310,40 @@ window.onload = function () {
 
             let conf = confirm("Não introduziu uma foto \nContinuar sem mostrar as beiças?") //Dá para editar o texto desta merda?
 
-            if (conf == false)
+            if (conf == false) {
                 continuar = false
+            }
+
         }
-        
 
-        if(continuar == true){
 
-            let novoEvento = new Evento(nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador].id)
+        if (continuar == true) {
+
+            let novoEvento = new Evento(nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador]._id)
 
             eventos.push(novoEvento)
 
             localStorage.setItem('eventos', JSON.stringify(eventos))
-            
+
             console.log(eventos)
             console.log("O formato da data é = " + novoEvento._data[0])
+
+            msgErro.innerHTML = "Belo ebento :)"
         }
-        else{
-            msgErro.innerHTML = "Está qualquer coisa male"
+        else {
+            msgErro.innerHTML += "Está qualquer coisa male" //Esta merda está a entrar aqui quando não devia
         }
     })
 
     //Modal Adicionar Evento
     //Limpar
     $("#ModalAdicionnarEventos").on('hide.bs.modal', function () {
+
+        //Limpar o form
         formEvento.reset()
+
+        //Limpar a msgErro
+        document.getElementById('MsgErroRegistarEventos').innerHTML = ""
     });
 }
 
@@ -439,15 +494,15 @@ class Evento {
         this._responsavel = valor
     }
 
-    get id(){
+    get id() {
         return this._id
     }
 
-    get userId(){
+    get userId() {
         return this._userId
     }
 
-    set userId(valor){
+    set userId(valor) {
         this._userId = valor
     }
 
@@ -467,39 +522,86 @@ class Evento {
 
 //---------------------------------------------- Funções ----------------------------------------------------------------------------------------
 
+//Função para ver o perfil de utilizador
+function verPerfil(esconder) {
+
+    //Se esconder for true esconde o perfil, senão mostra-o
+
+    let perfil = document.getElementById('Perfil')
+
+    if (esconder) {
+        //Mostrar o perfil
+        perfil.removeAttribute('style')
+    }
+    else{
+        perfil.setAttribute('style', 'display: none')
+    }
+}
+
+
+//Função para verificar se o nome existe
+function verificar(lemerde) { //Tentar fazer esta função reutilizavel para outros arrays e para outros campos sem ser o nome
+
+    let sbe = true;
+
+    for (let i = 0; i < eventos.length; i++) {
+        if (eventos[i]._nome == lemerde) {
+            sbe = false;
+        }
+    }
+
+    return sbe;
+}
+
 
 let diasOcupados = []; //VAi ser usado nas funções marcarDias() e diasComEventos()
 
 //Marcar os dias com eventos a azul
-function marcarDias(){
+function marcarDias() { //Por acabar
 
     let diasMarcar = [] //Vai fazer com que não se faça tudo num só for(), e dá para passar para uma função
     let semanas = document.getElementsByClassName('Dias') //Para brincar com os dias usar children ou childNodes
 
-    for(let i = 0; i<semanas.length; i++){
+    for (let i = 0; i < semanas.length; i++) {
         let dias = semanas[i].children
-        
-        for(let k = 0; k<dias.length; k++){
-        console.log(dias[k].innerHTML)
-        //Função que preencha um array com os dias ocupados e devolva esse array
-        
+
+        for (let k = 0; k < dias.length; k++) {
+            console.log(dias[k].innerHTML)
+            //Função que preencha um array com os dias ocupados e devolva esse array
+
+            //console.log(eventos[i]._data[0].split(';')[0].split('-')[2])
+            if (diasComEventos(dias[k].innerHTML)) {
+                dias[k].setAttribute('class', 'btn-primary')
+            }
         }
     }
 }
 
 //Vai retornar um array com os dias que têm eventos
-function diasComEventos(dia){
+function diasComEventos(dia) { //Por acabar 
 
-    for(let i = 0; i<eventos.length; i++){
-        //if()
+    //Sempre que um dia tenha eventos retorna true e os eventos, que pode ser util para filtrar os eventos desse dia, hmmmm... não me cheira
+
+    let eventosDoDia = []
+    let possuiEvento = false;
+
+    for (let i = 0; i < eventos.length; i++) {
+        if (eventos[i]._data[0] != undefined) {     /*O que estava mal era que não dá para fazer split de undefined e como ás vezes a data pode
+                                                    não estar definida e esta linha tem que existir para não crashar, isso ou o try/catch*/
+            if (eventos[i]._data[0].split(';')[0].split('-')[2] == dia) {
+                possuiEvento = true
+            }
+        }
     }
+
+    return possuiEvento
 }
 
 //Confirmar se o mail já existe
 function confMail(mail) {
     let bamos = true
     for (let i = 0; i < utilizadores.length; i++) {
-        if (utilizadores[i].mail == mail) {
+        if (utilizadores[i]._mail == mail) {
             bamos = false;
         }
     }
@@ -522,17 +624,28 @@ function mensagemErro(email, passi) {
 }
 
 //Função para não deixar marcar eventos anteriores à data atual
-function minDate(){
+function minDate() {
     let data = new Date()
 
     let datinha = data
-                .toISOString()
-                .split('T')[0]
+        .toISOString()
+        .split('T')[0]
+
+    //Definir o mes do calendário
+    mesNoCalendario = data.toDateString()
+        .split(' ')[1] + "  " + data.toDateString().split(' ')[3]
+
 
     console.log(datinha)
 
     let cal = document.getElementById('DataEvento')
     cal.setAttribute('min', datinha)
+}
+
+//Por o ano no calendário
+function coco() {
+    if (document.getElementById('DataCalendário') != null) //Isto devia ser feito com try catch
+        document.getElementById('DataCalendário').innerHTML = mesNoCalendario
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------

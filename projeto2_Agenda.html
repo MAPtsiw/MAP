@@ -34,38 +34,44 @@
 
 <body>
 
-    <nav id="NavbarAgenda" class="navbar navbar-expand-lg navbar-light bg-light">
-        <!--Copy paste da navbar, ver se fica tudo igual, menos os id's calaro -->
-        <a class="navbar-brand" href="#">Navbar</a>
+    <!-- Navbar que vai ser igual para todos -->
+    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="projeto2.html">Map</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
+        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+        <div class="navbar-collapse collapse w-100 order-3" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!-- Tinha active na class -->
+                    <a class="nav-link" href="projeto2.html">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="projeto2_Agenda.html">Catálogo</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
+                <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li> -->
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
+                </li>
+                <li id="Perfil" class="nav-item" style="display: none">
+                    <!-- Para tirar esta opçao remove se o "style" -->
+                    <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
                 </li>
                 <li class="nav-item">
                     <!-- Botao de Login -->
@@ -79,14 +85,17 @@
                     <input id="Registar" class="form-inline my-2 my-lg-0 btn btn-secundary red" type="button" value="Registar" data-toggle="modal"
                         data-target="#ModalRegistar">
 
+
+
                 </li>
             </ul>
-            <!-- <form class="form-inline my-2 my-lg-0"> O que fazer com isto????
-
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
         </div>
+        <!-- <form class="form-inline my-2 my-lg-0"> O que fazer com isto????
+    
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form> -->
+        <!-- </div> -->
     </nav>
 
 
@@ -100,9 +109,11 @@
                             <th colspan="7">
                                 <span class="btn-group">
                                     <a class="btn">
-                                        <i class="fas fa-arrow-left"></i> <!-- Não aparecem as setas ..... -->
+                                        <i class="fas fa-arrow-left"></i>
+                                        <!-- Não aparecem as setas ..... -->
                                     </a>
-                                    <a class="btn active">February 2012</a> <!-- Mudar o nome e o ano em JS-->
+                                    <p id="DataCalendário" class="btn active text-center">Fodeu</p>
+                                    <!-- Centrar o texto -->
                                     <a class="btn">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
@@ -120,8 +131,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="Dias">  <!-- Ter atenção aos indices e brincar com navegação, apagar isto porque aparece no innerHTML -->
-                            <td class="muted">29</td> <!-- Alterar os dias em JS, como caralhos -->
+                        <tr class="Dias">
+                            <!-- Ter atenção aos indices e brincar com navegação, apagar isto porque aparece no innerHTML -->
+                            <td class="muted">29</td>
+                            <!-- Alterar os dias em JS, como caralhos -->
                             <td class="muted">30</td>
                             <td class="muted">31</td>
                             <td>1</td>
@@ -149,8 +162,9 @@
                         </tr>
                         <tr class="Dias">
                             <td>19</td>
-                            <td class="btn-primary"> <!-- Passar isto de marcar o dia para JS, não é preciso a parte do strong, só a class -->
-                                <strong>20</strong>
+                            <td>
+                                <!-- Passar isto de marcar o dia para JS, não é preciso a parte do strong, só a class (class="btn-primary")-->
+                                20
                             </td>
                             <td>21</td>
                             <td>22</td>

@@ -1,3 +1,12 @@
+/*Minhas Merdas*/
+
+#MsgErroRegistar, #MsgErroLogin, #MsgErroRegistarEventos{ /*Para mexer nos dois ao mesmo tempo é só por a virgula no meio*/
+
+  text-transform: uppercase;
+  color: red;
+}
+
+
 footer {
     padding: 0;
     margin: 0;
@@ -12,6 +21,8 @@ footer {
     margin: 0px !important;
     padding: 0 !important;
 }
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+
 
 /*Que não está a funcionar*/
 /*CArrosel*/
