@@ -17,18 +17,7 @@ let mesNoCalendario = ""
 
 window.onload = function () {
 
-    //Data minima para marcar Eventos... Que belo português fds
-    minDate();
-
-    //Definir a data e o ano no calendário
-    coco();
-
-
-
-    //+-Global, só para o que estiver dentro do window.onload
-    let btnAdicionar = document.getElementById('btnAdicionarEventos')
-
-
+    //Isto deve ser a primeira cena a fazer em principio
     //Local Storage, encher os arrays, utilizadores e eventos
     if (localStorage.getItem('utilizadores')) {
         utilizadores = JSON.parse(localStorage.getItem('utilizadores'))
@@ -47,6 +36,64 @@ window.onload = function () {
     if (localStorage.getItem('eventos')) {
         eventos = JSON.parse(localStorage.getItem('eventos'))
     }
+
+    //+-Global, só para o que estiver dentro do window.onload
+    let btnAdicionar = document.getElementById('btnAdicionarEventos')
+
+    //Mostrar ou não o botão de login, consoante o estado da variavel logged
+    estadoLogged();
+    if (logged == true) {
+        //Vou fazer copyPaste do que está já está feito no botão de login e logoff, mas podia ser feito numa função secalhar
+
+        //Mostrar o botão de log-off e esconder o de log-in
+        let btnLogin = document.getElementById('Login')
+        btnLogin.style.display = "none"
+
+        let btnLogoff = document.getElementById('Logoff')
+        btnLogoff.style.display = "inline-block"
+
+        //Botão de registar disabled, não me parece a melhor opção, mas de outra maneira daria trabalho a mais para agora
+        let btnRegistar = document.getElementById('Registar')
+        btnRegistar.disabled = true
+
+        let msgErro = document.getElementById('MsgErroRegistar')
+        msgErro.innerHTML = "Bem vindo, " + utilizadores[indexUtilizador]._nome + " !!!"
+
+        if (utilizadores[indexUtilizador]._tipo == 'Docente' && btnAdicionar != null) { //A variavel interna é _tipo e não tipoUtilizador
+            btnAdicionar.style.display = 'inline-block'
+        }
+
+        //Função para adicionar a opção de ver o perfil do utilizador, se esta merda fosse com windows forms.....
+        verPerfil(true);
+
+    }
+    else {
+        //Ativar o botão de registar
+        let btnRegistar = document.getElementById('Registar')
+        btnRegistar.disabled = false
+
+
+        //Esconder o botão de log-off e mostrar o de log-in
+        let btnLogoff = document.getElementById('Logoff')
+        btnLogoff.style.display = "none"
+
+        let btnLogin = document.getElementById('Login')
+        btnLogin.style.display = "inline-block"
+
+        //Esconder o botão de Adicionar Eventos
+        if (btnAdicionar != null)
+            btnAdicionar.style.display = 'none'
+
+        //indexUtilizador = 0, verificar o valor desta variável depois
+
+        verPerfil(false)
+    }
+
+    //Data minima para marcar Eventos... Que belo português fds
+    minDate();
+
+    //Definir a data e o ano no calendário
+    coco();
 
     //Marcar os dias que têm eventos, tem que estar aqui po que senão o array ainda não está preenchido
     marcarDias();
@@ -129,7 +176,7 @@ window.onload = function () {
     })
 
     //Modal Registar
-    //Limpar a modal ao fechar, não consegui fazer em JS
+    //Limpar a modal ao fechar, não consegui fazer em JS, Copiadissimo
     $("#ModalRegistar").on('hide.bs.modal', function () {
         formRegistar.reset()
 
@@ -174,6 +221,8 @@ window.onload = function () {
         if (ok == true) {
             //Dizer que o utilizador está com sessão iniciada
             logged = true; //Vai servir para várias merdas a seguir
+            localStorage.setItem('logged', JSON.stringify(logged))
+
 
             //Mostrar o botão de log-off e esconder o de log-in
             let btnLogin = document.getElementById('Login')
@@ -230,12 +279,13 @@ window.onload = function () {
         btnLogin.style.display = "inline-block"
 
         //Esconder o botão de Adicionar Eventos
-        if(btnAdicionar != null)
-        btnAdicionar.style.display = 'none'
+        if (btnAdicionar != null)
+            btnAdicionar.style.display = 'none'
 
         indexUtilizador = 0
 
         logged = false; //Em principio vai ser esta variavel que vai dizer o que é que se mostra ou não nas páginas
+        localStorage.setItem('logged', JSON.stringify(logged))
 
         verPerfil(false)
 
@@ -243,97 +293,100 @@ window.onload = function () {
 
     //Meter merdas para o botão de adcionar Eventos (Modal Eventos)
     let formEvento = document.getElementById('FormRegistarEvento')
-    formEvento.addEventListener('submit', function (e) { //Verificar isto
-        e.preventDefault()
 
-        let dataEhora = [] //Vai guardar a data e hora num arrray porque sinhe
-        let continuar = true
-        let msgErro = document.getElementById('MsgErroRegistarEventos')
+    if (formEvento != null) {
+        formEvento.addEventListener('submit', function (e) { //Verificar isto
+            e.preventDefault()
 
-
-        let nome = document.getElementById('NomeEvento').value
-        let data = document.getElementById('DataEvento').value
-        console.log("A data é = " + data + " -(Ao ser definida)")
-
-        let hora = document.getElementById('HoraEvento').value //Not required
-        console.log("A hora é = " + hora + " -(Ao ser definida)")
-
-        let descricao = document.getElementById('DescriçãoEvento').value //Not required, o valor de uma textarea é .value
-        let categoria = document.getElementById('CategoriaEvento').value
-        let foto = document.getElementById('FotografiaEvento').value //Not required
-        let responsavel = document.getElementById('ResponsavelEvento').value
+            let dataEhora = [] //Vai guardar a data e hora num arrray porque sinhe
+            let continuar = true
+            let msgErro = document.getElementById('MsgErroRegistarEventos')
 
 
-        //Nome
-        if (!verificar(nome)) {
-            continuar = false;
-            console.log('O nome do evento já existe');
+            let nome = document.getElementById('NomeEvento').value
+            let data = document.getElementById('DataEvento').value
+            console.log("A data é = " + data + " -(Ao ser definida)")
 
-            //Personalizar a mensagem de Erro
-            msgErro.innerHTML = "O nome do Evento já existe"
-        }
+            let hora = document.getElementById('HoraEvento').value //Not required
+            console.log("A hora é = " + hora + " -(Ao ser definida)")
+
+            let descricao = document.getElementById('DescriçãoEvento').value //Not required, o valor de uma textarea é .value
+            let categoria = document.getElementById('CategoriaEvento').value
+            let foto = document.getElementById('FotografiaEvento').value //Not required
+            let responsavel = document.getElementById('ResponsavelEvento').value
 
 
-        //Data e Hora
-        if (hora == "") {
-            let conf = confirm("Não indicou a hora do evento\nContinuar???") //VAi estar tudo em alerts, mudar isto para algo menos labajão
+            //Nome
+            if (!verificar(nome)) {
+                continuar = false;
+                console.log('O nome do evento já existe');
 
-            if (conf == true) {
+                //Personalizar a mensagem de Erro
+                msgErro.innerHTML = "O nome do Evento já existe"
+            }
+
+
+            //Data e Hora
+            if (hora == "") {
+                let conf = confirm("Não indicou a hora do evento\nContinuar???") //VAi estar tudo em alerts, mudar isto para algo menos labajão
+
+                if (conf == true) {
+                    let bla = data + ";" + hora
+                    dataEhora.push(bla)
+                    console.log(dataEhora)
+                }
+                else {
+                    //por o cenas na hora.....
+                    document.getElementById('HoraEvento').focus()
+                    continuar = false; //Ou seja, não vai fazer submit
+                }
+            }
+            else {
                 let bla = data + ";" + hora
                 dataEhora.push(bla)
                 console.log(dataEhora)
             }
+
+            //Descrição
+            if (descricao == "") {
+                let conf = confirm("Continuar sem explicar o que caralhos é o evento???")
+
+                if (!conf) {
+                    document.getElementById('DescriçãoEvento').focus()
+                    continuar = false;
+                } //Deve faltar cenas aqui
+            }
+
+            //Fotografia
+            if (foto == "") {
+
+                let conf = confirm("Não introduziu uma foto \nContinuar sem mostrar as beiças?") //Dá para editar o texto desta merda?
+
+                if (conf == false) {
+                    continuar = false
+                }
+
+            }
+
+
+            if (continuar == true) {
+
+                let novoEvento = new Evento(nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador]._id)
+
+                eventos.push(novoEvento)
+
+                localStorage.setItem('eventos', JSON.stringify(eventos))
+
+                console.log(eventos)
+                console.log("O formato da data é = " + novoEvento._data[0])
+
+                msgErro.innerHTML = "Belo ebento :)"
+            }
             else {
-                //por o cenas na hora.....
-                document.getElementById('HoraEvento').focus()
-                continuar = false; //Ou seja, não vai fazer submit
+                msgErro.innerHTML += "Está qualquer coisa male" //Esta merda está a entrar aqui quando não devia
             }
-        }
-        else {
-            let bla = data + ";" + hora
-            dataEhora.push(bla)
-            console.log(dataEhora)
-        }
-
-        //Descrição
-        if (descricao == "") {
-            let conf = confirm("Continuar sem explicar o que caralhos é o evento???")
-
-            if (!conf) {
-                document.getElementById('DescriçãoEvento').focus()
-                continuar = false;
-            } //Deve faltar cenas aqui
-        }
-
-        //Fotografia
-        if (foto == "") {
-
-            let conf = confirm("Não introduziu uma foto \nContinuar sem mostrar as beiças?") //Dá para editar o texto desta merda?
-
-            if (conf == false) {
-                continuar = false
-            }
-
-        }
-
-
-        if (continuar == true) {
-
-            let novoEvento = new Evento(nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador]._id)
-
-            eventos.push(novoEvento)
-
-            localStorage.setItem('eventos', JSON.stringify(eventos))
-
-            console.log(eventos)
-            console.log("O formato da data é = " + novoEvento._data[0])
-
-            msgErro.innerHTML = "Belo ebento :)"
-        }
-        else {
-            msgErro.innerHTML += "Está qualquer coisa male" //Esta merda está a entrar aqui quando não devia
-        }
-    })
+        })
+    }
 
     //Modal Adicionar Evento
     //Limpar
@@ -345,6 +398,37 @@ window.onload = function () {
         //Limpar a msgErro
         document.getElementById('MsgErroRegistarEventos').innerHTML = ""
     });
+
+
+
+    //Mexer no calendário
+    //Tentar receber o dia para trabalha-lo
+    let calendario = document.getElementById('calendario')
+    calendario.addEventListener('click', function (event) {
+        console.log(event.target.innerHTML) //Isto dá o numero do dia em que se clicou
+
+        let elDia = event.target.innerHTML;
+        let temEventos = false
+        let losDiasOcupados = []
+
+        //FAzer uma função que filtre para o catálogo os eventos do dia selecionado
+        for(let i = 0; i<eventos.length; i++){
+            let chacalaca = eventos[i]._data[0].split(';')[0].split('-')[2]
+            
+            if(chacalaca == elDia){
+                temEventos = true
+                losDiasOcupados.push(eventos[i]._id) //Depois ao passar o id para a função vai ser dessa maneira que os eventos vão ser filtrados para o catálogo
+            }
+        }
+
+
+        if(temEventos == true){
+            for(let i = 0; i<losDiasOcupados.length; i++){
+                //Aqui vai ser a tal função que vai filtrar os eventos... Que vai sempre funcionar passando um evento de cada vez
+            }
+        }
+        
+    })
 }
 
 //---------------------------------------------- Classes ----------------------------------------------------------------------------------------
@@ -522,6 +606,15 @@ class Evento {
 
 //---------------------------------------------- Funções ----------------------------------------------------------------------------------------
 
+//Guardar o estado da variavel logged em localstorage para ser usada noutras páginas
+function estadoLogged() { //Os nomes das funções estão uma piça, porque esta função tabém vai determinar se se mostra o botão de logoff ou login
+
+    if (localStorage.getItem('logged')) {
+        logged = JSON.parse(localStorage.getItem('logged'))
+        console.log(logged)
+    }
+}
+
 //Função para ver o perfil de utilizador
 function verPerfil(esconder) {
 
@@ -533,7 +626,7 @@ function verPerfil(esconder) {
         //Mostrar o perfil
         perfil.removeAttribute('style')
     }
-    else{
+    else {
         perfil.setAttribute('style', 'display: none')
     }
 }
@@ -566,7 +659,7 @@ function marcarDias() { //Por acabar
         let dias = semanas[i].children
 
         for (let k = 0; k < dias.length; k++) {
-            console.log(dias[k].innerHTML)
+            //console.log(dias[k].innerHTML)
             //Função que preencha um array com os dias ocupados e devolva esse array
 
             //console.log(eventos[i]._data[0].split(';')[0].split('-')[2])
@@ -639,7 +732,10 @@ function minDate() {
     console.log(datinha)
 
     let cal = document.getElementById('DataEvento')
-    cal.setAttribute('min', datinha)
+
+    //Estes if's são para quando não existir certo elemento numa página, as merdas não darem erros
+    if (cal != null)
+        cal.setAttribute('min', datinha)
 }
 
 //Por o ano no calendário
