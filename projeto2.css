@@ -7,24 +7,44 @@
 }
 
 
-
 footer {
-  padding: 10px;
-  margin: 0;
-  background: linear-gradient(to bottom right, #001124, rgb(0, 0, 0));
-  color: white;
+    padding: 0;
+    margin: 0;
 }
 
-
 #map{
-  height: 200px;
-  width: 1000px;
+    height: 300px;
+    width: 1000px;
 }
 
 #searchBar > div{
     margin: 0px !important;
     padding: 0 !important;
 }
+
+.card{
+  border-radius: 5%;
+}
+
+.card-title, .btn-evento { /*hmmm... o botão não está a funcionar com isto mas o resto está*/
+    text-align: center;
+}
+
+.linha-cards{
+  margin: 10px 0px 10px 0px;
+}
+
+#container-Calendario{
+  margin: 0;
+  padding: 0;
+}
+
+.mnac{
+  font-size: small;
+}
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+
+
 /*TESTE*/
 
 /*-----------------------------------------------------------------------------------------------------------------------------*/
@@ -111,7 +131,6 @@ footer {
   }
 }
 /* &&&&&&&&&&&&&&&&&& FIM DE CAROUSEL &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
  /*.active > div { display:none; }
  .active > div:first-child { display:block; }*/
 
@@ -124,7 +143,6 @@ footer {
 .green {background: green;}
 
 .yellow {background: yellow;}
-
 
 
 
