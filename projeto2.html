@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Home Page - MAP</title>
+    <title>MAP</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,6 +20,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
+    
+
     <!-- Do Video -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -28,6 +30,8 @@
     <!-- Minhas Merdas -->
     <link rel="stylesheet" href="projeto2.css">
     <script src="projeto2.js"></script>
+
+    
 
     <!-- Script para o google maps-->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWwaEDkLeJWWeW2VzjqxXCJsqXuzqPLRc&callback=Mapa">
@@ -56,8 +60,8 @@
 
 <body>
 
-    <!-- Navbar que vai ser igual para todos -->
-    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Navbar que vai ser igual para todos \\ FALTA ARRANJAR AS CORES E O LOGOTIPO -->
+    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">Map</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -89,7 +93,7 @@
                     </div>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
+                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunhos</a>
                 </li>
                 
                 <li id="Perfil" class="nav-item" style="display: none"> <!-- Para tirar esta opçao remove se o "style" -->
@@ -120,55 +124,113 @@
                     </form> -->
         <!-- </div> -->
     </nav>
-
+<br>
     <!-- Carrosel, funciona como a puta que o pariu -->
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-11 col-md-10 col-centered">
-
-                <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <div class="carousel-col">
-                                <div class="block red img-responsive"></div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="carousel-col">
-                                <div class="block green img-responsive"></div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="carousel-col">
-                                <div class="block blue img-responsive"></div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="carousel-col">
-                                <div class="block yellow img-responsive"></div>
-                            </div>
-                        </div>
+    <div class="container-fluid">
+            <h1 class="text-center mb-3">Eventos Populares</h1>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner row w-100 mx-auto">
+                <div class="carousel-item col-md-4 active">
+                  <div class="card">
+                    <img class="card-img-top img-fixed" src="http://placehold.it/800x600/f44242/fff" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">Nome do Evento 1</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam, commodi illo
+                            corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                      <p class="card-text"><small class="text-muted">Data - Pontuação</small></p>
                     </div>
-
-                    <!-- Controls -->
-                    <div class="left carousel-control">
-                        <a href="#carousel" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </div>
-                    <div class="right carousel-control">
-                        <a href="#carousel" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
+                  </div>
                 </div>
-
+                <div class="carousel-item col-md-4">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="http://placehold.it/800x600/418cf4/fff" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">Nome do Evento 2</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam, commodi illo
+                            corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                      <p class="card-text"><small class="text-muted">Data - Pontuação</small></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="http://placehold.it/800x600/3ed846/fff" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">Nome do Evento 3</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam, commodi illo
+                            corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                      <p class="card-text"><small class="text-muted">Data - Pontuação</small></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="http://placehold.it/800x600/42ebf4/fff" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">Nome do Evento 4</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam, commodi illo
+                            corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                      <p class="card-text"><small class="text-muted">Data - Pontuação</small></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="http://placehold.it/800x600/f49b41/fff" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">Nome do Evento 5</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam, commodi illo
+                            corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                      <p class="card-text"><small class="text-muted">Data - Pontuação</small></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="http://placehold.it/800x600/f4f141/fff" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">Nome do Evento 6</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam, commodi illo
+                            corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                      <p class="card-text"><small class="text-muted">Data - Pontuação</small></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                  <div class="card">
+                    <img class="card-img-top img-fluid" src="http://placehold.it/800x600/8e41f4/fff" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">Nome do Evento 7</h4>
+                      <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam, commodi illo
+                            corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                      <p class="card-text"><small class="text-muted">Data - Pontuação</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
             </div>
-        </div>
-    </div>
+          </div>
 
+
+
+    <!-- FIM DO CAROSEL-->
+    
+    <br>
 
     <hr class="my-3">
 
@@ -245,147 +307,43 @@
         </div>
     </div>
 
-    <!--Footer-->
-    <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
-
-        <!--Footer Links-->
-        <div class="container text-center text-md-left">
-            <div class="row">
-
-                <!--First column-->
-
-                <!-- <div class="col-md-2 mx-auto">
-                    <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Links</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 4</a>
-                        </li>
-                    </ul>
-                </div> -->
-                <!--/.First column-->
-
-                <hr class="clearfix w-100 d-md-none">
-
-                <!--Second column-->
-                <div class="col-md-4 mx-auto">
-                    <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Links</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#aboutus">About Us</a>
-                        </li>
-                        <li>
-                            <a href="#!">Contactos</a>
-                            <ul>
-                                <li>Miguel</li>
-                                <li>Alvaro</li>
-                                <li>Pedro</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <!--/.Second column-->
-
-                <hr class="clearfix w-100 d-md-none">
-
-                <!-- Third column-->
-                <!-- <div class="col-md-2 mx-auto">
-                    <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Links</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 4</a>
-                        </li>
-                    </ul>
-                </div> -->
-                <!--/.Third column -->
-
-                <hr class="clearfix w-100 d-md-none">
-
-                <!--Fourth column-->
-                <div id="map" class="col-md-8">
-                    <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Mapa</h5>
-                    <p>Pronto é isso</p>
-                </div>
-                <!--/.Fourth column-->
+    <!-- ###################################### FOOTER ####################################-->
+    <footer>
+		<div class="container">
+			<div class="row text-center text-xs-center text-sm-left text-md-left">
+				<div class="col-xs-12 col-sm-3 col-md-3">
+					<h5>Navegação</h5>
+					<ul class="list-unstyled quick-links">
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i> Home</a></li>
+						<li><a href="#aboutus"><i class="fa fa-angle-double-right"></i> About Us</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i> Catálogo</a></li>
+						<li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i> FAQ</a></li>
+					</ul>
+				</div>
+				    <div class="col-xs-12 col-sm-3 col-md-3">
+					    <h5>Contactos</h5>
+					    <ul class="list-unstyled quick-links">
+                            <li> <p>mapmepmip@gmail.com</p></li>
+                            <li class="list-inline-item"><a href="javascript:void();"><i class="fab fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="javascript:void();"><i class="fab fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="javascript:void();"><i class="fab fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href="javascript:void();"><i class="fab fa-youtube"></i></a></li>
+					    </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+					    <h5>ESMAD</h5>
+					    <ul class="list-unstyled quick-links">
+                            <li><p> Escola Superior de Media Artes e Design</p></li>
+                            
+					    </ul>
+				    </div>
+				<div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
             </div>
-        </div>
-        <!--/.Footer Links-->
-
-        <hr>
-
-        <!--Call to action-->
-        <!-- <div class="text-center py-3">
-            <ul class="list-unstyled list-inline mb-0">
-                <li class="list-inline-item">
-                    <h5 class="mb-1">Register for free</h5>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#!" class="btn btn-danger btn-rounded">Sign up!</a>
-                </li>
-            </ul>
-        </div> -->
-        <!--/.Call to action-->
-
-        <hr>
-
-        <!--Social buttons-->
-        <div class="text-center">
-            <ul class="list-unstyled list-inline">
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-sm btn-fb mx-1">
-                        <i class="fa fa-facebook"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-sm btn-tw mx-1">
-                        <i class="fa fa-twitter"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-sm btn-gplus mx-1">
-                        <i class="fa fa-google-plus"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-sm btn-li mx-1">
-                        <i class="fa fa-linkedin"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-sm btn-dribbble mx-1">
-                        <i class="fa fa-dribbble"> </i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!--/.Social buttons-->
-
-        <!--Copyright-->
-        <div class="footer-copyright py-3 text-center">
-            © 2018 Copyright:
-            <a href="https://mdbootstrap.com/material-design-for-bootstrap/"> MDBootstrap.com </a>
-        </div>
-        <!--/.Copyright-->
-
+         
+	
+		</div>
     </footer>
-    <!--/.Footer-->
+	<!-- /Footer -->
 
 
     <!-- Modais -->
