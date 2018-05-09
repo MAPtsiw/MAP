@@ -63,7 +63,7 @@
 
     <!-- Navbar que vai ser igual para todos \\ FALTA ARRANJAR AS CORES E O LOGOTIPO -->
     <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#">Map</a>
+        <a class="navbar-brand" href="#"> <img id="logobar" src="images/MAP.png"> </a> 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -216,6 +216,7 @@
                   </div>
                 </div>
               </div>
+              
               <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
@@ -235,34 +236,45 @@
 
     <hr class="my-3">
 
-    <!-- Search Bar -->
+    <!-- ############################# Search Bar #################### -->
     <form>
-        <!--- class="mx-auto" -->
-        <!-- Não estou a conseguir por esta merda no meio, Update: Na puta da mesma -->
-        <!-- class="form-block my-2 my-lg-0" -->
-
+            <!-- <div class="col-sm-6 col-sm-offset-3">
+                    <div class="home_searce_domain_area">
+                        <div class="main_home_searce_domain_content">
+                            <input type="text" placeholder="Your Domain Name ..." />
+                            <select class="form-control">
+                                <option>.com</option>
+                                <option>.net</option>
+                                <option>.co</option>
+                            </select>
+                            <input type="submit" value="Check Availability" />
+                        </div>
+                    </div>
+                </div> -->
         <div class="form-row">
-            <h1 class="mx-auto">
-                Pesquisar por Eventos
-                <i id="btnAdicionarEventos" class="fas fa-plus-square" style="display: none;" data-toggle="modal" data-target="#ModalAdicionnarEventos">
-                    <!-- O botão não vai ficar aqui mas é só para tratar do JS -->
-                    <small style="font-size: 10px; color: grey;">Adicionar</small>
-                    <!-- Isto vai passar a ser uma tooltip ou o caralho-->
-                </i>
-            </h1>
-
-        </div>
-
-        <div id="searchBar" class="form-row" style="margin-right: 0px">
-
-
-            <div class="form-group col-md-6 mx-auto">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
-                <!-- </div> -->
-                <!-- <div class="form-group col-md-6"> -->
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" style="border: black solid 3px" aria-label="Search">
+                <div class="form-group col-md-2">
+                    </div>
+            <div class="form-group col-md-8">		
+			    <div class="input-group">
+                <input type="text" class="form-control" placeholder="Nome">
+                 <input type="text" class="form-control" placeholder="Género">
+                <select class="form-control">
+                    <option>Todas as datas</option>
+                    <option>Hoje</option>
+                    <option>Amanhã</option>
+                    <option>Esta semana</option>
+                    <option>Este fim de semana</option>
+                    <option>Próxima semana</option>
+                    <option>No próximo mês</option>
+                </select>
+			        <div class="input-group-append">
+			             <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+			        </div>
+                </div>
             </div>
+            <div class="form-group col-md-2"></div>
         </div>
+	 
 
         <!-- Para não me foder 
         <div class="form-row">
@@ -280,39 +292,44 @@
     <!-- About Us -->
     <div class="jumbotron jumbotron-fluid ">
         <div class="container">
-            <h1 id="aboutus" class="display-3">About Us</h1>
-            <p class="lead">Equipa</p>
-            <hr class="my-2">
-            <div class="form-row">
-                <div class="form-group col-md-8">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam, commodi illo
-                        corrupti nulla velit et. Nobis velit itaque quas placeat numquam repellat! Suscipit tenetur iste
-                        accusantium, praesentium porro inventore animi quisquam nisi modi ut nostrum vitae dolorem error!
-                        Laboriosam pariatur iusto ratione dolorem maxime porro nemo asperiores, nam est error ex ipsa. Provident
-                        quia harum corporis voluptas voluptate labore consequuntur modi totam officia quidem incidunt mollitia
-                        error id nulla eius nesciunt animi sunt vero aliquid obcaecati nam optio, vitae, molestiae ratione.
-                        Minima!
-                    </p>
-                </div>
-                <div class="form-group col-md-4">
-                    <!-- por as imagens do grupo -->
-                    <figure>
-                        <img src="images/4.png" alt="user">
-                    </figure>
-                    <p> Miguel Coiso</p>
-                    <br>
-                    <figure>
-                        <img src="images/4.png" alt="user">
-                    </figure>
-                    <p> Álvaro Holstein </p>
-                    <br>
-                    <figure>
-                        <img src="images/2.jpg" alt="user">
-                    </figure>
-                    <p> Pedro Fragata</p>
-                </div>
-            </div>
+                <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <h1 id="aboutus" class="display-4">About Us</h1> 
+                                <br>
+                                 <hr class="my-2">
+
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam, commodi illo
+                                    corrupti nulla velit et. Nobis velit itaque quas placeat numquam repellat! Suscipit tenetur iste
+                                    accusantium, praesentium porro inventore animi quisquam nisi modi ut nostrum vitae dolorem error!
+                                    Laboriosam pariatur iusto ratione dolorem maxime porro nemo asperiores, nam est error ex ipsa. Provident
+                                    quia harum corporis voluptas voluptate labore consequuntur modi totam officia quidem incidunt mollitia
+                                    error id nulla eius nesciunt animi sunt vero aliquid obcaecati nam optio, vitae, molestiae ratione.
+                                    Minima!
+                                </p>
+                        </div>
+                        <div class="form-group col-md-4 about">
+                                <h1 id="aboutus" class="display-4" style="text-align: center">Equipa</h1>
+                                <br>
+                                <hr class="my-2">
+                                <br>
+                            <!-- por as imagens do grupo -->
+                            <figure>
+                                <img src="images/4.png" alt="user">
+                            </figure>
+                            <p> Miguel Teixeira</p>
+                            <br>
+                            <figure>
+                                <img src="images/4.png" alt="user">
+                            </figure>
+                            <p> Álvaro Holstein </p>
+                            <br>
+                            <figure>
+                                <img src="images/2.jpg" alt="user">
+                            </figure>
+                            <p> Pedro Fragata</p>
+                        </div>
+                 </div>
         </div>
     </div>
 

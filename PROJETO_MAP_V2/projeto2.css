@@ -25,12 +25,28 @@ footer {
     margin: 0px !important;
     padding: 0 !important;
 }
+
+#logobar {
+  width: 50%;
+  height:50%;
+}
 figure img {
   width: 90px;
   height:90px;
   border-radius: 50%;
 }
+
+.about img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.about p {
+  text-align: center;
+}
 /*TESTE*/
+
 
 /*-----------------------------------------------------------------------------------------------------------------------------*/
 
