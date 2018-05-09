@@ -1,0 +1,153 @@
+/*Minhas Merdas*/
+
+#MsgErroRegistar, #MsgErroLogin, #MsgErroRegistarEventos{ /*Para mexer nos dois ao mesmo tempo é só por a virgula no meio*/
+
+  text-transform: uppercase;
+  color: red;
+}
+
+
+
+footer {
+  padding: 10px;
+  margin: 0;
+  background: linear-gradient(to bottom right, #001124, rgb(0, 0, 0));
+  color: white;
+}
+
+
+#map{
+  height: 200px;
+  width: 1000px;
+}
+
+#searchBar > div{
+    margin: 0px !important;
+    padding: 0 !important;
+}
+figure img {
+  width: 90px;
+  height:90px;
+  border-radius: 50%;
+}
+/*TESTE*/
+
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*Que não está a funcionar*/
+/*CAROUSEl*/
+@media (min-width: 100px) {
+  /* show 3 items */
+  .carousel-inner .active,
+  .carousel-inner .active + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
+    display: block;
+  }
+
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item,
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item
+    + .carousel-item {
+    transition: none;
+  }
+
+  .carousel-inner .carousel-item-next,
+  .carousel-inner .carousel-item-prev {
+    position: relative;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .carousel-inner
+    .active.carousel-item
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: absolute;
+    top: 0;
+    right: -33.3333%;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* left or forward direction */
+  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+  .carousel-item-next.carousel-item-left + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+  .carousel-item-next.carousel-item-left
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  /* farthest right hidden item must be abso position for animations */
+  .carousel-inner .carousel-item-prev.carousel-item-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* right or prev direction */
+  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+  .carousel-item-prev.carousel-item-right + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+  .carousel-item-prev.carousel-item-right
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+    display: block;
+    visibility: visible;
+  }
+}
+/* &&&&&&&&&&&&&&&&&& FIM DE CAROUSEL &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+ /*.active > div { display:none; }
+ .active > div:first-child { display:block; }*/
+
+/*xs*/
+
+.red {background: red;}
+
+.blue {background: blue;}
+
+.green {background: green;}
+
+.yellow {background: yellow;}
+
+
+
+
+
+
+
+
+
+
+/*Merdas que já não são usadas*/
+/* @media (max-width: 767px){
+    .carousel .row .span3 {
+    display: block;
+    float: left;
+    width: 25%;
+    margin-left: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    }
+} */

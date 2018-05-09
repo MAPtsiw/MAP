@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Agenda/Catálogo</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+    <!-- Nossos -->
+    <script src="projeto2.js"></script>
+    <link rel="stylesheet" href="projeto2.css">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        
+
+    <!-- Para o calendario -->
+    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <!-- Include the above in your HEAD tag -->
+
+</head>
+
+<body>
+
+    <!-- Navbar que vai ser igual para todos -->
+    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="projeto2.html">Map</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+        <div class="navbar-collapse collapse w-100 order-3" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <!-- Tinha active na class -->
+                    <a class="nav-link" href="projeto2.html">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="projeto2_Agenda.html">Catálogo</a>
+                </li>
+                <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
+                </li>
+                <li id="Perfil" class="nav-item" style="display: none">
+                    <!-- Para tirar esta opçao remove se o "style" -->
+                    <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <!-- Botao de Login -->
+                    <input id="Login" class="form-inline my-2 my-lg-0 btn btn-primary" type="button" value="Log-In" data-toggle="modal" data-target="#ModalLogin">
+
+                    <!-- Botao de Logoff -->
+                    <input id="Logoff" class="form-inline my-2 my-lg-0 btn btn-primary green" type="button" value="Log-Off" style="display: none;">
+                    <!-- com block não funciona, tem que ser com inline-block-->
+
+                    <!-- Botao de Registar -->
+                    <input id="Registar" class="form-inline my-2 my-lg-0 btn btn-secundary red" type="button" value="Registar" data-toggle="modal"
+                        data-target="#ModalRegistar">
+
+
+
+                </li>
+            </ul>
+        </div>
+        <!-- <form class="form-inline my-2 my-lg-0"> O que fazer com isto????
+    
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form> -->
+        <!-- </div> -->
+    </nav>
+
+
+    <!-- Calendário, meter isto num jumbotron secalhar -->
+    <div class="container mx-auto">
+        <div class="row">
+            <div class="span12">
+                <table id="calendario" class="table-condensed table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="7">
+                                <span class="btn-group">
+                                    <a class="btn">
+                                        <i class="fas fa-arrow-left"></i>
+                                        <!-- Não aparecem as setas ..... -->
+                                    </a>
+                                    <p id="DataCalendário" class="btn active text-center">Fodeu</p>
+                                    <!-- Centrar o texto -->
+                                    <a class="btn">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Su</th>
+                            <th>Mo</th>
+                            <th>Tu</th>
+                            <th>We</th>
+                            <th>Th</th>
+                            <th>Fr</th>
+                            <th>Sa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="Dias">
+                            <!-- Ter atenção aos indices e brincar com navegação, apagar isto porque aparece no innerHTML -->
+                            <td class="muted">29</td>
+                            <!-- Alterar os dias em JS, como caralhos -->
+                            <td class="muted">30</td>
+                            <td class="muted">31</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                        </tr>
+                        <tr class="Dias">
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>11</td>
+                        </tr>
+                        <tr class="Dias">
+                            <td>12</td>
+                            <td>13</td>
+                            <td>14</td>
+                            <td>15</td>
+                            <td>16</td>
+                            <td>17</td>
+                            <td>18</td>
+                        </tr>
+                        <tr class="Dias">
+                            <td>19</td>
+                            <td>
+                                <!-- Passar isto de marcar o dia para JS, não é preciso a parte do strong, só a class (class="btn-primary")-->
+                                20
+                            </td>
+                            <td>21</td>
+                            <td>22</td>
+                            <td>23</td>
+                            <td>24</td>
+                            <td>25</td>
+                        </tr>
+                        <tr class="Dias">
+                            <td>26</td>
+                            <td>27</td>
+                            <td>28</td>
+                            <td>29</td>
+                            <td class="muted">1</td>
+                            <td class="muted">2</td>
+                            <td class="muted">3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modais -->
+
+    <!-- Modal Registo -->
+    <div class="modal fade" id="ModalRegistar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Formulário -->
+                    <form id="FormRegisto">
+                        <div class="form-group">
+                            <label for="Nome">Nome</label>
+                            <input id="Nome" type="text" class="form-control" placeholder="Nome..." value="Jajão" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="Mail">Email address</label>
+                            <input id="Mail" type="email" class="form-control" placeholder="Enter email" value="ad@gmail.com" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="PassRegisto">Password</label>
+                            <input id="PassRegisto" type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ConfPassRegisto">Confirmar Password</label>
+                            <input id="ConfPassRegisto" type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Fotografia">Fotografia
+                                <small style="color: gray; font-size: 10px">(Opcional)</small>
+                            </label>
+                            <input id="Fotografia" type="url" class="form-control" placeholder="Link da foto">
+                        </div>
+                        <div class="form-group">
+                            <select name="" id="tipoUtilizador">
+                                <option value="Admin">Adminstrador</option>
+                                <option value="Docente">Docente</option>
+                                <option value="Estudante">Estudante</option>
+                            </select>
+                        </div>
+                        <!-- <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <p id="MsgErroRegistar" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Registar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Login-->
+    <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Log-In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Formulário -->
+                    <form id="FormLogin">
+                        <div class="form-group">
+                            <label for="mailLogin">Email address</label>
+                            <input id="mailLogin" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="passLogin">Password</label>
+                            <input id="passLogin" type="password" class="form-control" placeholder="Password">
+                        </div>
+                        <!-- <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <p id="MsgErroLogin" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Log-In</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Evento -->
+    <div class="modal fade" id="ModalAdicionnarEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Evento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Formulário -->
+                    <form id="FormRegistarEvento">
+                        <div class="form-group">
+                            <label for="NomeEvento">Nome</label>
+                            <input id="NomeEvento" type="text" class="form-control" placeholder="Introdução ao JS" value="Introdução ao JS" required>
+
+                        </div>
+                        <div class="form-row">
+
+                            <!-- Data -->
+                            <label for="DataEvento">Data</label>
+                            <input id="DataEvento" type="date" class="form-group" required>
+                            <!-- Deixar alterar esta merda também -->
+
+                            <!-- Hora, maneira simples -->
+                            <label for="HoraEvento">Hora</label>
+                            <input id="HoraEvento" type="time" class="form-group">
+
+                            <!-- Hora, esta merda ainda não está a funcionar -->
+                            <!-- <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                <input type="text" class="form-control" value="13:14">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div> -->
+                            <!-- <script type="text/javascript">
+                                $('.clockpicker').clockpicker();
+                            </script> -->
+
+                        </div>
+                        <div class="form-group">
+                            <label for="DescriçãoEvento">Descrição</label>
+                            <textarea id="DescriçãoEvento" class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="CategoriaEvento">Categoria</label>
+                            <!-- Pode ser um select depois -->
+                            <input id="CategoriaEvento" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="FotografiaEvento">Fotografia
+                                <small style="color: gray; font-size: 10px">(Opcional)</small>
+                            </label>
+                            <input id="FotografiaEvento" type="url" class="form-control" placeholder="Link da foto">
+                        </div>
+                        <div class="form-group">
+                            <label for="ResponsavelEvento">Responsável pelo Evento</label>
+                            <input id="ResponsavelEvento" type="text" class="form-control" placeholder="Docente Responsável" required>
+                        </div>
+                        <!-- <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <p id="MsgErroRegistarEventos" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Registar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+            <!-- ################## CATÁLOGO ########################## -->
+           
+</body>
+
+</html>
