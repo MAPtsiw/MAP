@@ -2,8 +2,9 @@
 <html lang="en">
 
 <head>
-    <title>Testemunho dos Estudantes</title>
+    <title>Nome Do Evento</title>
     <link rel="icon" href="images/favicon.png" type="image">
+    <!-- Alterar o nome em JS-->
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,7 +12,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -33,15 +33,13 @@
     <!-- font-awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
         crossorigin="anonymous">
+
 </head>
 
 <body>
-
     <!-- Navbar que vai ser igual para todos -->
     <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="projeto2.html">
-            <img id="logobar" src="images/MAP.png">
-        </a>
+        <a class="navbar-brand" href="#"><img id="logobar" src="images/MAP.png"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -52,7 +50,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!-- Tinha active na class -->
-                    <a class="nav-link" href="projeto2.html">Home
+                    <a class="nav-link" href="#chupaAsMinhasTolas">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -74,10 +72,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
                 </li>
+
                 <li id="Perfil" class="nav-item" style="display: none">
                     <!-- Para tirar esta opçao remove se o "style" -->
                     <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
                 </li>
+
                 <li class="nav-item">
                     <!-- Botao de Login -->
                     <input id="Login" class="form-inline my-2 my-lg-0 btn btn-primary" type="button" value="Log-In" data-toggle="modal" data-target="#ModalLogin">
@@ -104,9 +104,7 @@
     </nav>
 
 
-
-
-
+    
 
 
 
@@ -181,116 +179,6 @@
         </div>
     </footer>
     <!-- /Footer -->
-
-    <!-- Modais -->
-
-    <!-- Modal Registo -->
-    <div class="modal fade" id="ModalRegistar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registar</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <!-- Formulário -->
-                    <form id="FormRegisto">
-                        <div class="form-group">
-                            <label for="Nome">Nome</label>
-                            <input id="Nome" type="text" class="form-control" placeholder="Nome..." value="Jajão" required>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="Mail">Email address</label>
-                            <input id="Mail" type="email" class="form-control" placeholder="Enter email" value="ad@gmail.com" required>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="PassRegisto">Password</label>
-                            <input id="PassRegisto" type="password" class="form-control" placeholder="Password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="ConfPassRegisto">Confirmar Password</label>
-                            <input id="ConfPassRegisto" type="password" class="form-control" placeholder="Password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="Fotografia">Fotografia
-                                <small style="color: gray; font-size: 10px">(Opcional)</small>
-                            </label>
-                            <input id="Fotografia" type="url" class="form-control" placeholder="Link da foto">
-                        </div>
-                        <div class="form-group">
-                            <select name="" id="tipoUtilizador">
-                                <option disabled selected hidden>Tipo de Utilizador</option>
-                                <option value="Docente">Docente</option>
-                                <option value="Estudante">Estudante</option>
-                            </select>
-                        </div>
-                        <!-- <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                    </div> -->
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-
-                <p id="MsgErroRegistar" class="mx-auto"></p>
-                <!-- Vai servir para por mensagens de Erro -->
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <!-- <button type="button" class="btn btn-primary">Registar</button> -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Login-->
-    <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Log-In</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <!-- Formulário -->
-                    <form id="FormLogin">
-                        <div class="form-group">
-                            <label for="mailLogin">Email address</label>
-                            <input id="mailLogin" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
-                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                        </div>
-                        <div class="form-group">
-                            <label for="passLogin">Password</label>
-                            <input id="passLogin" type="password" class="form-control" placeholder="Password">
-                        </div>
-                        <!-- <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                            </div> -->
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-
-                <p id="MsgErroLogin" class="mx-auto"></p>
-                <!-- Vai servir para por mensagens de Erro -->
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <!-- <button type="button" class="btn btn-primary">Log-In</button> -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 </body>
 
 </html>

@@ -8,12 +8,14 @@
 
 
 footer {
-    padding: 0;
-    margin: 0;
+  padding: 10px;
+  margin: 0;
+  background: linear-gradient(to bottom right, #001124, rgb(0, 0, 0));
+  color: white;
 }
 
 #map{
-    height: 300px;
+    height: 200px;
     width: 1000px;
 }
 
@@ -38,9 +40,35 @@ footer {
   margin: 0;
   padding: 0;
 }
-
+#calendario{
+  width: 100%;
+}
 .mnac{
   font-size: small;
+}
+
+#logobar {
+  width: 50%;
+  height:50%;
+}
+figure img {
+  width: 90px;
+  height:90px;
+  border-radius: 50%;
+}
+
+.about img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.about p {
+  text-align: center;
+}
+.desricao-card-carrosel{
+  font-size: 11px;
+  color: red;
 }
 /*-----------------------------------------------------------------------------------------------------------------------------*/
 

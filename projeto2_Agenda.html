@@ -3,6 +3,7 @@
 
 <head>
     <title>Agenda/Catálogo</title>
+    <link rel="icon" href="images/favicon.png" type="image">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,13 +31,23 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
     <!-- Include the above in your HEAD tag -->
 
+    <!-- Script para o google maps-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWwaEDkLeJWWeW2VzjqxXCJsqXuzqPLRc&callback=Mapa">
+    </script>
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+        crossorigin="anonymous">
+
 </head>
 
 <body>
 
     <!-- Navbar que vai ser igual para todos -->
     <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="projeto2.html">Map</a>
+        <a class="navbar-brand" href="projeto2.html">
+            <img id="logobar" src="images/MAP.png">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -99,22 +110,22 @@
     </nav>
 
 
-    <!-- Calendário, meter isto num jumbotron secalhar -->
-    <div class="container mx-auto">
-        <div class="row">
-            <div class="span12">
+    <!-- Calendário, meter isto num jumbotron secalhar, mé .... nah -->
+    <div id="container-Calendario mx-auto" class="container text-center">
+        <div class="row ">
+            <div class="col-12">
                 <table id="calendario" class="table-condensed table-bordered table-striped">
                     <thead>
                         <tr>
                             <th colspan="7">
                                 <span class="btn-group">
-                                    <a class="btn">
+                                    <a class="btn setas" style="display: none">
+                                        <!-- Vai começar escondido, porque não vai dar para ir para trás do mês atual -->
                                         <i class="fas fa-arrow-left"></i>
-                                        <!-- Não aparecem as setas ..... -->
                                     </a>
                                     <p id="DataCalendário" class="btn active text-center">Fodeu</p>
                                     <!-- Centrar o texto -->
-                                    <a class="btn">
+                                    <a class="btn setas">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </span>
@@ -186,6 +197,202 @@
             </div>
         </div>
     </div>
+
+    <hr class="my-3">
+
+    <!-- Catálogo -->
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3">Catálogo</h1>
+            <p class="lead">Eventos a realizar</p>
+            <!-- <hr class="my-2"> -->
+
+            <br>
+            <br>
+
+            <!-- ############################# Search Bar #################### -->
+            <form>
+                <!-- <div class="col-sm-6 col-sm-offset-3">
+            <div class="home_searce_domain_area">
+                <div class="main_home_searce_domain_content">
+                    <input type="text" placeholder="Your Domain Name ..." />
+                    <select class="form-control">
+                        <option>.com</option>
+                        <option>.net</option>
+                        <option>.co</option>
+                    </select>
+                    <input type="submit" value="Check Availability" />
+                </div>
+            </div>
+        </div> -->
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <div class="input-group">
+                            <input id="searchNome" type="text" class="form-control" placeholder="Nome">
+                            <input id="serachGenero" type="text" class="form-control" placeholder="Género">
+                            <select id="searchData" class="form-control">
+                                <option value="Todos">Todas as datas</option>
+                                <option value="hoje">Hoje</option>
+                                <option value="amanha">Amanhã</option>
+                                <option value="estaSemana">Esta semana</option>
+                                <option value="fds">Este fim de semana</option>
+                                <option value="proximaSemana">Próxima semana</option>
+                                <option value="proximoMes">No próximo mês</option>
+                            </select>
+                            <div class="input-group-append">
+                                <button id="btnPesquisar" class="btn btn-primary" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2"></div>
+                </div>
+
+
+                <!-- Para não me foder 
+<div class="form-row">
+        <div class="form-group col-md-4">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </div>
+        <div class="form-group col-md-4">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" style="border: black solid 3px" aria-label="Search">
+        </div>
+    </div> -->
+            </form>
+
+            <br>
+
+            <!-- Cards dos Eventos -->
+            <div id="ohPaEle" class="container-cards">
+                <!-- Vai ser aqui que vão ser adicionados os cards -->
+                <!-- <div class="row linha-cards">
+                   
+                    <div class="card col-lg-3">
+                        <div class="card-header">
+                            <img class="card-img" src="http://www.comunidaderangers.com.br/wp-content/uploads/2014/08/Wakfu-Capa2.jpg" >
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Special title treatment</h5>
+                            
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam architecto ipsam voluptates labore
+                                eaque ...?</p>
+                            <p>Data: 05/06/2018</p>
+                            <p>Hora: 19:30</p>
+                            <p>Pontuação: 5</p>
+                            <a href="#" class="btn btn-primary">+</a>
+                        </div>
+                    </div>
+
+                    <div class="card col-lg-3">
+                        <div class="card-header">
+                            Featured
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card col-lg-3">
+                        <div class="card-header">
+                            Featured
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                    <div class="card col-lg-3">
+                        <div class="card-header">
+                            Featured
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div> -->
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ###################################### FOOTER ####################################-->
+    <footer>
+        <div class="container">
+            <div class="row text-center text-xs-center text-sm-left text-md-left">
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <h5>Navegação</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <a href="javascript:void();">
+                                <i class="fa fa-angle-double-right"></i> Home</a>
+                        </li>
+                        <li>
+                            <a href="#aboutus">
+                                <i class="fa fa-angle-double-right"></i> About Us</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void();">
+                                <i class="fa fa-angle-double-right"></i> Catálogo</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void();">
+                                <i class="fa fa-angle-double-right"></i> FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <h5>Contactos</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <p>mapmepmip@gmail.com</p>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <h5>ESMAD</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <p> Escola Superior de Media Artes e Design</p>
+                        </li>
+
+                    </ul>
+                </div>
+                <div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
+            </div>
+
+
+        </div>
+    </footer>
+    <!-- /Footer -->
 
 
     <!-- Modais -->
