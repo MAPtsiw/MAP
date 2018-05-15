@@ -231,7 +231,7 @@
                     <div class="form-group col-md-8">
                         <div class="input-group">
                             <input id="searchNome" type="text" class="form-control" placeholder="Nome">
-                            <input id="serachGenero" type="text" class="form-control" placeholder="Género">
+                            <input id="searchGenero" type="text" class="form-control" placeholder="Género">
                             <select id="searchData" class="form-control">
                                 <option value="Todos">Todas as datas</option>
                                 <option value="hoje">Hoje</option>
@@ -245,14 +245,56 @@
                                 <button id="btnPesquisar" class="btn btn-primary" type="button">
                                     <i class="fa fa-search"></i>
                                 </button>
+
+                                <!-- Botão de Adicionar Eventos -->
+                                <button id="btnAdicionarEventos" class="btn btn-secondary" type="button" style="display: none" data-target="#ModalAdicionnarEventos"
+                                    data-toggle="modal">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+
+                                <!-- Botão para fazer reset ao catálogo -->
+                                <button id="btnLimparCatalogo" class="btn btn-secondary" type="button" style="display: none">
+                                    <i class="fas fa-chess-rook"></i>
+                                </button>
+
                             </div>
                         </div>
+
+                        <!-- pesquisa Avançada -->
+                        <div class="form-row">
+                            <div class="form-group col-md-7"></div>
+                            <div class="form-group col-md-5">
+                                <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    Pesquisa Avançada
+                                </a>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        <p class="ordenhados">
+                                            <input class="ordenhar" type="radio" name="ola" value="Melhor Pontuados">Melhor Pontuados
+                                        </p>
+                                        <p class="ordenhados">
+                                            <input class="ordenhar" type="radio" name="ola" value="Eventos Realizados">Eventos Realizados
+                                        </p>
+                                        <p class="ordenhados">
+                                            <input class="ordenhar" type="radio" name="ola" value="por Realizar">Eventos por Realizar
+                                        </p>
+                                        <p class="ordenhados">
+                                            <input class="ordenhar" type="radio" name="ola" value="Recentes">Mais Recentes
+                                        </p>
+                                        <button type="button" id="btnPesquisaAvancada" class="btn btn-secundary">
+                                            Pesquisar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fim pesquisa avançada -->
+
+                        <div class="form-group col-md-2"></div>
                     </div>
-                    <div class="form-group col-md-2"></div>
-                </div>
 
 
-                <!-- Para não me foder 
+                    <!-- Para não me foder 
 <div class="form-row">
         <div class="form-group col-md-4">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -320,9 +362,9 @@
 
 
             </div>
+            </div>
         </div>
     </div>
-
 
     <!-- ###################################### FOOTER ####################################-->
     <footer>
@@ -393,6 +435,7 @@
         </div>
     </footer>
     <!-- /Footer -->
+
 
 
     <!-- Modais -->
@@ -573,6 +616,87 @@
                 </div>
 
                 <p id="MsgErroRegistarEventos" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Registar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal para Modificar o Evento -->
+    <div class="modal fade" id="ModalModificarEvento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modificar Evento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Formulário -->
+                    <form id="FormRegistarEvento2">
+                        <div class="form-group">
+                            <label for="NomeEvento2">Nome</label>
+                            <input id="NomeEvento2" type="text" class="form-control" required>
+
+                        </div>
+                        <div class="form-row">
+
+                            <!-- Data -->
+                            <label for="DataEvento2">Data</label>
+                            <input id="DataEvento2" type="date" class="form-group" required>
+                            <!-- Deixar alterar esta merda também -->
+
+                            <!-- Hora, maneira simples -->
+                            <label for="HoraEvento2">Hora</label>
+                            <input id="HoraEvento2" type="time" class="form-group">
+
+                            <!-- Hora, esta merda ainda não está a funcionar -->
+                            <!-- <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control" value="13:14">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                </div> -->
+                            <!-- <script type="text/javascript">
+                                    $('.clockpicker').clockpicker();
+                                </script> -->
+
+                        </div>
+                        <div class="form-group">
+                            <label for="DescriçãoEvento2">Descrição</label>
+                            <textarea id="DescriçãoEvento2" class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="CategoriaEvento2">Categoria</label>
+                            <!-- Pode ser um select depois -->
+                            <input id="CategoriaEvento2" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="FotografiaEvento2">Fotografia
+                                <small style="color: gray; font-size: 10px">(Opcional)</small>
+                            </label>
+                            <input id="FotografiaEvento2" type="url" class="form-control" placeholder="Link da foto">
+                        </div>
+                        <div class="form-group">
+                            <label for="ResponsavelEvento2">Responsável pelo Evento</label>
+                            <input id="ResponsavelEvento2" type="text" class="form-control" placeholder="Docente Responsável" required>
+                        </div>
+                        <!-- <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                        </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <p id="MsgErroRegistarEventos2" class="mx-auto"></p>
                 <!-- Vai servir para por mensagens de Erro -->
 
                 <div class="modal-footer">

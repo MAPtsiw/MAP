@@ -12,6 +12,9 @@ let indexUtilizador = 0;
 //Vai ser usada para por o mês a atualizar se automaticamente no calendário
 let mesNoCalendario = ""
 
+//Serve para saber qual é o id do evento que está a ser alterado
+let idEventoAlterar = 0
+
 //------------------------------------------
 
 
@@ -57,6 +60,10 @@ window.onload = function () {
         }
 
         console.log(eventos)
+    }
+
+    for (let i = 0; i < utilizadores.length; i++) { //porque fodeu se
+        utilizadores[i].fotografia = "Docente"
     }
 
     //+-Global, só para o que estiver dentro do window.onload
@@ -133,7 +140,9 @@ window.onload = function () {
 
     //Preencher o catálogo com eventos
     if (document.getElementById('containerCardsCarrosel') != null) {
+
         for (let i = 0; i < 6; i++) {
+
             if (eventos[i].data[0] != undefined) {
                 preencherCarrosel(eventos[i].nome,
                     eventos[i].imagem,
@@ -194,7 +203,7 @@ window.onload = function () {
 
         if (password == confPass && continuar == true) {
             //Criar Utilizador
-            let novoUtilizador = new Utilizador(nome, password, eMail, foto, tipo)
+            let novoUtilizador = new Utilizador(nome, password, eMail, foto, tipo) //Porque caralhos me está a por o tipo de utilizador na foto????
 
             //Mete-lo no array
             utilizadores.push(novoUtilizador)
@@ -292,7 +301,7 @@ window.onload = function () {
             let btnRegistar = document.getElementById('Registar')
             btnRegistar.disabled = true
 
-            if (btnAdicionar != null)
+            if (btnAdicionar != null && utilizadores[indexUtilizador].fotografia != "Estudante") //Está fotografia, mas tá mal, só não sei porque
                 btnAdicionar.style.display = 'inline-block'
 
             msgErro.innerHTML = "Bem vindo, " + utilizadores[indexUtilizador].nome + " !!!"
@@ -322,7 +331,7 @@ window.onload = function () {
 
 
 
-    //Botão de LogOff
+    //Fazer logoff
     let btnLogoff = document.getElementById('Logoff')
     btnLogoff.addEventListener('click', function () {
 
@@ -346,6 +355,8 @@ window.onload = function () {
 
         logged = false; //Em principio vai ser esta variavel que vai dizer o que é que se mostra ou não nas páginas
         localStorage.setItem('logged', JSON.stringify(logged))
+
+        location.reload()
 
         verPerfil(false)
 
@@ -490,17 +501,22 @@ window.onload = function () {
                             temEventos = true
                             losDiasOcupados.push(eventos[i]) //Depois ao passar o id para a função vai ser dessa maneira que os eventos vão ser filtrados para o catálogo
                             console.log(losDiasOcupados, temEventos)
+                            btnResetCatalogo.style.display = 'inline-block'
                         }
                     }
                 }
 
 
+                let mostrar = false;
 
                 if (temEventos == true) {
                     document.getElementById('ohPaEle').innerHTML = ""
                     for (let i = 0; i < losDiasOcupados.length; i++) {
                         //Aqui vai ser a tal função que vai filtrar os eventos... Que vai sempre funcionar passando um evento de cada vez
                         if (document.getElementById('ohPaEle') != null) {
+
+                            if (logged == true) mostrar = paNaoSei(losDiasOcupados[i].userId)
+
                             if (losDiasOcupados[i].data != undefined && losDiasOcupados[i].data[0] != undefined) {
                                 preencherCatalogo(losDiasOcupados[i].nome,
                                     losDiasOcupados[i].imagem,
@@ -508,7 +524,7 @@ window.onload = function () {
                                     losDiasOcupados[i].data[0].split(';')[0],
                                     losDiasOcupados[i].data[0].split(';')[1],
                                     losDiasOcupados[i].pontuacao,
-                                    i)
+                                    i, mostrar)
                             }
                             else if (losDiasOcupados[i].data != undefined && losDiasOcupados[i].data[0] == undefined) {
                                 preencherCatalogo(losDiasOcupados[i].nome,
@@ -517,7 +533,7 @@ window.onload = function () {
                                     "Por Anunciar",
                                     "Por Anunciar",
                                     losDiasOcupados[i].pontuacao,
-                                    i)
+                                    i, mostrar)
                             }
                         }
                     }
@@ -588,59 +604,240 @@ window.onload = function () {
     }
 
 
+    //Botão para pesquisar/filtrar eventos
     let btnPesquisar = document.getElementById('btnPesquisar')
     if (btnPesquisar != undefined) {
 
         btnPesquisar.addEventListener('click', function () {
 
-            let seguir = true;
+            //Mostrar o botão para dar reset ao catálogo
+            btnResetCatalogo.style.display = 'inline-block'
 
-            let searchNome = document.getElementById('searchNome')
-            let searchGenero = document.getElementById('searchGenero')
+            let filtraditos = [];
+
+            let searchNome = document.getElementById('searchNome').value
+            let searchGenero = document.getElementById('searchGenero').value
             let c = document.getElementById('searchData')
 
             let searchData = c.options[c.selectedIndex].value
 
-            if (searchNome == "" && searchGenero == "" && searchData == -1) { //Acho que -1 é o valor para o caso de nada ser escolhido dentro da tag select
-                seguir = false;
+            if (searchNome != "") {
+                filtraditos = eventos.filter(function (evento) {
+                    //Como nome dos eventos são unicos, se ele puser o nome todo só vai aparecer um resultado 
+                    return evento.nome
+                        .toUpperCase()
+                        .includes(searchNome.toUpperCase())
+                })
+                msgErroCatalogo(filtraditos.length)
+                console.log(filtraditos + "---" + searchNome)
             }
 
-            if (!seguir) {
-                alert("Tem que selecionar pelo menos um campo a pesquisar!!!")
-            }
-            else {
+            if (searchGenero != "") {
+                console.log('genero = ' + searchGenero)
+                if (searchNome == "") {
+                    console.log(eventos)
+                    filtraditos = eventos.filter(function (evento) {
+                        return evento.categoria
+                            .toUpperCase()
+                            .includes(searchGenero.toUpperCase())
+                    })
+                    msgErroCatalogo(filtraditos.length)
+                }
+                else {
+                    filtraditos = filtraditos.filter(function (evento) {
+                        return evento.categoria
+                            .toUpperCase()
+                            .includes(searchGenero.toUpperCase())
+                    })
+                    msgErroCatalogo(filtraditos.length)
+                }
+            } //Tenho que ver o que esta merda vai dar e depois fazer alterações em principio
 
-                if (searchData == "Todos") {
-                    encherCatalogo(); //Nah sei se isto pode ser feito assim, porque pode se dizer para filtrar todos e mesmo assim ter um nome e genero a filtrar
+            //Ainda tenho que fazer a função para a data, por agora testar só pelos dois campos, udpadate: filtrar por nome e categoria esta feito, nenhum erro por agora
 
-                } else {
-                    let filtrados = filtrarEventos(searchNome, searchGenero, searchData); //Vai devolver um array com os eventos filtrados
+            if (filtraditos.length > 0) {
+                if (document.getElementById('ohPaEle') != null) {
+                    //Limpar a tabela
+                    document.getElementById('ohPaEle').innerHTML = ""
 
-                    for (let i = 0; i < filtrados.length; i++) {
-                        if (document.getElementById('ohPaEle') != null) { //Isto secalhar vai para uma função
-                            if (filtrados[i].data[0] != undefined) {
-                                preencherCatalogo(filtrados[i].nome,
-                                    filtrados[i].imagem,
-                                    filtrados[i].descricao,
-                                    filtrados[i].data[0].split(';')[0],
-                                    filtrados[i].data[0].split(';')[1],
-                                    filtrados[i].pontuacao
-                                    , i)
-                            }
-                            else if (filtrados[i].data[0] == undefined) {
-                                preencherCatalogo(filtrados[i].nome,
-                                    filtrados[i].imagem,
-                                    filtrados[i].descricao,
-                                    "Por Anunciar",
-                                    "Por Anunciar",
-                                    filtrados[i].pontuacao //Fazer alguma merda quando a pontuação não estiver definida
-                                    , i)
-                            }
+                    let chicharrito = false
+
+                    for (let i = 0; i < filtraditos.length; i++) {
+
+                        if (logged == true) chicharrito = paNaoSei(filtraditos[i].userId)
+
+                        if (filtraditos[i].data[0] != undefined) {
+                            preencherCatalogo(filtraditos[i].nome,
+                                filtraditos[i].imagem,
+                                filtraditos[i].descricao,
+                                filtraditos[i].data[0].split(';')[0],
+                                filtraditos[i].data[0].split(';')[1],
+                                filtraditos[i].pontuacao
+                                , i, chicharrito)
+                        }
+                        else if (filtraditos[i].data[0] == undefined) {
+                            preencherCatalogo(filtraditos[i].nome,
+                                filtraditos[i].imagem,
+                                filtraditos[i].descricao,
+                                "Por Anunciar",
+                                "Por Anunciar",
+                                filtraditos[i].pontuacao //Fazer alguma merda quando a pontuação não estiver definida
+                                , i, chicharrito)
                         }
                     }
                 }
             }
+        })
+    }
 
+    //Botão para fazer reset ao catálogo
+    let btnResetCatalogo = document.getElementById('btnLimparCatalogo')
+    if (btnResetCatalogo != null) {
+        btnResetCatalogo.addEventListener('click', function () {
+
+            document.getElementById('ohPaEle').innerHTML = "";
+            encherCatalogo()
+
+            //Limpar os filtros, sim ou não????
+
+            //Esconder o botão
+            btnResetCatalogo.style.display = 'none'
+        })
+    }
+
+
+    let formModificarEvento = document.getElementById('ModalModificarEvento')
+    formModificarEvento.addEventListener('submit', function (e) {
+        e.preventDefault()
+
+        let elId = 0;
+
+        for (let i = 0; i < eventos.length; i++) {
+            if (eventos[i].id == idEventoAlterar) {
+                elId = i
+            }
+        }
+
+        eventos[elId].nome = document.getElementById('NomeEvento2').value
+        eventos[elId].data[0] = document.getElementById('DataEvento2').value + ";" + document.getElementById('HoraEvento2').value
+        eventos[elId].descricao = document.getElementById('DescriçãoEvento2').value
+        eventos[elId].categoria = document.getElementById('CategoriaEvento2').value
+        eventos[elId].imagem = document.getElementById('FotografiaEvento2').value
+        eventos[elId].responsavel = document.getElementById('ResponsavelEvento2').value
+
+        //Mensagem de "erro", depois talvez precise de mexer nisto
+        document.getElementById('MsgErroRegistarEventos2').innerHTML = "Como dizia o meu tio Carlos \nBem Introduzido"
+
+        // console.log(eventos)
+        //"Gravar" as mudanças
+        localStorage.setItem("eventos", JSON.stringify(eventos)) //O que estou a fazer mal para ao dar refresh os eventos não estarem alterados
+    })
+
+    //Modal Adicionar Evento
+    //Limpar
+    $("#ModalModificarEvento").on('hide.bs.modal', function () {
+
+        //Limpar o form
+        document.getElementById('FormRegistarEvento2').reset()
+
+        //Limpar a msgErro
+        document.getElementById('MsgErroRegistarEventos2').innerHTML = ""
+    });
+
+
+    let btnPesquisaAvancada = document.getElementById('btnPesquisaAvancada')
+    if (btnPesquisaAvancada != null) {
+        btnPesquisaAvancada.addEventListener('click', function () {
+            let botones = document.getElementsByClassName('ordenhar')
+            console.log(botones)
+
+            let mostrar = false
+
+            //Mostrar o botão para dar reset ao catalogo
+            btnResetCatalogo.style.display = 'inline-block'
+
+            let cenasPesquisar = ""
+            for (let i = 0; i < botones.length; i++) {
+                //console.log(botones[i].value)
+                if (botones[i].checked == true) {
+                    cenasPesquisar = botones[i].value
+                }
+            }
+
+            eventosRealizadosENemPorIsso();
+
+            if (cenasPesquisar == "Melhor Pontuados") {
+                document.getElementById('ohPaEle').innerHTML = ""
+                //Só dá para fazer esta quando começarmos a pontuar eventos, mas a função está feita e a funcionar
+            }
+            else if (cenasPesquisar == "Eventos Realizados") {
+                if (realizados.length > 0) {
+                    document.getElementById('ohPaEle').innerHTML = ""
+
+                    for (let i = 0; i < realizados.length; i++) {
+
+                        if (logged == true) mostrar = paNaoSei(realizados[i].userId)
+
+                        if (realizados[i].data != undefined && realizados[i].data[0] != undefined) {
+                            preencherCatalogo(realizados[i].nome,
+                                realizados[i].imagem,
+                                realizados[i].descricao,
+                                realizados[i].data[0].split(';')[0],
+                                realizados[i].data[0].split(';')[1],
+                                realizados[i].pontuacao,
+                                i, mostrar)
+                        }
+                        else if (realizados[i].data != undefined && realizados[i].data[0] == undefined) {
+                            preencherCatalogo(realizados[i].nome,
+                                realizados[i].imagem,
+                                realizados[i].descricao,
+                                "Por Anunciar",
+                                "Por Anunciar",
+                                realizados[i].pontuacao,
+                                i, mostrar)
+                        }
+                    }
+                }
+                else {
+                    document.getElementById('ohPaEle').innerHTML = "Nâo há cá Disso!!!"
+                }
+            }
+            else if (cenasPesquisar == "por Realizar") {
+                if (notRealizados.length > 0) {
+                    document.getElementById('ohPaEle').innerHTML = ""
+
+                    for (let i = 0; i < notRealizados.length; i++) {
+
+                        if (logged == true) mostrar = paNaoSei(notRealizados[i].userId)
+
+                        if (notRealizados[i].data != undefined && notRealizados[i].data[0] != undefined) {
+                            preencherCatalogo(notRealizados[i].nome,
+                                notRealizados[i].imagem,
+                                notRealizados[i].descricao,
+                                notRealizados[i].data[0].split(';')[0],
+                                notRealizados[i].data[0].split(';')[1],
+                                notRealizados[i].pontuacao,
+                                i, mostrar)
+                        }
+                        else if (notRealizados[i].data != undefined && notRealizados[i].data[0] == undefined) {
+                            preencherCatalogo(notRealizados[i].nome,
+                                notRealizados[i].imagem,
+                                notRealizados[i].descricao,
+                                "Por Anunciar",
+                                "Por Anunciar",
+                                notRealizados[i].pontuacao,
+                                i, mostrar)
+                        }
+                    }
+                }
+                else {
+                    document.getElementById('ohPaEle').innerHTML = "Nâo há cá Disso!!!" //Isto nunca deve acontecer
+                }
+            }
+            else if (cenasPesquisar == "Recentes") {
+                document.getElementById('ohPaEle').innerHTML = ""
+                ordenharPorData();
+            }
         })
     }
 }
@@ -725,6 +922,7 @@ class Evento {
         this.categoria = categoria
         this.imagem = imagem
         this.responsavel = responsavel
+        this.userId = userId
 
         this._id = Evento.getLastId() + 1
     }
@@ -821,10 +1019,37 @@ class Evento {
 
 //---------------------------------------------- Funções ----------------------------------------------------------------------------------------
 
+//Função para preencher o catálogo com uma mensagem de "erro", para o caso de não existir nenhum evneto à medida que se vai procurando o evento
+function msgErroCatalogo(tamanhoArray) { //Nome de merda
+
+    // let seguir = true
+    if (tamanhoArray == 0) { //Ver como isto fica
+        document.getElementById('ohPaEle').innerHTML = "Não foi encontrado nenhum evento que corresponda com a pesquisa..." //Como centrar o texto diretamente por aqui
+        //seguir = false //Vai retornar false para ajudar, por agora não
+    }
+}
+
+//Função para saber se se vai mostrar o menu nos eventos ou não
+function paNaoSei(eventoUserId) {
+
+    let mostrar = false;
+
+    if (logged == true && utilizadores[indexUtilizador].fotografia == "Adminstrador") {
+        mostrar = true
+    }
+    else if (logged == true && utilizadores[indexUtilizador].fotografia == "Docente") { //Isto está como fotografia poorque mim ser estupido, é para ficar em tipoUtilizador
+        if (eventoUserId == utilizadores[indexUtilizador].id) {
+            mostrar = true
+        }
+    }
+
+    return mostrar
+}
+
 //Filtrar os Eventos, voltar aqui e fazer duas funções auxiliares
 function filtrarEventos(nome, genero, data) {
 
-    let arrayMaiLindo = []
+    let arrayMaiLindo = [] //Vai filtrado por nome e/ou genero e depois é igualdo ao array que sair da função que o filtra por data
 
 
     if (nome != "" || genero != "") {
@@ -832,8 +1057,8 @@ function filtrarEventos(nome, genero, data) {
     }
     else if (nome == "" && genero == "") {
         //Só função para data
-        if (data != ""){
-            
+        if (data != "") {
+
         }
     }
 
@@ -877,9 +1102,9 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
     //Descrição
     let descricao = document.createElement('p')
 
-    descricao = ajustarDescricao(descricao)
+    //descricao = ajustarDescricao(descricao)
     descricao.setAttribute('class', 'card-text')
-    descricao.textContent = cardDescricao
+    descricao.textContent = ajustarDescricao(cardDescricao)
 
     cardBody.appendChild(descricao)
 
@@ -903,26 +1128,20 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
 
 }
 
-/* <div class="carousel-item col-md-4 active">
-                    <div class="card">
-                        <img class="card-img-top img-fixed" src="http://placehold.it/800x600/f44242/fff" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Nome do Evento 1</h4>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum
-                                quod sed veniam, commodi illo corrupti nulla velit et.</p>
-                            <a class="btn btn-primary">+</a>
-                            <p class="card-text">
-                                <small class="text-muted">Data - Pontuação</small>
-                            </p>
-                        </div>
-                    </div>
-                </div> */
-
 //Função para preencher o catálogo ao entrar na página
 function encherCatalogo() {
     contador = 0;
+
+    let mostrar = false
+
+    //Limpar catálogo
+    document.getElementById('ohPaEle').innerHTML = ""
+
     for (let i = 0; i < eventos.length; i++) {
         if (document.getElementById('ohPaEle') != null) { //Isto secalhar vai para uma função
+
+            if (logged == true) mostrar = paNaoSei(eventos[i].userId)
+
             if (eventos[i].data[0] != undefined) {
                 preencherCatalogo(eventos[i].nome,
                     eventos[i].imagem,
@@ -930,7 +1149,7 @@ function encherCatalogo() {
                     eventos[i].data[0].split(';')[0],
                     eventos[i].data[0].split(';')[1],
                     eventos[i].pontuacao
-                    , i)
+                    , i, mostrar)
             }
             else if (eventos[i].data[0] == undefined) {
                 preencherCatalogo(eventos[i].nome,
@@ -939,7 +1158,7 @@ function encherCatalogo() {
                     "Por Anunciar",
                     "Por Anunciar",
                     eventos[i].pontuacao //Fazer alguma merda quando a pontuação não estiver definida
-                    , i)
+                    , i, mostrar)
             }
         }
     }
@@ -949,14 +1168,76 @@ function encherCatalogo() {
 
 let linhaContainer = ""
 
-function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHora, cardPontuacao, indice) { //A parte de filtrar é feita antes, esta função só preenche
+function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHora, cardPontuacao, indice, mostrarMenu/* = false*/) { //A parte de filtrar é feita antes, esta função só preenche
+
+    //Botão hamburguer para dropdown
+
+    //Container
+    let divGrande = document.createElement('div')
+    divGrande.setAttribute('class', 'btn-group dropleft')
+
+    if (!mostrarMenu) {
+        divGrande.style.display = 'none'
+    }
+    else {
+        divGrande.removeAttribute('style')
+        /*Ou divGrande.setAttribute('style', ''), ou seja style vazio */
+    }
+
+    //Botão
+    let btnMenu = document.createElement('button')
+    btnMenu.setAttribute('type', 'button')
+    btnMenu.setAttribute('class', "navbar-toggler-1")
+    btnMenu.setAttribute('data-toggle', 'dropdown')
+
+
+    //Três pontos que fazem de Menu
+    let menu3Pontos = document.createElement('span')
+    menu3Pontos.setAttribute('class', 'navbar-toggler-icon')
+
+    btnMenu.appendChild(menu3Pontos)
+    divGrande.appendChild(btnMenu)
+
+    //Dropdown e conteudo
+    let divPequena = document.createElement('div')
+    divPequena.setAttribute('class', 'dropdown-menu')
+
+    divGrande.appendChild(divPequena)
+
+    //3 Opções que por agora vão ser default, e que vão ter que ser mudadas
+    let btn1 = document.createElement('button')
+    btn1.setAttribute('class', 'dropdown-item ' + eventos[indice].id)
+    btn1.setAttribute('type', 'button')
+    btn1.textContent = "Mexer-lhe"
+
+    //Fazer com que abra uma modal
+    btn1.setAttribute('data-toggle', 'modal')
+    btn1.setAttribute('data-target', '#ModalModificarEvento')
+    btn1.addEventListener('click', nemSei) //Função para 'editar' o evento, depois para modificar lo é um eventListener no submit na modal
+
+    let btn2 = document.createElement('button')
+    btn2.setAttribute('class', 'dropdown-item ' + eventos[indice].id)
+    btn2.setAttribute('type', 'button')
+    btn2.textContent = "Remover"
+
+    //Adicionar lhe um eventListener
+    btn2.addEventListener('click', funcaoLeinda)
+
+    let btn3 = document.createElement('button')
+    btn3.setAttribute('class', 'dropdown-item')
+    btn3.setAttribute('type', 'button')
+    btn3.textContent = "ata"
+
+    divPequena.appendChild(btn1)
+    divPequena.appendChild(btn2)
+    divPequena.appendChild(btn3)
 
     //Container principal
     let bossContainer = document.getElementById('ohPaEle') //Meter tudo aqui
 
     //O cartão em si
     let cartao = document.createElement('div')
-    cartao.setAttribute('class', 'card col-lg-3') //Em vez de lg, secalhar fica md
+    cartao.setAttribute('class', 'card col-lg-3 ' + eventos[indice].id) //Em vez de lg, secalhar fica md
 
     //Div Imagem / Imagem 
     let divHeader = document.createElement('div')
@@ -977,14 +1258,16 @@ function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHor
     let titulo = document.createElement('h5')
     titulo.setAttribute('class', 'card-title')
     titulo.textContent = cardName
+
+    titulo.appendChild(divGrande)
     corpitoJeitoso.appendChild(titulo)
 
     //Descrição
     let descricao = document.createElement('p')
 
-    descricao = ajustarDescricao(descricao)
+    //descricao = ajustarDescricao(descricao)
     descricao.setAttribute('class', 'mnac')
-    descricao.textContent = cardDescricao
+    descricao.textContent = ajustarDescricao(cardDescricao)
     corpitoJeitoso.appendChild(descricao)
 
     //Data
@@ -1013,7 +1296,6 @@ function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHor
     if (indice % 4 == 0) {
         linhaContainer = document.createElement('div')
         linhaContainer.setAttribute('class', 'row linha-cards')
-
     }
 
     //Mats
@@ -1027,6 +1309,63 @@ function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHor
     bossContainer.appendChild(linhaContainer)
 }
 
+//Função que vai ser associada ao botão "Mexer-lhe", no menu dos cards
+function nemSei(event) {
+    let idEventoProcurar = event.target.className.split(' ')[1]
+    idEventoAlterar = idEventoProcurar
+
+    let oTal = eventos.filter(function (evento) {
+        return evento.id == idEventoProcurar
+    })
+
+    //Tira trabalho
+    oTal = oTal[0]
+
+    console.log(oTal)
+
+    let nome = document.getElementById('NomeEvento2')
+    let data = document.getElementById('DataEvento2')
+
+    let hora = document.getElementById('HoraEvento2') //Not required
+
+    let descricao = document.getElementById('DescriçãoEvento2') //Not required, o valor de uma textarea é .value
+    let categoria = document.getElementById('CategoriaEvento2')
+    let foto = document.getElementById('FotografiaEvento2') //Not required
+    let responsavel = document.getElementById('ResponsavelEvento2')
+
+    nome.value = oTal.nome
+    data.value = oTal.data[0].split(';')[0]
+    if (oTal.data[0].split(';')[1] != "") hora.value = oTal.data[0].split(';')[1]
+    if (oTal.descricao != "") descricao.value = oTal.descricao
+    categoria.value = oTal.categoria
+    if (oTal.imagem != "") foto.value = oTal.imagem
+    responsavel.value = oTal.responsavel
+}
+
+//Função que vai ser associada ao botão remover nos cards
+function funcaoLeinda(event) {
+
+    //console.log(event.target.className)
+
+    let loId = event.target.className.split(' ')[1]
+    console.log(loId)
+
+    let conf = confirm('Tem a certeza que quer remover o evento?????')
+
+    if (conf) {
+        for (let i = 0; i < eventos.length; i++) {
+            if (eventos[i].id == loId) {
+                eventos.splice(i, 1)
+            }
+        }
+
+        //"Gravar" as alterações
+        localStorage.setItem('eventos', JSON.stringify(eventos))
+
+        //Dar refresh ao catálogo
+        encherCatalogo()
+    }
+}
 
 
 //Guardar o estado da variavel logged em localstorage para ser usada noutras páginas
@@ -1318,12 +1657,14 @@ function ajustarDescricao(desc) {
 
     let frase = ""
 
+    //console.log('A frase - ' + desc)
     if (desc.length > 50) {
         frase = desc.substr(0, 50) + "...";
-        console.log(frase)
+        //console.log(frase)
     }
     else {
         frase = desc
+        //console.log('fodeu')
     }
 
     return frase;
@@ -1361,6 +1702,141 @@ function calendarioFixe(mes, ano) { //TEm que ser o numero do mês
         }
 
         indici = 0;
+    }
+}
+
+//Funções que não sei onde usar mas que já vão estar feitas #######################################################################3
+
+//Função para filtrar eventos realizados e por realizar
+
+//Vai precisar de dois arrays globais para ser de fácil acesso
+let realizados = []
+let notRealizados = []
+
+function eventosRealizadosENemPorIsso() {
+
+    realizados = []
+    notRealizados = []
+
+    let hoje = new Date()
+    let dataEvento = ""
+
+    for (let i = 0; i < eventos.length; i++) {
+        if (eventos[i].data.length > 0) {
+            let dia = eventos[i].data[0]
+                .split(';')[0]
+                .split('-')[2]
+
+            let mes = eventos[i].data[0]
+                .split(';')[0]
+                .split('-')[1]
+
+            let ano = eventos[i].data[0]
+                .split(';')[0]
+                .split('-')[0]
+
+            let date = mes + '/' + dia + '/' + ano
+            //console.log(date)
+
+
+
+            let horache = ""
+            if (eventos[i].data[0].split(';')[1] != "") {
+                let horas = eventos[i].data[0]
+                    .split(';')[1]
+                    .split(':')[0]
+
+                let minutes = eventos[i].data[0]
+                    .split(';')[1]
+                    .split(':')[1]
+
+                horache = ',' + horas + ':' + minutes
+                //console.log(horache)
+            }
+
+            if (horache != "") {
+                date += horache
+            }
+
+            //console.log("date = " + date)
+            dataEvento = new Date(date)
+            console.log("dataEvento = " + dataEvento)
+
+            //FAzer aqui também a parte de passar os milissegundos para um array
+            let idMaisMili = dataEvento.getTime() + "-" + eventos[i].id //Assim poupa imenso trabalho, em principio
+            //Sendo milisegundos em 1º e depois o id, dá para ordenar diretamente em principio
+
+
+            arrayDosMili.push(idMaisMili)
+            console.log("idMaisMili = " + idMaisMili)
+
+            if (hoje.getTime() >= dataEvento.getTime()) {
+                realizados.push(eventos[i])
+            }
+            else {
+                notRealizados.push(eventos[i])
+            }
+        }
+    }
+
+    console.log(realizados)
+    console.log(notRealizados)
+}
+
+function melhorPontuados() {
+
+    let array1 = eventos.concat()
+
+    array1.sort(function (a, b) { return b.pontuacao - a.pontuacao })
+
+    let array2 = []
+
+    for (let i = 0; i < array1.length; i++) {
+        array2.push(array1[i])
+    }
+
+    return array2 //Array com os 5 eventos mais bem classificados, nah, se depois quisermos só os cinco melhores pegamos nos cinco primeiros do array devolvido
+
+}
+
+let arrayDosMili = [] //Vou transformar as datas em milisegundos e depois ordenar o array principal
+
+//Função para ordenar os eventos do mais perto para o mais longe, fds.....
+function ordenharPorData() {
+
+    let arrayQueEventualmenteVaiSerOrdenado = eventos.concat() //Copiar o array eventos para o outro, já não deve ser preciso
+
+    let auxiliar = arrayDosMili.sort(function (a, b) { return a.split('-')[0] - b.split('-')[0] }) //Está ordenado por mais perto até mais longe
+    //console.log(arrayDosMili)
+    console.log(auxiliar)
+
+    let mostrar = ""
+
+    for (let i = 0; i < auxiliar.length; i++) {
+        for (let k = 0; k < eventos.length; k++) {
+            if ( auxiliar[i].split('-')[1] == eventos[k].id) {
+                if (logged == true) mostrar = paNaoSei(eventos[k].userId)
+
+                if (eventos[k].data[0] != undefined) {
+                    preencherCatalogo(eventos[k].nome,
+                        eventos[k].imagem,
+                        eventos[k].descricao,
+                        eventos[k].data[0].split(';')[0],
+                        eventos[k].data[0].split(';')[1],
+                        eventos[k].pontuacao
+                        , i, mostrar)
+                }
+                else if (eventos[k].data[0] == undefined) {
+                    preencherCatalogo(eventos[k].nome,
+                        eventos[k].imagem,
+                        eventos[k].descricao,
+                        "Por Anunciar",
+                        "Por Anunciar",
+                        eventos[k].pontuacao //Fazer alguma merda quando a pontuação não estiver definida
+                        , i, mostrar)
+                }
+            }
+        }
     }
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -1438,3 +1914,19 @@ if (document.getElementById('myCarousel') != undefined) {
 //     input.clockpicker('show')
 //             .clockpicker('toggleView', 'hours');
 // });
+
+
+/* <div class="carousel-item col-md-4 active">
+                    <div class="card">
+                        <img class="card-img-top img-fixed" src="http://placehold.it/800x600/f44242/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Nome do Evento 1</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum
+                                quod sed veniam, commodi illo corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                            <p class="card-text">
+                                <small class="text-muted">Data - Pontuação</small>
+                            </p>
+                        </div>
+                    </div>
+                </div> */

@@ -70,6 +70,24 @@ figure img {
   font-size: 11px;
   color: red;
 }
+
+/*Usar esta merda para fazer o menu nos cards*/
+.navbar-toggler-1 .navbar-toggler-icon{
+  background-image: url('https://mdbootstrap.com/img/svg/hamburger8.svg?color=000000');
+  
+}
+
+button.navbar-toggler-1{ 
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  background-color: inherit;
+}
+
+.ordenhados{
+  font-size: 14px;
+  color: blue; 
+}
 /*-----------------------------------------------------------------------------------------------------------------------------*/
 
 

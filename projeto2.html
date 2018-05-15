@@ -252,7 +252,7 @@
         <hr class="my-3">
 
         <!-- ############################# Search Bar #################### -->
-        <form>
+        <form> <!-- Isto está dentro de um form porquê???? -->
             <!-- <div class="col-sm-6 col-sm-offset-3">
         <div class="home_searce_domain_area">
             <div class="main_home_searce_domain_content">
@@ -272,7 +272,7 @@
                 <div class="form-group col-md-8">
                     <div class="input-group">
                         <input id="searchNome" type="text" class="form-control" placeholder="Nome">
-                        <input id="serachGenero" type="text" class="form-control" placeholder="Género">
+                        <input id="searchGenero" type="text" class="form-control" placeholder="Género">
                         <select id="searchData" class="form-control">
                             <option value="Todos">Todas as datas</option>
                             <option value="hoje">Hoje</option>
@@ -283,8 +283,14 @@
                             <option value="proximoMes">No próximo mês</option>
                         </select>
                         <div class="input-group-append">
-                            <button id="btnPesquisar" class="btn btn-primary" type="button">
-                                <i class="fa fa-search"></i>
+                            <a href="projeto2_Agenda.html">
+                                <button id="btnPesquisar" class="btn btn-primary" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </a>
+                            <button id="btnAdicionarEventos" class="btn btn-secondary" type="button" style="display: none" data-target="#ModalAdicionnarEventos"
+                                data-toggle="modal">
+                                <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
@@ -530,7 +536,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Adicionar Evento</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Adicionar Evento</h5> <!-- Mudar o nome disto quando for para editar o evento, nah -->
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
