@@ -28,9 +28,10 @@
 
 <body>
 
-    <!-- Navbar que vai ser igual para todos -->
-    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="projeto2.html">Map</a>
+    <!-- Navbar que vai ser igual para todos \\ FALTA ARRANJAR AS CORES E O LOGOTIPO -->
+    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <img id="logobar" src="images/MAP.png"> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -41,32 +42,23 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!-- Tinha active na class -->
-                    <a class="nav-link" href="projeto2.html">Home
+                    <a class="nav-link" href="#chupaAsMinhasTolas">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="projeto2_Agenda.html">Catálogo</a>
                 </li>
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li> -->
+
                 <li class="nav-item">
-                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
+                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunhos</a>
                 </li>
+
                 <li id="Perfil" class="nav-item" style="display: none">
                     <!-- Para tirar esta opçao remove se o "style" -->
                     <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
                 </li>
+
                 <li class="nav-item">
                     <!-- Botao de Login -->
                     <input id="Login" class="form-inline my-2 my-lg-0 btn btn-primary" type="button" value="Log-In" data-toggle="modal" data-target="#ModalLogin">
@@ -76,7 +68,7 @@
                     <!-- com block não funciona, tem que ser com inline-block-->
 
                     <!-- Botao de Registar -->
-                    <input id="Registar" class="form-inline my-2 my-lg-0 btn btn-secundary red" type="button" value="Registar" data-toggle="modal"
+                    <input id="Registar" class="form-inline my-2 my-lg-0 btn btn-primary" type="button" value="Registar" data-toggle="modal"
                         data-target="#ModalRegistar">
 
 
@@ -210,7 +202,85 @@
             </div>
         </div>
     </div>
+    <!-- Testemunhos-->
+    <br>
+    <section id="testemunhos">
+        <div class="container">
+            <h5 class="section-title h1">Testemunhos</h5>
+            <br>
+            <div class="row">
+                <!-- Testemunho1 -->
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div>
+                        <div class="testemunho">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <figure>
+                                        <img class="img-testemunho" src="http://placehold.it/200x200/f44242/fff" alt="card image">
+                                        </p>
+                                    </figure>
+                                    <p class="texto-testemunho">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet ante at diam
+                                        dapibus accumsan. Maecenas at purus et sapien ullamcorper pharetra et ac risus. Morbi
+                                        sollicitudin fringilla placerat. Fusce cursus, neque sit amet molestie tincidunt,
+                                        lectus sem facilisis leo, a aliquam ligula est quis mi. Nam pulvinar sit amet velit
+                                        ac iaculis.</p>
+                                    <h5 class="nome-testemunho">Nome do utilizador</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./Testemunho1 -->
+                <!-- Testemunho2 -->
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div>
+                        <div class="testemunho">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <figure>
+                                        <img class="img-testemunho" src="http://placehold.it/200x200/f44242/fff" alt="card image">
+                                        </p>
+                                    </figure>
+                                    <p class="texto-testemunho">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet ante at diam
+                                        dapibus accumsan. Maecenas at purus et sapien ullamcorper pharetra et ac risus. Morbi
+                                        sollicitudin fringilla placerat. Fusce cursus, neque sit amet molestie tincidunt,
+                                        lectus sem facilisis leo, a aliquam ligula est quis mi. Nam pulvinar sit amet velit
+                                        ac iaculis.</p>
+                                    <h5 class="nome-testemunho">Nome do utilizador</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./Testemunho2 -->
+                <!-- Testemunho3 -->
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div>
+                        <div class="testemunho">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <figure>
+                                        <img class="img-testemunho" src="http://placehold.it/200x200/f44242/fff" alt="card image">
+                                        </p>
+                                    </figure>
+                                    <p class="texto-testemunho">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet ante at diam
+                                        dapibus accumsan. Maecenas at purus et sapien ullamcorper pharetra et ac risus. Morbi
+                                        sollicitudin fringilla placerat. Fusce cursus, neque sit amet molestie tincidunt,
+                                        lectus sem facilisis leo, a aliquam ligula est quis mi. Nam pulvinar sit amet velit
+                                        ac iaculis.</p>
+                                    <h5 class="nome-testemunho">Nome do utilizador</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./Testemunho3 -->
 
+
+            </div>
+        </div>
+    </section>
+    <!-- FIM DE TESTEMUNHOS-->
 
 </body>
 
