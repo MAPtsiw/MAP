@@ -1,0 +1,292 @@
+/*Minhas Merdas*/
+
+#MsgErroRegistar, #MsgErroLogin, #MsgErroRegistarEventos{ /*Para mexer nos dois ao mesmo tempo é só por a virgula no meio*/
+
+  text-transform: uppercase;
+  color: red;
+}
+
+  /*adicionado pelo jabardoum aka 9170287*/
+h1 {
+  font-family:  'Source Sans Pro', sans-serif;;
+  font-size: 56px;
+  line-height: 80px;
+ }
+    /*adicionado pelo jabardoum - part 2 (agora nos cinemas)*/
+ p {
+  font-family: 'Source Sans Pro', sans-serif;;
+  font-size: 16px;
+  line-height: 25px;
+ }
+
+footer {
+  font-family: 'Source Sans Pro', sans-serif;;
+  padding: 10px;
+  margin: 0;
+  /*alterado pelo miguelito no gradiente*/
+  background: linear-gradient(to bottom right, #001124, #536976);
+  color: white;
+}
+
+#map{
+    height: 200px;
+    width: 1000px;
+}
+
+#searchBar > div{
+    margin: 0px !important;
+    padding: 0 !important;
+}
+
+.card{
+  border-radius: 5%;
+}
+
+.card-title, .btn-evento { /*hmmm... o botão não está a funcionar com isto mas o resto está*/
+    text-align: center;
+}
+
+.linha-cards{
+  margin: 10px 0px 10px 0px;
+}
+
+#container-Calendario{
+  margin: 0;
+  padding: 0;
+}
+
+.container.jajao{
+ background-color: white;
+}
+
+#container#Perfil{
+ background-color: white;
+}
+
+#form-row#perfil{
+  background-color: white;
+}
+
+#jumbotron{
+  background-color: white;
+}
+
+#calendario{
+  width: 100%;
+}
+.mnac{
+  font-size: small;
+}
+
+#logobar {
+  width: 50%;
+  height:50%;
+}
+figure img {
+  width: 90px;
+  height:90px;
+  border-radius: 50%;
+}
+
+.about img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.about p {
+  text-align: center;
+}
+.desricao-card-carrosel{
+  font-size: 11px;
+  color: red;
+}
+
+/*Usar esta coisa para fazer o menu nos cards*/
+.navbar-toggler-1 .navbar-toggler-icon{
+  background-image: url('https://mdbootstrap.com/img/svg/hamburger8.svg?color=000000');
+  
+}
+
+button.navbar-toggler-1{ 
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  background-color: inherit;
+}
+/*Daqui*/
+/* olha a navbar, que linda*/
+#chupaAsMinhasTolas{
+  background: linear-gradient(to bottom right,  #001124 ,  #536976);
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  border:0;
+}
+
+#linhaQueSepara{
+  border: 0.5px solid #fff;
+  cursor: default;
+}
+
+#Login{
+  color: white;
+  margin: 0px 0px 0px 20px;
+}
+
+#Registar{
+  color:white;
+}
+
+.nav-item{
+  list-style-type: none;
+  display: inline-block;
+  line-height: 40 px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* #gandas botoes do navbar */
+.nav-link {
+  font-family: 'Source Sans Pro', sans-serif;
+  display: block;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin:0 20px 0 20px;
+}
+
+/* Mudar a cor do hober ma wiggas */
+.nav-link:hover {
+  background-color: #ea9c00;
+  color: white;
+  animation-delay: 2ms;
+}
+
+/* Aqui, foi o jobem Michael*/
+
+.ordenhados{
+  font-size: 14px;
+  color: blue; 
+}
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*TESTE*/
+
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*Que não está a funcionar*/
+/*CAROUSEl*/
+@media (min-width: 100px) {
+  /* show 3 items */
+  .carousel-inner .active,
+  .carousel-inner .active + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
+    display: block;
+  }
+
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item,
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item
+    + .carousel-item {
+    transition: none;
+  }
+
+  .carousel-inner .carousel-item-next,
+  .carousel-inner .carousel-item-prev {
+    position: relative;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .carousel-inner
+    .active.carousel-item
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: absolute;
+    top: 0;
+    right: -33.3333%;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* left or forward direction */
+  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+  .carousel-item-next.carousel-item-left + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+  .carousel-item-next.carousel-item-left
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  /* farthest right hidden item must be abso position for animations */
+  .carousel-inner .carousel-item-prev.carousel-item-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* right or prev direction */
+  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+  .carousel-item-prev.carousel-item-right + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+  .carousel-item-prev.carousel-item-right
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+    display: block;
+    visibility: visible;
+  }
+}
+/* &&&&&&&&&&&&&&&&&& FIM DE CAROUSEL &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+ /*.active > div { display:none; }
+ .active > div:first-child { display:block; }*/
+
+/*xs*/
+
+.red {background: red;}
+
+.blue {background: blue;}
+
+.green {background: green;}
+
+.yellow {background: yellow;}
+
+
+
+
+
+
+
+
+
+/*Merdas que já não são usadas*/
+/* @media (max-width: 767px){
+    .carousel .row .span3 {
+    display: block;
+    float: left;
+    width: 25%;
+    margin-left: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    }
+} */
