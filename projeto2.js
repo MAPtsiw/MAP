@@ -3,6 +3,10 @@ let utilizadores = []
 
 let eventos = []
 
+let parcerias = []
+
+let categorias = []
+
 //Vai servir para saber se há alguém com sessão iniciada ou não
 let logged = false;
 
@@ -15,6 +19,9 @@ let mesNoCalendario = ""
 //Serve para saber qual é o id do evento que está a ser alterado
 let idEventoAlterar = 0
 
+//Variavel que vai guardar o id da parceria a alterar
+let idDaParceriaModificar = 0
+
 //------------------------------------------
 
 
@@ -23,7 +30,18 @@ window.onload = function () {
     //TEstes com o calendário
     //brincadeirasCalendário(); Funciona
 
+    //Criar Eventos default
+    // let par1 = new Parceria("Esmad", 'ali', 'alie')
+    // let par2 = new Parceria('Pporto', 'porto', 'pipi')
+    // let par3 = new Parceria('Fiu', 'fiufiu', 'fiufiufiu')
+
+    // parcerias.push(par1, par2, par3)
+
+
     let datinha = new Date() //VAi ser mais vezes usado
+
+    //Variavel para o item da navbar para o admin
+    let adminzito = document.getElementById('Admin')
 
     calendarioFixe(datinha.getMonth() + 1, datinha.getFullYear())
 
@@ -62,8 +80,36 @@ window.onload = function () {
         console.log(eventos)
     }
 
+    if (this.localStorage.getItem('parcerias')) {
+        let a = JSON.parse(localStorage.getItem('parcerias'))
+
+        for (let i = 0; i < a.length; i++) {
+            let b = new Parceria(a[i]._nome, a[i]._localizacao, a[i]._link)
+            parcerias.push(b)
+        }
+        console.log(parcerias)
+    }
+
     for (let i = 0; i < utilizadores.length; i++) { //porque fodeu se
         utilizadores[i].fotografia = "Docente"
+    }
+    //só para ter um caraho de um administrador
+    // let r = new Utilizador("El Admin", "123", "adminFixi@gmail.com", "", "Adminstrador")
+    // utilizadores.push(r)
+
+    utilizadores[4].fotografia = "Administrador"
+
+    //localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+
+    //Iniciar o indexUtilizador como estava antes
+    indexUtilizador = JSON.parse(localStorage.getItem('indexUtilizador'))
+
+
+    //Adminhe
+    if (adminzito != null) {
+        if (utilizadores[indexUtilizador].fotografia == "Administrador") {
+            adminzito.style.display = 'inline-block'
+        }
     }
 
     //+-Global, só para o que estiver dentro do window.onload
@@ -133,6 +179,37 @@ window.onload = function () {
 
     //Marcar os dias que têm eventos, tem que estar aqui po que senão o array ainda não está preenchido
     marcarDias(datinha.getMonth() + 1);
+
+    //Preencher o array de categorias
+    mamaAquiNaPila()
+
+    //Preencher a tabela dos utilizadores por agora
+    if (document.getElementById('bodyUtilizadores') != null) {
+        for (let i = 0; i < utilizadores.length; i++) {
+            preencherTabelaUtiPar(utilizadores[i].nome, utilizadores[i].mail, utilizadores[i].id)
+        }
+    }
+
+    if (document.getElementById('tableParcerias') != null) {
+        for (let i = 0; i < parcerias.length; i++) {
+            preencherTabelaUtiPar(parcerias[i].nome, parcerias[i].link, parcerias[i].id, true)
+        }
+    }
+
+    if (document.getElementById('corpoEventos') != null) { //Isto podia estar tudo dentro de um dos if's
+        let datatatata = ""
+        for (let i = 0; i < eventos.length; i++) {
+            if (eventos[i].data[0] != undefined) datatatata = eventos[i].data[0].split(';')[0]
+            preencherTabelaEventos(eventos[i].nome, datatatata, eventos[i].id)
+        }
+
+        //Preencher com tags a pagina de admin, vós entendeis
+        categoriasUnicasFunc() //Tenho mesmo que mexer nisto
+        apresentarCategorias()
+    }
+
+
+
 
     //Para o caso de o utilizador estar logado e entrar na página Inicial sem fazer login
     if (btnAdicionar != null && logged == true)
@@ -250,6 +327,8 @@ window.onload = function () {
         document.getElementById('MsgErroRegistar').innerHTML = "";
     });
 
+
+
     //Fazer Login
     let formLogin = document.getElementById('FormLogin')
     formLogin.addEventListener('submit', function (e) {
@@ -278,6 +357,7 @@ window.onload = function () {
                     erroPass = false;
                     indexUtilizador = i; //Simplificar a vida
                     console.log("ok = " + ok)
+                    localStorage.setItem('indexUtilizador', JSON.stringify(indexUtilizador))
                 }
             }
         }
@@ -296,6 +376,11 @@ window.onload = function () {
 
             let btnLogoff = document.getElementById('Logoff')
             btnLogoff.style.display = "inline-block"
+
+            //Mostrar na navbar o item para o adminstrador
+            if (utilizadores[indexUtilizador].fotografia == "Administrador") {
+                adminzito.style.display = 'inline-block'
+            }
 
             //Botão de registar disabled, não me parece a melhor opção, mas de outra maneira daria trabalho a mais para agora
             let btnRegistar = document.getElementById('Registar')
@@ -347,11 +432,15 @@ window.onload = function () {
         let btnLogin = document.getElementById('Login')
         btnLogin.style.display = "inline-block"
 
+        //Esconder o cenas do admin
+        adminzito.style.display = 'none'
+
         //Esconder o botão de Adicionar Eventos
         if (btnAdicionar != null)
             btnAdicionar.style.display = 'none'
 
         indexUtilizador = 0
+        localStorage.setItem('indexUtilizador', JSON.stringify(indexUtilizador))
 
         logged = false; //Em principio vai ser esta variavel que vai dizer o que é que se mostra ou não nas páginas
         localStorage.setItem('logged', JSON.stringify(logged))
@@ -441,6 +530,12 @@ window.onload = function () {
 
 
             if (continuar == true) {
+                //O que vai ficar no evento.Categoria vai ser o id de uma categoria
+                if (categoriasUnicasFunc(categoria)) {
+                    //Fazer esta merda
+
+                    categorias.push(categoria)
+                }
 
                 let novoEvento = new Evento(nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador].id)
 
@@ -655,6 +750,17 @@ window.onload = function () {
 
             //Ainda tenho que fazer a função para a data, por agora testar só pelos dois campos, udpadate: filtrar por nome e categoria esta feito, nenhum erro por agora
 
+            //Filtrare por data
+            if (searchData != 'Todos') {
+                if (filtraditos.length > 0) {
+                    filtraditos = filtrarPorData(filtraditos, searchData); //caca
+                }
+                else {
+                    filtraditos = filtrarPorData(eventos, searchData);
+                }
+            }
+
+            console.log("filtraditos = " + filtraditos)
             if (filtraditos.length > 0) {
                 if (document.getElementById('ohPaEle') != null) {
                     //Limpar a tabela
@@ -707,31 +813,33 @@ window.onload = function () {
 
 
     let formModificarEvento = document.getElementById('ModalModificarEvento')
-    formModificarEvento.addEventListener('submit', function (e) {
-        e.preventDefault()
+    if (formModificarEvento != null) {
+        formModificarEvento.addEventListener('submit', function (e) {
+            e.preventDefault()
 
-        let elId = 0;
+            let elId = 0;
 
-        for (let i = 0; i < eventos.length; i++) {
-            if (eventos[i].id == idEventoAlterar) {
-                elId = i
+            for (let i = 0; i < eventos.length; i++) {
+                if (eventos[i].id == idEventoAlterar) {
+                    elId = i
+                }
             }
-        }
 
-        eventos[elId].nome = document.getElementById('NomeEvento2').value
-        eventos[elId].data[0] = document.getElementById('DataEvento2').value + ";" + document.getElementById('HoraEvento2').value
-        eventos[elId].descricao = document.getElementById('DescriçãoEvento2').value
-        eventos[elId].categoria = document.getElementById('CategoriaEvento2').value
-        eventos[elId].imagem = document.getElementById('FotografiaEvento2').value
-        eventos[elId].responsavel = document.getElementById('ResponsavelEvento2').value
+            eventos[elId].nome = document.getElementById('NomeEvento2').value
+            eventos[elId].data[0] = document.getElementById('DataEvento2').value + ";" + document.getElementById('HoraEvento2').value
+            eventos[elId].descricao = document.getElementById('DescriçãoEvento2').value
+            eventos[elId].categoria = document.getElementById('CategoriaEvento2').value
+            eventos[elId].imagem = document.getElementById('FotografiaEvento2').value
+            eventos[elId].responsavel = document.getElementById('ResponsavelEvento2').value
 
-        //Mensagem de "erro", depois talvez precise de mexer nisto
-        document.getElementById('MsgErroRegistarEventos2').innerHTML = "Como dizia o meu tio Carlos \nBem Introduzido"
+            //Mensagem de "erro", depois talvez precise de mexer nisto
+            document.getElementById('MsgErroRegistarEventos2').innerHTML = "Como dizia o meu tio Carlos \nBem Introduzido"
 
-        // console.log(eventos)
-        //"Gravar" as mudanças
-        localStorage.setItem("eventos", JSON.stringify(eventos)) //O que estou a fazer mal para ao dar refresh os eventos não estarem alterados
-    })
+            // console.log(eventos)
+            //"Gravar" as mudanças
+            localStorage.setItem("eventos", JSON.stringify(eventos)) //O que estou a fazer mal para ao dar refresh os eventos não estarem alterados
+        })
+    }
 
     //Modal Adicionar Evento
     //Limpar
@@ -840,182 +948,125 @@ window.onload = function () {
             }
         })
     }
-}
+
+    //Função para o submit de uma parceria
+
+    let formParceria = document.getElementById('formParceria')
+    if (formParceria != undefined) {
+        formParceria.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let continuar = true
+            let msgErro = ""
+            let elErro = document.getElementById('MensagemMamaAquiNaPila')
+
+            let nomeP = document.getElementById('nomeP').value
+            let nomeL = document.getElementById('nomeL').value //Estas dois campos vºao porder ser adicionados depois
+            let nomeLink = document.getElementById('nomeLink').value
+
+            for (let i = 0; i < parcerias.length; i++) {
+                if (nomeP == parcerias[i].nome) {
+                    continuar = false;
+                    msgErro = "O nome da Empresa já existe"
+                }
+            }
+
+            if (nomeL == "" || nomeLink == "") {
+
+                let msg = confirm("continuar sem preencher todos os campos?")
+
+                if (!msg) continuar = false
+            }
+
+            //Adicionar confirms para os campos que não forem preenchidos, done à trolha
+            //Adicinar mensagem de erro, done
+            //Gravar o array em local storage, done
 
 
-//---------------------------------------------- Classes ----------------------------------------------------------------------------------------
-//Isto mal possa vai para um ficheiro à parte
-class Utilizador {
-    constructor(nome, pass, mail, foto, tipo) { //Por agora vai ficar assim, não é dificil de acrescentar merdas
-        this.nome = nome
-        this.password = pass
-        this.mail = mail
-        this.fotografia = foto
-        this.tipoUtilizador = tipo //Vai distinguir se o utilizador é Estudante ou docente
+            if (continuar == true) {
 
-        this._id = Utilizador.getLastId() + 1
-    }
+                let parceria = new Parceria(nomeP, nomeL, nomeLink)
 
-    get nome() {
-        return this._nome
-    }
+                parcerias.push(parceria)
 
-    set nome(valor) {
-        this._nome = valor
-    }
+                //Criar a tabela de novo
 
-    get password() {
-        return this._password
-    }
 
-    set password(valor) {
-        this._password = valor
-    }
+                //Gravar o array
+                localStorage.setItem('parcerias', JSON.stringify(parcerias))
 
-    get mail() {
-        return this._mail
-    }
+                //Dizer que o admin é lindo
+                elErro.innerHTML = "O Admin é Lindo"
 
-    set mail(valor) {
-        this._mail = valor
-    }
+            }
+            else {
+                elErro.innerHTML = msgErro
+            }
 
-    get fotografia() {
-        return this._fotografia
-    }
+        })
 
-    set fotografia(valor) {
-        this._fotografia = valor
-    }
+        //Modal Parcerias
+        //Limpar
+        $("#ModalParceria").on('hide.bs.modal', function () {
 
-    get tipoUtilizador() {
-        return this._tipo
-    }
+            //Limpar o form
+            document.getElementById('formParceria').reset()
 
-    set tipoUtilizador(valor) {
-        this._tipo = valor
-    }
+            //Limpar a msgErro
+            document.getElementById('MensagemMamaAquiNaPila').innerHTML = ""
+        });
+    } 
 
-    get id() {
-        return this._id
-    }
+    //Fazer uma cena para alterar a parceria
+    let formAltParceria = document.getElementById('formAlterarParceria')
+    formAltParceria.addEventListener('submit', function(e){
+        e.preventDefault()
 
-    // Get the last ID
-    static getLastId() {
-        let lastId = 0
-        if (utilizadores.length > 0) {
-            lastId = utilizadores[utilizadores.length - 1].id
-            //console.log('O lastId do utilizador é = ' + lastId)
+        let sinhe = true
+
+        let nome = document.getElementById('nomePAlt').value
+        let localizacao = document.getElementById('nomeLAlt').value
+        let link = document.getElementById('nomeLinkAlt').value
+
+
+        if(localizacao == "" || link == ""){
+            let conf = confirm("Tem campos por preencher, continuar?")
+
+            if(!conf) sinhe = false
         }
+    
+        if(sinhe){
+            for(let i = 0; i< parcerias.length; i++){
+                if(idDaParceriaModificar == parcerias[i].id){
+                    parcerias[i].nome = nome
+                    parcerias[i].localizacao = localizacao
+                    parcerias[i].link = link
 
-        return lastId
-    }
-}
+                    document.getElementById('MensagemMamaAquiNaPila').innerHTML = "Be mudado, És Ganda cena"
+                }
+            }
 
-class Evento {
-    constructor(nome, data, descricao, categoria, imagem, responsavel, /*Fica em último, ou então não*/ userId, pontuacao, inscritos) { //Puta de grande
-        this.nome = nome
-        this.data = data
-        this.pontuacao = pontuacao
-        this.inscritos = inscritos
-        this.descricao = descricao
-        this.categoria = categoria
-        this.imagem = imagem
-        this.responsavel = responsavel
-        this.userId = userId
 
-        this._id = Evento.getLastId() + 1
-    }
-
-    get nome() {
-        return this._nome
-    }
-
-    set nome(valor) {
-        this._nome = valor
-    }
-
-    get data() { //Isto vai ser um array que vai guardar data e hora, por esta ordem....
-        return this._data
-    }
-
-    set data(valor) {
-        this._data = valor
-    }
-
-    get pontuacao() {
-        return this._pontuacao
-    }
-
-    set pontuacao(valor) {
-        this._pontuacao = valor
-    }
-
-    get inscritos() {
-        return this._inscritos
-    }
-
-    set inscritos(valor) {
-        this._inscritos = valor
-    }
-
-    get descricao() {
-        return this._descricao
-    }
-
-    set descricao(valor) {
-        this._descricao = valor
-    }
-
-    get categoria() {
-        return this._categoria
-    }
-
-    set categoria(valor) {
-        this._categoria = valor
-    }
-
-    get imagem() {
-        return this._imagem
-    }
-
-    set imagem(valor) {
-        this._imagem = valor
-    }
-
-    get responsavel() {
-        return this._responsavel
-    }
-
-    set responsavel(valor) {
-        this._responsavel = valor
-    }
-
-    get id() {
-        return this._id
-    }
-
-    get userId() {
-        return this._userId
-    }
-
-    set userId(valor) {
-        this._userId = valor
-    }
-
-    // Get the last ID
-    static getLastId() {
-        let lastId = 0
-        if (eventos.length > 0) {
-            lastId = eventos[eventos.length - 1].id
-            //console.log('O lastId do utilizador é = ' + lastId)
+            document.getElementById('corpoParcerias').innerHTML = ""
+            for(let i = 0; i<parcerias.length; i++){
+                preencherTabelaUtiPar(parcerias[i].nome, parcerias[i].link, parcerias[i].id, true)
+            }
+            //Falta gravar o novo array
+            
         }
+    })
 
-        return lastId
-    }
+    let forminhaModificarEvento = document.getElementById('FormRegistarEventoAlt')
+    forminhaModificarEvento.addEventListener('submit', function(e){
+        e.preventDefault()
+
+        // let nomi
+    })
 }
-
-
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
 
 //---------------------------------------------- Funções ----------------------------------------------------------------------------------------
 
@@ -1034,7 +1085,7 @@ function paNaoSei(eventoUserId) {
 
     let mostrar = false;
 
-    if (logged == true && utilizadores[indexUtilizador].fotografia == "Adminstrador") {
+    if (logged == true && utilizadores[indexUtilizador].fotografia == "Administrador") {
         mostrar = true
     }
     else if (logged == true && utilizadores[indexUtilizador].fotografia == "Docente") { //Isto está como fotografia poorque mim ser estupido, é para ficar em tipoUtilizador
@@ -1070,8 +1121,8 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
 
     //Div para por o cartão
     let div1 = document.createElement('div')
-    div1.setAttribute('class', 'carousel-item col-md-4 active')
-
+    if (indice == 0) div1.setAttribute('class', 'carousel-item col-md-4 active');
+    else div1.setAttribute('class', 'carousel-item col-md-4')
     //Cartão
     let div2 = document.createElement('div')
     div2.setAttribute('class', 'card')
@@ -1080,9 +1131,11 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
     div1.appendChild(div2)
 
     //Imagem
-    let divImg = document.createElement('img') //As imagens nã estão a aparecer
-    divImg.setAttribute('class', 'card-img-top img-fixed')
-    divImg.setAttribute('src', "http://placehold.it/800x600/f44242/fff")
+    let divImg = document.createElement('img') //As imagens não estão a aparecer
+    if (indice == 0) divImg.setAttribute('class', 'card-img-top img-fixed');
+    else divImg.setAttribute('class', 'card-img-top img-fluid')
+
+    divImg.setAttribute('src', "images/4.png")
 
     div2.appendChild(divImg)
 
@@ -1334,7 +1387,9 @@ function nemSei(event) {
     let responsavel = document.getElementById('ResponsavelEvento2')
 
     nome.value = oTal.nome
-    data.value = oTal.data[0].split(';')[0]
+
+    if (oTal.data[0] != undefined) data.value = oTal.data[0].split(';')[0]
+    // else data.value = "TBA"
     if (oTal.data[0].split(';')[1] != "") hora.value = oTal.data[0].split(';')[1]
     if (oTal.descricao != "") descricao.value = oTal.descricao
     categoria.value = oTal.categoria
@@ -1713,7 +1768,7 @@ function calendarioFixe(mes, ano) { //TEm que ser o numero do mês
 let realizados = []
 let notRealizados = []
 
-function eventosRealizadosENemPorIsso() {
+function eventosRealizadosENemPorIsso() { //Que cria o arrayDosMili
 
     realizados = []
     notRealizados = []
@@ -1721,7 +1776,7 @@ function eventosRealizadosENemPorIsso() {
     let hoje = new Date()
     let dataEvento = ""
 
-    for (let i = 0; i < eventos.length; i++) {
+    for (let i = 0; i < eventos.length; i++) { //Isto provavelmente pode ser uma função
         if (eventos[i].data.length > 0) {
             let dia = eventos[i].data[0]
                 .split(';')[0]
@@ -1760,7 +1815,7 @@ function eventosRealizadosENemPorIsso() {
 
             //console.log("date = " + date)
             dataEvento = new Date(date)
-            console.log("dataEvento = " + dataEvento)
+            //console.log("dataEvento = " + dataEvento)
 
             //FAzer aqui também a parte de passar os milissegundos para um array
             let idMaisMili = dataEvento.getTime() + "-" + eventos[i].id //Assim poupa imenso trabalho, em principio
@@ -1768,7 +1823,7 @@ function eventosRealizadosENemPorIsso() {
 
 
             arrayDosMili.push(idMaisMili)
-            console.log("idMaisMili = " + idMaisMili)
+            // console.log("idMaisMili = " + idMaisMili)
 
             if (hoje.getTime() >= dataEvento.getTime()) {
                 realizados.push(eventos[i])
@@ -1814,7 +1869,7 @@ function ordenharPorData() {
 
     for (let i = 0; i < auxiliar.length; i++) {
         for (let k = 0; k < eventos.length; k++) {
-            if ( auxiliar[i].split('-')[1] == eventos[k].id) {
+            if (auxiliar[i].split('-')[1] == eventos[k].id) {
                 if (logged == true) mostrar = paNaoSei(eventos[k].userId)
 
                 if (eventos[k].data[0] != undefined) {
@@ -1839,6 +1894,603 @@ function ordenharPorData() {
         }
     }
 }
+
+//Função para filtrar por data 
+function filtrarPorData(arrayLindo, filtration /*Que data vai ser filtrada*/) { //Vai receber um array para filtrar, que ou vai já estar filtrado, ou vai ser o array eventos
+
+    // if('Todas as datas'), não vai ser preciso fazer isto porque é só deixar o array na mesma
+
+    let dataHoje = new Date()
+    let arrayDevolver = []
+
+    dataHoje.setHours(23, 59, 59)
+
+    //console.log("dataHoje" + dataHoje)
+    console.log(arrayLindo)
+    //console.log(filtration)
+
+    eventosRealizadosENemPorIsso() //só pelo array com os milisagundos e o id dos eventos
+
+    let diaEMes = ""
+    let diaEMes2 = new Date()
+    //Pegar no arrayDosMili e trabalha-lo
+    if (filtration == 'hoje') { //
+        for (let i = 0; i < arrayDosMili.length; i++) { //Maneira complicada
+            console.log(parseInt(dataHoje.getTime()) - arrayDosMili[i].split('-')[0] + " ---- " + arrayDosMili[i].split('-')[1])
+            if ((parseInt(dataHoje.getTime()) - arrayDosMili[i].split('-')[0]) <= 86400000 && (parseInt(dataHoje.getTime()) - arrayDosMili[i].split('-')[0]) > 0) {
+                arrayDevolver.push(arrayDosMili[i].split('-')[1])
+            }
+        }
+    }
+    else if (filtration == 'amanha') {
+        //Função para receber o dia e o mês, que podia ser usada em cima, depois é só procurar por eventos que correspondam
+        for (let i = 0; i < arrayLindo.length; i++) {
+            diaEMes = devolverDiaMes(arrayLindo[i])
+            console.log("diaEMes - " + diaEMes)
+
+            console.log((dataHoje.getMonth()))
+            if (diaEMes != undefined && dataHoje.getMonth() + 1 == diaEMes.split(';')[1] && (dataHoje.getDate() + 1) == diaEMes.split(';')[0]) {
+                arrayDevolver.push(arrayLindo[i])
+            } //Não esquecer que o getMonth() dá os meses a começar em zero e não em 1
+        }
+    }
+    else if (filtration == 'estaSemana') { //604800000, é o tempo que dura uma semana em milisegundos
+        diaEMes2.setTime(diaEMes2.getTime() + 604800000)
+        console.log(diaEMes2)
+
+        for (let i = 0; i < arrayLindo.length; i++) {
+            diaEMes = devolverDiaMes(arrayLindo[i])
+
+            if (diaEMes != undefined && dataHoje.getMonth() + 1 == diaEMes.split(';')[1] && diaEMes.split(';')[0] >= dataHoje.getDate() && diaEMes.split(';')[0] <= diaEMes2.getDate()) {
+                arrayDevolver.push(arrayLindo[i])
+            } //Aparentemente está certo
+        }
+    }
+    else if (filtration == "fds") {
+
+        let mu = bibi()
+        let dia1 = "";
+
+        console.log(mu)
+        for (let k = 0; k < arrayLindo.length; k++) {
+            if (arrayLindo[k].data[0] != undefined) {
+                dia1 = arrayLindo[k].data[0].split(';')[0]
+                    .split('-')[2]
+
+                console.log("dia1 - " + dia1)
+                if (dia1 == mu[0] || dia1 == mu[1]) {
+                    arrayDevolver.push(arrayLindo[k])
+                }
+            }
+        }
+    }
+    else if (filtration == 'proximaSemana') {
+        bibi() //Correr a função para ter o valor do inicio da proxima semana
+
+        let mu = proximaSegunda.split(';')
+
+        let intervalo1 = mu[0], intervalo2 = 0; //Intervalo temporal a procurar
+
+        intervalo2 = new Date(mu[1] + "/" + mu[0] + "/" + dataHoje.getFullYear())
+
+        intervalo2.setTime(intervalo2.getTime() + 604800000)
+        // console.log(intervalo2)
+
+        for (let i = 0; i < arrayLindo.length; i++) {
+            if (arrayLindo[i].data[0] != undefined) {
+                let nateDias = arrayLindo[i].data[0]
+                    .split(';')[0]
+                    .split('-')[2]
+
+                let nateMes = arrayLindo[i].data[0]
+                    .split(';')[0]
+                    .split('-')[1] //Acho que isto é o mes
+
+                console.log(mu[1], parseInt(nateMes))
+
+                if (nateMes == mu[1] || nateMes == mu[1] + 1) {
+                    if (nateDias >= intervalo1 && nateDias <= intervalo2.getDate()) {
+                        console.log("entrou2")
+                        arrayDevolver.push(arrayLindo[i])
+                    }
+                }
+            }
+        }
+    }
+    else if (filtration == "proximoMes") {
+
+        let dataMil = new Date()
+
+        dataMil.setMonth(dataMil.getMonth() + 1)
+
+        let elMes = dataMil.getMonth() + 1
+
+        //Fazer com que dataMil comece à meia noite do primeiro dia do mês
+        dataMil.setDate(1)
+        dataMil.setHours(0, 0, 0)
+
+        while (dataMil.getMonth() + 1 == elMes) {
+
+
+            for (let i = 0; i < arrayLindo.length; i++) {
+                if (arrayLindo[i].data[0] != undefined) {
+
+                    if (arrayLindo[i].data[0].split(';')[0].split('-')[1] == (dataMil.getMonth() + 1) && arrayLindo[i].data[0].split(';')[0].split('-')[2] == dataMil.getDate()) {
+                        arrayDevolver.push(arrayLindo[i])
+                    }
+                }
+            }
+
+            dataMil.setDate(dataMil.getDate() + 1) //Incrementar a data, até chegar ao fim do Mês 
+        }
+    }
+
+
+
+    console.log(arrayDevolver) //Este array mesmo sem dar refresh à página não devia acumular se, porque caralhos o faz
+
+    return arrayDevolver
+}
+//Função que vai devolver o dia e o mes, para auxiliar a função de cima
+function devolverDiaMes(elDia) {
+
+    let dia = 0, mes = 0, ano = 0;
+
+    if (elDia.data.length > 0) {
+        let dia = elDia.data[0]
+            .split(';')[0]
+            .split('-')[2]
+
+        let mes = elDia.data[0]
+            .split(';')[0]
+            .split('-')[1]
+
+        let ano = elDia.data[0]
+            .split(';')[0]
+            .split('-')[0]
+
+        let date = mes + '/' + dia + '/' + ano
+        //console.log("mama qui na pila")
+
+
+
+        let horache = ""
+        if (elDia.data[0].split(';')[1] != "") {
+            let horas = elDia.data[0]
+                .split(';')[1]
+                .split(':')[0]
+
+            let minutes = elDia.data[0]
+                .split(';')[1]
+                .split(':')[1]
+
+            horache = ',' + horas + ':' + minutes
+            //console.log(horache)
+        }
+
+        if (horache != "") {
+            date += horache
+        }
+
+        return dia + ";" + mes
+    }
+}
+
+//Função para saber os fins de semana em principio
+let proximaSegunda = 0; //Vai ser esta variável que vai dizer a partir de que dia se vai filtrar eventos ao ser escolhido "Próxima Semana"
+
+function bibi() { //Mudar de nome e ver se resulta quando se está no fim de semana
+
+    let data = new Date()
+
+    let mesito = data.getMonth() + 1
+
+    let primeiroFds = 0;
+
+    let FimDeSemana = []
+
+    let segundaFeira = false;
+
+    while (data.getMonth() + 1 == mesito) {
+
+        //console.log(data.getDate())
+
+
+        data.setDate(data.getDate() + 1)
+
+        let fds = data
+
+        if ((data.toString().split(' ')[0] == 'Sun' || data.toString().split(' ')[0] == 'Sat') && primeiroFds < 2) {
+            //console.log(data.getDate())
+            FimDeSemana.push(data.getDate())
+            // console.log(FimDeSemana)
+            console.log(primeiroFds)
+            primeiroFds++
+        }
+
+        if (primeiroFds == 2 && segundaFeira == false) {
+            console.log(data.getDate() + 1) //Aceder a este valor
+
+            let aux = data.getMonth() + 1
+            proximaSegunda = data.getDate() + 1 + ";" + aux
+            segundaFeira = true;
+
+        }
+    }
+
+    return FimDeSemana
+}
+
+//Back-office###############################################################################################
+
+//Função para preencher as tabelas de utilizadores e parcerias
+function preencherTabelaUtiPar(nome, notNome, LeId, parceria = false) { //Vai receber o nome e o mail ou o link consoante a tabela a preencher
+    //A variavel parceria vai ser um bolleano que se for true vai preencher a tabela de parcerias, caso contrário, a tabela de utilizdores
+    //VAi ter o valor default false, ou seja, não preciso de dar valor a isto no caso de ser para preencher a tabela de utilizadores
+
+    let corpo = ""
+
+    if (!parceria) corpo = document.getElementById('bodyUtilizadores') //Anexar as merdas aqui
+    else corpo = document.getElementById('corpoParcerias')
+
+    let linha = document.createElement('tr')
+
+    //1º Coluna
+    let badanas = document.createElement('th')
+    badanas.setAttribute('scope', 'row')
+
+    //1º Coluna - Botão
+    let btni = document.createElement('button')
+    btni.setAttribute('class', 'btn btn-secundary ' + LeId)
+
+    let conteudoBtni = document.createElement('i')
+    conteudoBtni.setAttribute('class', 'fas fa-user-times ' + LeId)
+
+    if (!parceria) btni.addEventListener('click', LeFuncone)
+    else btni.addEventListener('click', LeFunconeParcerias) //Ainda por fazer a função
+
+    btni.appendChild(conteudoBtni)
+    badanas.appendChild(btni)
+    linha.appendChild(badanas)
+
+    //2ºColuna
+    let pipi = document.createElement('td')
+    pipi.textContent = nome
+
+    linha.appendChild(pipi)
+
+    //3º Coluna
+    let pipi2 = document.createElement('td')
+    pipi2.textContent = notNome
+
+    linha.appendChild(pipi2)
+
+    //4º Coluna, para o caso de se estar a preencher a tabela de parcerias
+    if (parceria) {
+        let pipi3 = document.createElement('tr') //coluna
+        let leBtn = document.createElement('button') //Botão
+        let leBtnConteudo = document.createElement('i') //Conteudo do Botão
+
+
+        leBtnConteudo.setAttribute('class', 'fas fa-pencil-alt ' + LeId)
+        leBtn.setAttribute('class', 'btn btn-secundary ' + LeId)
+        leBtn.setAttribute('data-toggle', 'modal')
+        leBtn.setAttribute('data-target', '#ModalAlterarParceria')
+        leBtn.addEventListener('click', editarParceria) //por Fazer
+
+        leBtn.appendChild(leBtnConteudo)
+        pipi3.appendChild(leBtn)
+        linha.appendChild(pipi3)
+    }
+
+    corpo.appendChild(linha)
+}
+//Função para editar as parcerias
+function editarParceria(evento){
+
+    console.log(evento.target.className)
+
+    let laModaL = document.getElementById('ModalAlterarParceria')
+
+    let atacarre = evento.target.className.split(' ')[2]
+
+    let memoNaVirilha = parcerias.filter(function(leParceria){
+        return leParceria.id == atacarre
+    })
+
+    console.log(memoNaVirilha)
+
+    document.getElementById('nomePAlt').value = memoNaVirilha[0].nome
+    document.getElementById('nomeLAlt').value = memoNaVirilha[0].localizacao
+    document.getElementById('nomeLinkAlt').value = memoNaVirilha[0].link
+
+    idDaParceriaModificar = memoNaVirilha[0].id
+}
+//Função para o botão de remover, talvez possa ser usada para o resto das tabelas, mas dificil
+function LeFuncone(evento, utilizadori) { //Só falta "gravar" o novo array em local storage...
+    //O utilizadori vai servir para saber se o array é de Utilizadores ou Parcerias, mas para isso é preciso criar as parcerias, nah, criei outra função
+
+    console.log(evento.target.className)
+
+
+    let atacar = evento.target.className.split(' ')[2]
+    let msg = confirm("Vai remover o Utilizador\nContinuar?")
+
+    if (msg) {
+        for (let i = 0; i < utilizadores.length; i++) {
+            if (utilizadores[i].id == atacar) {
+                let d = utilizadores.splice(i, 1)
+                console.log("Utilizador Removido = " + d[0].nome) //Porque não funcemina o d.nome?
+
+                let remov = 0
+
+                console.log(evento.path.length)
+
+                if(evento.path.length == 11) remov = evento.path[2].rowIndex -1
+                else if(evento.path.length == 12) remov = evento.path[3].rowIndex-1
+
+                console.log(remov)
+                document.getElementById('bodyUtilizadores').deleteRow(remov)
+            }
+        }
+    }
+}
+
+function LeFunconeParcerias(events) {
+
+    console.log(events.target.className)
+
+
+    let atacar = events.target.className.split(' ')[2]
+    console.log(atacar)
+    let msg = confirm("Vai remover o Utilizador\nContinuar?")
+
+    if (msg) {
+        for (let i = 0; i < parcerias.length; i++) {
+            console.log(parcerias[i].id)
+            if (parcerias[i].id == atacar) {
+                
+                let remov = 0
+
+                console.log(events.path.length)
+
+                if(events.path.length == 11) remov = events.path[2].rowIndex -1
+                else if(events.path.length == 12) remov = events.path[3].rowIndex-1
+
+                console.log("Remove " + remov)
+                document.getElementById('corpoParcerias').deleteRow(remov)
+
+                let d = parcerias.splice(i, 1)
+                console.log("Utilizador Removido = " + d[0].nome) //Porque não funcemina o d.nome?, porque o splice cria um array
+            }
+        }
+    }
+
+}
+
+//Função para preencher a tabela dos Eventos
+function preencherTabelaEventos(nomeE, dataE, loId) {
+
+    let corpo = document.getElementById('corpoEventos')
+
+    //Criar elementos
+
+
+    let linha = document.createElement('tr')
+
+
+    //1º Coluna 
+    let btnRemover = document.createElement('th')
+    btnRemover.setAttribute('scope', 'row')
+
+    let btnbtn = document.createElement('button')
+    btnbtn.setAttribute('class', 'btn btn-secondary ' + loId)
+    btnbtn.addEventListener('click', maisLixoEventos)
+
+    let Izito = document.createElement('i')
+    Izito.setAttribute('class', 'fas fa-trash ' + loId) //Falta criar uma função para isto
+
+    btnbtn.appendChild(Izito)
+    btnRemover.appendChild(btnbtn)
+    linha.appendChild(btnRemover)
+
+    //2º Coluna
+    let leNome = document.createElement('td')
+    leNome.textContent = nomeE
+
+    linha.appendChild(leNome)
+
+    //3º Coluna
+    let leData = document.createElement('td')
+    leData.textContent = dataE
+
+    linha.appendChild(leData)
+
+    //4º Coluna
+    let leBotones = document.createElement('td')
+
+    let btn1 = document.createElement('button')
+    btn1.setAttribute('class', 'btn btn-primary ' + loId)
+    let btn1Conteudo = document.createElement('i')
+    btn1Conteudo.setAttribute('class', 'fas fa-pencil-alt ' + loId)
+
+    btn1.appendChild(btn1Conteudo)
+    btn1.addEventListener('click', editarEvento)
+    btn1.setAttribute('data-toggle', 'modal')
+    btn1.setAttribute('data-target', '#ModalAdicionnarEventosAlt')
+    leBotones.appendChild(btn1)
+
+    let btn2 = document.createElement('button')
+    btn2.setAttribute('class', 'btn btn-primary ' + loId)
+    let btn2Conteudo = document.createElement('i')
+    btn2Conteudo.setAttribute('class', 'fas fa-eye ' + loId)
+
+    btn2.appendChild(btn2Conteudo)
+    leBotones.appendChild(btn2)
+
+    linha.appendChild(leBotones)
+
+    corpo.appendChild(linha)
+}
+//Função para editar uma evento
+function editarEvento(e){
+
+    let atacare = e.target.className.split(' ')[2]
+    console.log(atacare)
+
+    let caLinda = eventos.filter(function(evento){
+        return evento.id == atacare
+    }) 
+
+    caLinda = caLinda[0]
+    console.log(caLinda.data[0].split(';'))
+
+    //Código Chato
+    //Nome
+    document.getElementById('NomeEventoAlt').value = caLinda.nome
+    //Data
+    if(caLinda.data[0].split(';')[0] != "") document.getElementById('DataEventoAlt').value = caLinda.data[0].split(';')[0]
+    //Hora, para estas cenas funcionarem bem, tenho que limpar a modal sempre que esta fechar
+    if(caLinda.data[0].split(';')[1] != "") document.getElementById('HoraEventoAlt').value = caLinda.data[0].split(';')[1]
+    //Descrição
+    document.getElementById('DescriçãoEventoAlt').value = caLinda.descricao
+    //Imagem
+    document.getElementById('FotografiaEventoAlt').value = caLinda.fotografia
+    //Responsavel
+    document.getElementById('ResponsavelEventoAlt').value = caLinda.responsavel
+
+}
+
+function auxiliarData(datita){ //Não é preciso esta merda, bennhe
+    let leData = ""
+
+    console.log(datita)
+
+    let cenas = datita.split('-')
+
+    leData = cenas[2] + '-'+ cenas[1] + '-' + cenas[0]
+
+    return leData
+}
+
+
+let categoriasUnicas = []
+
+function categoriasUnicasFunc(laCategoria) {
+    //Verificar se a categoria é unica e secalhar por todas as categoriass unicas para um array e depois preencher o div com esse array
+    //A função pode só devolver o array caso um dos parametros da função seja true, mé....
+    let unica = true
+
+    //Cenas a sério
+
+    //console.log(laCategoria)
+    //A Funçaõ vai receber uma categoria que vai ser "avaliada", para ver se  nome já existe ou não
+    if (categorias.length > 0 && laCategoria != undefined) {
+        for (let i = 0; i < categorias.length; i++) {
+            if (categorias[i].nome.toUpperCase() == laCategoria.toUpperCase()) unica = false
+            // if (unica == true) categorias.push(laCategoria)
+        }
+    }
+    // else {
+    //     categorias.push(laCategoria)
+    // }
+
+    //O que está comentado acima não é preciso, porque se esta função retornar true então significa
+    //que a categoria é unica e que pode ser guardada no array categorias, que acontece ao criar o evento
+    // e que deve também acontecer ao acrescentar categorias (pelo admin)
+    return unica;
+}
+
+//Criar uma função para preencher um div com as categorias todas
+function apresentarCategorias() {
+
+    let containerTags = document.getElementById('containerTags')
+
+    for (let i = 0; i < categorias.length; i++) {
+        let tag = document.createElement('a')
+        let butoneParaRemover = document.createElement('button')
+        butoneParaRemover.setAttribute('class', 'btn lixinho ' + categorias[i].id)
+        let pilasMaximus = document.createElement('i')
+        pilasMaximus.setAttribute('class', 'fas fa-trash pilasMaximus ' + categorias[i].id)
+
+        butoneParaRemover.appendChild(pilasMaximus)
+        butoneParaRemover.addEventListener('click', maisUmaFuncione)
+
+
+        tag.textContent = categorias[i].nome
+        tag.appendChild(butoneParaRemover)
+        containerTags.appendChild(tag)
+    }
+}
+
+//Função para encher o array de categorias ao inicio
+function mamaAquiNaPila() {
+
+    let a = ""
+
+    for (let i = 0; i < eventos.length; i++) {
+        for (let k = 0; k < eventos[i].categoria.length; k++)
+
+            if (categorias.length == 0) {
+                console.log(eventos[i].categoria[k])
+                a = new Categoria(eventos[i].categoria[k])
+                categorias.push(a)
+            }
+            else if (categoriasUnicasFunc(eventos[i].categoria[k])) {
+                //console.log('ata')
+                a = new Categoria(eventos[i].categoria[k])
+                categorias.push(a)
+            }
+
+        //console.log(eventos[i].categoria)
+    }
+}
+
+//Função para 'apagar' um evento
+function maisLixoEventos(event) {
+
+    console.log(event.target.className)
+
+    let idAtacar = event.target.className.split(' ')[2]
+
+    let conf = confirm('Vai apagar o evento, continuar?')
+
+    if (conf) { //Falta gravar o array 
+        document.getElementById('corpoEventos').deleteRow(event.rowIndex)        
+
+        for (let i = 0; i < eventos.length; i++) {
+            if (idAtacar == eventos[i].id) eventos.splice(i, 1)
+        }
+
+        document.getElementById('corpoEventos').innerHTML = ""
+        let datatatata = ""
+        for (let i = 0; i < eventos.length; i++) {
+            if (eventos[i].data[0] != undefined) datatatata = eventos[i].data[0].split(';')[0]
+            preencherTabelaEventos(eventos[i].nome, datatatata, eventos[i].id)
+        }
+    }
+
+}
+
+function maisUmaFuncione(event){
+
+    //console.log(event.target.className)
+    let atacare = event.target.className.split(' ')[3]
+    console.log(atacare)
+
+    for(let i = 0 ; i<categorias.length; i++){
+        if(categorias[i].id == atacare){
+            let a = categorias.splice(i, 1)
+            console.log(a[0].nome)
+        }
+    }
+
+    document.getElementById('containerTags').innerHTML = ""
+    apresentarCategorias()    
+}
+
+//##########################################################################################################
+
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 
 //Por este tipo de merdas num outro ficheiro secalhar

@@ -22,6 +22,7 @@
 
     <!-- Minhas Merdas -->
     <link rel="stylesheet" href="projeto2.css">
+    <script src="classes.js"></script>
     <script src="projeto2.js"></script>
 
     <!-- Script para o google maps-->
@@ -37,7 +38,9 @@
 
     <!-- Navbar que vai ser igual para todos -->
     <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="projeto2.html">Map</a>
+        <a class="navbar-brand" href="projeto2.html">
+            <img id="logobar" src="images/MAP.png">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -46,6 +49,9 @@
         <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
         <div class="navbar-collapse collapse w-100 order-3" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item" style="display: none">
+                    <a class="nav-link" href="projeto2_Admin.html">Administrador</a>
+                </li>
                 <li class="nav-item">
                     <!-- Tinha active na class -->
                     <a class="nav-link" href="projeto2.html">Home
@@ -56,17 +62,17 @@
                     <a class="nav-link" href="projeto2_Agenda.html">Catálogo</a>
                 </li>
                 <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li> -->
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
                 </li>
@@ -74,6 +80,7 @@
                     <!-- Para tirar esta opçao remove se o "style" -->
                     <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
                 </li>
+
                 <li class="nav-item">
                     <!-- Botao de Login -->
                     <input id="Login" class="form-inline my-2 my-lg-0 btn btn-primary" type="button" value="Log-In" data-toggle="modal" data-target="#ModalLogin">
@@ -99,155 +106,245 @@
         <!-- </div> -->
     </nav>
 
+    <!-- ####################################### Tudo O resto #######################################-->
 
+    <!-- Detalhes sobre o site, nº inscritos, nº Eventos, etc  -->
+    <div id="">
 
+    </div>
 
+    <!-- Duas tabelas -> Utilizadores e eventos -->
+    <div class="row">
 
-    <!--Footer-->
-    <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
+        <!-- Tabela de Utilizadores -->
+        <div class="form-group col-md-6">
+            <h1 class="text-center">Utilizadores</h1>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">X</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Mail</th>
+                        <!-- <th scope="col">Handle</th> -->
+                    </tr>
+                </thead>
+                <tbody id="bodyUtilizadores">
+                    <!-- <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-user-times"></i>
+                            </button>
+                        </th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-user-times"></i>
+                            </button>
+                        </th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-user-times"></i>
+                            </button>
+                        </th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
 
-        <!--Footer Links-->
-        <div class="container text-center text-md-left">
-            <div class="row">
+        <!-- Tabela de Eventos -->
+        <div class="form-group col-md-6">
+            <h1 class="text-center">Eventos</h1>
+            <table id="tabelaEventos" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">X</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Botones</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoEventos">
+                    <!-- <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-                <!--First column-->
+    <hr class="md-2">
 
-                <!-- <div class="col-md-2 mx-auto">
-                    <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Links</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 4</a>
-                        </li>
-                    </ul>
-                </div> -->
-                <!--/.First column-->
+    <!-- Duas tabelas -> Categorias e Parcerias -->
+    <div class="row">
 
-                <hr class="clearfix w-100 d-md-none">
+        <!-- Categorias -->
+        <div class="form-group col-md-6">
+            <h1 class="text-center">Categorias</h1>
+            <div class="tags">
+                <div id="containerTags">
 
-                <!--Second column-->
-                <div class="col-md-4 mx-auto">
-                    <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Links</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#aboutus">About Us</a>
-                        </li>
-                        <li>
-                            <a href="#!">Contactos</a>
-                            <ul>
-                                <li>Miguel</li>
-                                <li>Alvaro</li>
-                                <li>Pedro</li>
-                            </ul>
-                        </li>
-                    </ul>
                 </div>
-                <!--/.Second column-->
-
-                <hr class="clearfix w-100 d-md-none">
-
-                <!-- Third column-->
-                <!-- <div class="col-md-2 mx-auto">
-                    <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Links</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#!">Link 1</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 2</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 3</a>
-                        </li>
-                        <li>
-                            <a href="#!">Link 4</a>
-                        </li>
-                    </ul>
-                </div> -->
-                <!--/.Third column -->
-
-                <hr class="clearfix w-100 d-md-none">
-
-                <!--Fourth column-->
-                <div id="map" class="col-md-8">
-                    <h5 class="text-uppercase mb-4 mt-3 font-weight-bold">Mapa</h5>
-                    <p>Pronto é isso</p>
-                </div>
-                <!--/.Fourth column-->
             </div>
         </div>
-        <!--/.Footer Links-->
 
-        <hr>
-
-        <!--Call to action-->
-        <!-- <div class="text-center py-3">
-            <ul class="list-unstyled list-inline mb-0">
-                <li class="list-inline-item">
-                    <h5 class="mb-1">Register for free</h5>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#!" class="btn btn-danger btn-rounded">Sign up!</a>
-                </li>
-            </ul>
-        </div> -->
-        <!--/.Call to action-->
-
-        <hr>
-
-        <!--Social buttons-->
-        <div class="text-center">
-            <ul class="list-unstyled list-inline">
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-sm btn-fb mx-1">
-                        <i class="fa fa-facebook"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-sm btn-tw mx-1">
-                        <i class="fa fa-twitter"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-sm btn-gplus mx-1">
-                        <i class="fa fa-google-plus"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-sm btn-li mx-1">
-                        <i class="fa fa-linkedin"> </i>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="btn-floating btn-sm btn-dribbble mx-1">
-                        <i class="fa fa-dribbble"> </i>
-                    </a>
-                </li>
-            </ul>
+        <!-- Tabela de Parcerias -->
+        <div class="form-group col-md-6">
+            <h1 class="text-center">Parcerias</h1>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalParceria">
+                <i class="fa fa-plus"></i>
+            </button>
+            <table id="tableParcerias" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">X</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Link</th>
+                        <th scope="col">Editari</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoParcerias">
+                    <!-- <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                    </tr> -->
+                </tbody>
+            </table>
         </div>
-        <!--/.Social buttons-->
+    </div>
+    <!-- ####################################### Fim de Tudo o Resto ####################################### -->
 
-        <!--Copyright-->
-        <div class="footer-copyright py-3 text-center">
-            © 2018 Copyright:
-            <a href="https://mdbootstrap.com/material-design-for-bootstrap/"> MDBootstrap.com </a>
+
+
+    <footer>
+        <div class="container">
+            <div class="row text-center text-xs-center text-sm-left text-md-left">
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <h5>Navegação</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <a href="javascript:void();">
+                                <i class="fa fa-angle-double-right"></i> Home</a>
+                        </li>
+                        <li>
+                            <a href="#aboutus">
+                                <i class="fa fa-angle-double-right"></i> About Us</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void();">
+                                <i class="fa fa-angle-double-right"></i> Catálogo</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void();">
+                                <i class="fa fa-angle-double-right"></i> FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <h5>Contactos</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <p>mapmepmip@gmail.com</p>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <h5>ESMAD</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <p> Escola Superior de Media Artes e Design</p>
+                        </li>
+
+                    </ul>
+                </div>
+                <div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
+            </div>
+
+
         </div>
-        <!--/.Copyright-->
-
     </footer>
-    <!--/.Footer-->
 
 
 
-    
+
     <!-- Modais -->
 
     <!-- Modal Registo -->
@@ -356,6 +453,161 @@
         </div>
     </div>
 
+    <!-- Modal para registar uma Parceria -->
+
+
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalParceria">
+        Launch demo modal
+    </button> -->
+
+    <!-- Modal Parceria -->
+    <div class="modal fade" id="ModalParceria" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Registar Parceria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formParceria">
+
+                        <label for="nomeP">Nome: </label>
+                        <input id="nomeP" class="form-control" type="text" placeholder="Nome da Empresa">
+
+                        <label for="nomeL">Localização: </label>
+                        <input id="nomeL" class="form-control" type="text" placeholder="Localização da Empresa">
+
+                        <label for="nomeLink">Link: </label>
+                        <input id="nomeLink" class="form-control" type="text" placeholder="Link da Empresa">
+
+                </div>
+                <div class="modal-footer">
+                    <p id="MensagemMamaAquiNaPila"></p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alterar Parceria -->
+    <div class="modal fade" id="ModalAlterarParceria" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Alterar Parceria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAlterarParceria">
+
+                        <label for="nomePAlt">Nome: </label>
+                        <input id="nomePAlt" class="form-control" type="text" required>
+
+                        <label for="nomeLAlt">Localização: </label>
+                        <input id="nomeLAlt" class="form-control" type="text">
+
+                        <label for="nomeLinkAlt">Link: </label>
+                        <input id="nomeLinkAlt" class="form-control" type="text">
+
+                </div>
+                <div class="modal-footer">
+                    <p id="MensagemMamaAquiNaPilaalt"></p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para modificar Evento -->
+    <div class="modal fade" id="ModalAdicionnarEventosAlt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Evento</h5>
+                    <!-- Mudar o nome disto quando for para editar o evento, nah -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Formulário -->
+                    <form id="FormRegistarEvento">
+                        <div class="form-group">
+                            <label for="NomeEventoAlt">Nome</label>
+                            <input id="NomeEventoAlt" type="text" class="form-control" placeholder="Introdução ao JS" value="Introdução ao JS" required>
+
+                        </div>
+                        <div class="form-row">
+
+                            <!-- Data -->
+                            <label for="DataEventoAlt">Data</label>
+                            <input id="DataEventoAlt" type="date" class="form-group" required>
+                            <!-- Deixar alterar esta merda também -->
+
+                            <!-- Hora, maneira simples -->
+                            <label for="HoraEventoAlt">Hora</label>
+                            <input id="HoraEventoAlt" type="time" class="form-group">
+
+                            <!-- Hora, esta merda ainda não está a funcionar -->
+                            <!-- <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control" value="13:14">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                </div> -->
+                            <!-- <script type="text/javascript">
+                                    $('.clockpicker').clockpicker();
+                                </script> -->
+
+                        </div>
+                        <div class="form-group">
+                            <label for="DescriçãoEventoAlt">Descrição</label>
+                            <textarea id="DescriçãoEventoAlt" class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="CategoriaEventoAlt">Categoria</label>
+                            <!-- Pode ser um select depois -->
+                            <small style="color: gray; font-size: 10px">Para adicionar várias, deixar espaço entre cada uma!</small>
+                            <input id="CategoriaEventoAlt" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="FotografiaEventoAlt">Fotografia
+                                <small style="color: gray; font-size: 10px">(Opcional)</small>
+                            </label>
+                            <input id="FotografiaEventoAlt" type="url" class="form-control" placeholder="Link da foto">
+                        </div>
+                        <div class="form-group">
+                            <label for="ResponsavelEventoAlt">Responsável pelo Evento</label>
+                            <input id="ResponsavelEventoAlt" type="text" class="form-control" placeholder="Docente Responsável" required>
+                        </div>
+                        <!-- <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                        </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <p id="MsgErroRegistarEventos" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Registar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 

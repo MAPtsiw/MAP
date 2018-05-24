@@ -13,8 +13,9 @@
         crossorigin="anonymous">
 
     <!-- Nossos -->
-    <script src="projeto2.js"></script>
     <link rel="stylesheet" href="projeto2.css">
+    <script src="classes.js"></script>
+    <script src="projeto2.js"></script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -56,6 +57,9 @@
         <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
         <div class="navbar-collapse collapse w-100 order-3" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+                <li id="Admin" class="nav-item" style="display: none">
+                    <a class="nav-link" href="projeto2_Admin.html">Administrador</a>
+                </li>
                 <li class="nav-item">
                     <!-- Tinha active na class -->
                     <a class="nav-link" href="projeto2.html">Home
@@ -84,6 +88,7 @@
                     <!-- Para tirar esta opçao remove se o "style" -->
                     <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
                 </li>
+
                 <li class="nav-item">
                     <!-- Botao de Login -->
                     <input id="Login" class="form-inline my-2 my-lg-0 btn btn-primary" type="button" value="Log-In" data-toggle="modal" data-target="#ModalLogin">

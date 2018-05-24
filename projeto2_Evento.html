@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Nome Do Evento</title>
-    <link rel="icon" href="images/favicon.png" type="image">
-    <!-- Alterar o nome em JS-->
+    <title>MAP - Evento</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -24,6 +23,7 @@
 
     <!-- Minhas Merdas -->
     <link rel="stylesheet" href="projeto2.css">
+    <script src="classes.js"></script>
     <script src="projeto2.js"></script>
 
     <!-- Script para o google maps-->
@@ -37,9 +37,11 @@
 </head>
 
 <body>
-    <!-- Navbar que vai ser igual para todos -->
-    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img id="logobar" src="images/MAP.png"></a>
+
+    <!-- Navbar que vai ser igual para todos \\ FALTA ARRANJAR AS CORES E O LOGOTIPO -->
+    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="projeto2.html">
+            <img id="logobar" src="images/MAP.png"> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -50,27 +52,16 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!-- Tinha active na class -->
-                    <a class="nav-link" href="#chupaAsMinhasTolas">Home
+                    <a class="nav-link" href="projeto2.html">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="projeto2_Agenda.html">Catálogo</a>
                 </li>
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li> -->
+
                 <li class="nav-item">
-                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
+                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunhos</a>
                 </li>
 
                 <li id="Perfil" class="nav-item" style="display: none">
@@ -87,7 +78,7 @@
                     <!-- com block não funciona, tem que ser com inline-block-->
 
                     <!-- Botao de Registar -->
-                    <input id="Registar" class="form-inline my-2 my-lg-0 btn btn-secundary red" type="button" value="Registar" data-toggle="modal"
+                    <input id="Registar" class="form-inline my-2 my-lg-0 btn btn-primary" type="button" value="Registar" data-toggle="modal"
                         data-target="#ModalRegistar">
 
 
@@ -104,81 +95,322 @@
     </nav>
 
 
-    
 
 
 
 
 
-    <!-- ###################################### FOOTER ####################################-->
-    <footer>
-        <div class="container">
-            <div class="row text-center text-xs-center text-sm-left text-md-left">
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    <h5>Navegação</h5>
-                    <ul class="list-unstyled quick-links">
-                        <li>
-                            <a href="javascript:void();">
-                                <i class="fa fa-angle-double-right"></i> Home</a>
-                        </li>
-                        <li>
-                            <a href="#aboutus">
-                                <i class="fa fa-angle-double-right"></i> About Us</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void();">
-                                <i class="fa fa-angle-double-right"></i> Catálogo</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void();">
-                                <i class="fa fa-angle-double-right"></i> FAQ</a>
-                        </li>
-                    </ul>
+
+
+
+
+
+    <!-- Modais -->
+
+    <!-- Modal Registo -->
+    <div class="modal fade" id="ModalRegistar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    <h5>Contactos</h5>
-                    <ul class="list-unstyled quick-links">
-                        <li>
-                            <p>mapmepmip@gmail.com</p>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript:void();">
-                                <i class="fab fa-facebook"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript:void();">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript:void();">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript:void();">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    <h5>ESMAD</h5>
-                    <ul class="list-unstyled quick-links">
-                        <li>
-                            <p> Escola Superior de Media Artes e Design</p>
-                        </li>
+                <div class="modal-body">
 
-                    </ul>
+                    <!-- Formulário -->
+                    <form id="FormRegisto">
+                        <div class="form-group">
+                            <label for="Nome">Nome</label>
+                            <input id="Nome" type="text" class="form-control" placeholder="Nome..." value="Jajão" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="Mail">Email address</label>
+                            <input id="Mail" type="email" class="form-control" placeholder="Enter email" value="ad@gmail.com" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="PassRegisto">Password</label>
+                            <input id="PassRegisto" type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ConfPassRegisto">Confirmar Password</label>
+                            <input id="ConfPassRegisto" type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Fotografia">Fotografia
+                                <small style="color: gray; font-size: 10px">(Opcional)</small>
+                            </label>
+                            <input id="Fotografia" type="url" class="form-control" placeholder="Link da foto">
+                        </div>
+                        <div class="form-group">
+                            <select name="" id="tipoUtilizador">
+                                <option disabled selected hidden>Tipo de Utilizador</option>
+                                <option value="Docente">Docente</option>
+                                <option value="Estudante">Estudante</option>
+                            </select>
+                        </div>
+                        <!-- <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
-                <div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
+
+                <p id="MsgErroRegistar" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Registar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Login-->
+    <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Log-In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Formulário -->
+                    <form id="FormLogin">
+                        <div class="form-group">
+                            <label for="mailLogin">Email address</label>
+                            <input id="mailLogin" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="passLogin">Password</label>
+                            <input id="passLogin" type="password" class="form-control" placeholder="Password">
+                        </div>
+                        <!-- <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <p id="MsgErroLogin" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Log-In</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- IMAGEM E DADOS -->
+        <div class="row">
+
+            <div class="col-md-8">
+                <img class="img-fluid" id="eventimg" src="images/evento1.png" alt="">
             </div>
 
+            <div class="col-md-4 evento-dados">
+                <p> 26 MAIO </p>
+                <h3 class="nomeevento">Nome do Evento</h3>
+                <p> por (Organizador do evento)</p>
+                <p> ESMAD - Auditório</p>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <p> Preço</p>
+            </div>
 
         </div>
-    </footer>
-    <!-- /Footer -->
+        <!-- /.row -->
+
+        <!-- BOTOES DE PARTILHA E BOTAO DE INSCRIÇÃO -->
+        <br>
+        <div class="row">
+            <div class="col-md-8">
+                <div>
+                    <a href="#" class="btn btn-primary">
+                        <i class="fa fa-share align-middle"></i>
+                    </a>
+                    <a href="#" class="btn btn-danger">
+                        <i class="fa fa-heart align-middle"></i>
+                    </a>
+                    <a href="#" class="btn btn-success">
+                        <i class="fa fa-check align-middle"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <a href="#" class="btn btn-lg btn-success button-inscrever">
+                    <span class="glyphicon glyphicon-hand-right"></span> INSCREVA-SE JÁ </a>
+            </div>
+        </div>
+        <hr>
+
+        <br>
+<!-- COLUNA DA ESQUERDA - DESCRIÇÃO E COMENTÁRIOS -->
+        <div class="row">
+            <div class="col-md-8 p-descricao">
+                <h5> Descrição: </h5>
+                <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam,
+                    commodi illo corrupti nulla velit et. Nobis velit itaque quas placeat numquam repellat! Suscipit tenetur
+                    iste accusantium, praesentium porro inventore animi quisquam nisi modi ut nostrum vitae dolorem error!
+                    Laboriosam pariatur iusto ratione dolorem maxime porro nemo asperiores, nam est error ex ipsa. Provident
+                    quia harum corporis voluptas voluptate labore consequuntur modi totam officia quidem incidunt mollitia
+                    error id nulla eius nesciunt animi sunt vero aliquid obcaecati nam optio, vitae, molestiae ratione. Minima!
+                </p>
+                <br>
+                <h6> Categorias:</h6>
+                <div class="tags">
+                    <div>
+                        <a href="#">informática</a>
+                        <a href="#">html</a>
+                        <a href="#">javascript</a>
+                        <a href="#">programação</a>
+                        <a href="#">tag5</a>
+                        <a href="#">tag6</a>
+                        <a href="#">tag7</a>
+                        <a href="#">tag8</a>
+                    </div>
+                </div>
+                <br>
+                <h5> Comentários:</h5>
+
+                <div>
+                    <textarea class="form-control input-sm " type="textarea" id="message" placeholder="Mensagem" rows="7"></textarea>
+                    <br>
+                    <div class="row">
+                        <div class="form-group col-md-3"></div>
+                        <div class="form-group col-md-3"></div>
+                        <div class="form-group col-md-3"></div>
+                        <div class="form-group col-md-3">
+                            <button class="form-control input-sm btn btn-success" id="btnComentar" name="btnComentar" type="button">
+                                Comentar</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="media comment-box">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="img-responsive user-photo" src="images/2.jpg">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Pedro Fragata</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                            type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                            but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised
+                            in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                            with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    </div>
+                </div>
+                <div class="media comment-box">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="img-responsive user-photo" src="images/4.png">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Omega LUL</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                            type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                            but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised
+                            in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                            with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+<!-- COLUNA DIREITA - INSCRITOS E PONTUAÇÃO -->
+            <div class="cold-md-4 p-descricao">
+                <h5> Inscritos no evento: </h5>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div>
+                                <figure>
+                                    <img class="pessoas-inscritas" src="images/4.png" alt="inscrita">
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>
+                                <figure>
+                                    <img class="pessoas-inscritas" src="images/4.png" alt="inscrita">
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>
+                                <figure>
+                                    <img class="pessoas-inscritas" src="images/4.png" alt="inscrita">
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>
+                                <figure>
+                                    <img class="pessoas-inscritas" src="images/+.png" alt="inscrita">
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <h5> Pontuação: </h5>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div>
+                                <a href="#" class="btn btn-warning">
+                                    <i class="fa fa-star align-middle"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>
+                                <h2>4.3<small>/ 5</small></h2>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container -->
 </body>
 
 </html>
