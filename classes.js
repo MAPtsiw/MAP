@@ -68,18 +68,24 @@ class Utilizador {
 }
 
 class Evento {
-    constructor(nome, data, descricao, categoria, imagem, responsavel, /*Fica em último, ou então não*/ userId, pontuacao, inscritos) { //Puta de grande
+    constructor(nome, data, descricao, categoria, imagem, responsavel, /*Fica em último, ou então não*/ userId/*, pontuacao, inscritos*/) { //Puta de grande
         this._categoria = []
+        this._inscritos = []
+
+        Evento._contador = 0;
+        Evento._pontuar = 0;
 
         this.nome = nome
         this.data = data
-        this.pontuacao = pontuacao
-        this.inscritos = inscritos
+
         this.descricao = descricao
         this.categoria = categoria
         this.imagem = imagem
         this.responsavel = responsavel
         this.userId = userId
+
+        // this.pontuacao = pontuacao
+        // this.inscritos = inscritos
         this._id = Evento.getLastId() + 1
     }
 
@@ -104,7 +110,9 @@ class Evento {
     }
 
     set pontuacao(valor) {
-        this._pontuacao = valor
+        let merdas = Evento.fazerPontuacao(valor)
+        console.log("merdas - " + merdas)
+        this._pontuacao = merdas
     }
 
     get inscritos() {
@@ -112,7 +120,16 @@ class Evento {
     }
 
     set inscritos(valor) {
-        this._inscritos = valor
+        if (this._inscritos.length == 0) {
+            this._inscritos.push(valor)
+        }
+        else {
+            for (let i = 0; i < this._inscritos.length; i++) {
+                if (this._inscritos[i] == valor) return
+            }
+        }
+
+        this._inscritos.push(valor) //vai guardar os id's dos utilizadores que se inscreveram
     }
 
     get descricao() {
@@ -169,6 +186,11 @@ class Evento {
         this._userId = valor
     }
 
+    //só para poder ir sabendo onde vai o contador 
+    get contador() {
+        return this._contador
+    }
+
     // Get the last ID
     static getLastId() {
         let lastId = 0
@@ -180,8 +202,21 @@ class Evento {
         return lastId
     }
 
-    static confirmarCategorias() {
+    static fazerPontuacao(mamilos) { //Mais uma merda a funcionar em principio
+        let media = 0, soma = 0, contador = 0, maixUmaVariavel = 0;
+        Evento._contador++
+      
+        if(Evento._contador == 0) maixUmaVariavel = Evento._contador
+        else maixUmaVariavel = Evento._contador - 1
 
+        soma = Evento._pontuar * maixUmaVariavel
+
+        soma += mamilos
+        //console.log(soma)
+        media = soma / Evento._contador
+        Evento._pontuar = media
+        console.log(Evento._pontuar)
+        return media
     }
 }
 
@@ -261,6 +296,93 @@ class Categoria {
         let lastId = 0
         if (categorias.length > 0) {
             lastId = categorias[categorias.length - 1].id
+            //console.log('O lastId do utilizador é = ' + lastId)
+        }
+
+        return lastId
+    }
+}
+
+class Comentario {
+    constructor(comentario, userId, eventoId) {
+        this.comentario = comentario
+        this.userId = userId
+        this.eventoId = eventoId
+
+        this._id = Comentario.getLastId() + 1
+    }
+
+    get comentario() {
+        return this._comentario
+    }
+
+    set comentario(valor) {
+        this._comentario = valor
+    }
+
+    get userId() {
+        return this._userId
+    }
+
+    set userId(valor) {
+        this._userId = valor
+    }
+
+    get eventoId() {
+        return this._eventoId
+    }
+
+    set eventoId(valor) {
+        this._eventoId = valor
+    }
+
+    get id() {
+        return this._id
+    }
+    static getLastId() {
+        let lastId = 0
+        if (comentarios.length > 0) {
+            lastId = comentarios[comentarios.length - 1].id //Está a dar NAN
+            //console.log('O lastId do utilizador é = ' + lastId)
+        }
+
+        return lastId
+    }
+}
+
+
+class Testemunho {
+    constructor(testemunho, userId) {
+        this.testemunho = testemunho
+        this.userId = userId
+
+        this._id = Testemunho.getLastId() + 1
+    }
+
+    get testemunho() {
+        return this._testemunho
+    }
+
+    set testemunho(valor) {
+        this._testemunho = valor
+    }
+
+    get userId() {
+        return this._userId
+    }
+
+    set userId(valor) {
+        this._userId = valor
+    }
+
+    get id() {
+        return this._id
+    }
+
+    static getLastId() {
+        let lastId = 0
+        if (testemunhos.length > 0) {
+            lastId = testemunhos[testemunhos.length - 1].id
             //console.log('O lastId do utilizador é = ' + lastId)
         }
 

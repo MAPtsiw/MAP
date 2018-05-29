@@ -7,6 +7,10 @@ let parcerias = []
 
 let categorias = []
 
+let comentarios = []
+
+let testemunhos = []
+
 //Vai servir para saber se há alguém com sessão iniciada ou não
 let logged = false;
 
@@ -21,6 +25,9 @@ let idEventoAlterar = 0
 
 //Variavel que vai guardar o id da parceria a alterar
 let idDaParceriaModificar = 0
+
+//Mesma merda que em cima para os eventos
+let ideventoModificar = 0
 
 //------------------------------------------
 
@@ -88,6 +95,16 @@ window.onload = function () {
             parcerias.push(b)
         }
         console.log(parcerias)
+    }
+
+    if (this.localStorage.getItem('comentarios')) {
+        let a = JSON.parse(localStorage.getItem('comentarios'))
+
+        for (let i = 0; i < a.length; i++) {
+            let b = new Comentario(a[i]._comentario, a[i]._userId, a[i]._eventoId)
+            comentarios.push(b)
+        }
+        console.log(comentarios)
     }
 
     for (let i = 0; i < utilizadores.length; i++) { //porque fodeu se
@@ -398,7 +415,7 @@ window.onload = function () {
             //Função para adicionar a opção de ver o perfil do utilizador, se esta merda fosse com windows forms.....
             verPerfil(true);
 
-
+            location.reload() //Por alguma razºao esta merda não está a fazer reload
         }
         else {
             msgErro.innerHTML = mensagemErro(erroMail, erroPass) //Função que personaliza a mensagem de erro
@@ -433,7 +450,7 @@ window.onload = function () {
         btnLogin.style.display = "inline-block"
 
         //Esconder o cenas do admin
-        adminzito.style.display = 'none'
+        if (adminzito != null) adminzito.style.display = 'none' //Por isto em todas as navbars
 
         //Esconder o botão de Adicionar Eventos
         if (btnAdicionar != null)
@@ -732,7 +749,7 @@ window.onload = function () {
                 if (searchNome == "") {
                     console.log(eventos)
                     filtraditos = eventos.filter(function (evento) {
-                        return evento.categoria
+                        return evento.categoria[0]
                             .toUpperCase()
                             .includes(searchGenero.toUpperCase())
                     })
@@ -740,7 +757,7 @@ window.onload = function () {
                 }
                 else {
                     filtraditos = filtraditos.filter(function (evento) {
-                        return evento.categoria
+                        return evento.categoria[0]
                             .toUpperCase()
                             .includes(searchGenero.toUpperCase())
                     })
@@ -1015,61 +1032,184 @@ window.onload = function () {
             //Limpar a msgErro
             document.getElementById('MensagemMamaAquiNaPila').innerHTML = ""
         });
-    } 
+    }
 
     //Fazer uma cena para alterar a parceria
     let formAltParceria = document.getElementById('formAlterarParceria')
-    formAltParceria.addEventListener('submit', function(e){
-        e.preventDefault()
+    if (formAltParceria != undefined) {
+        formAltParceria.addEventListener('submit', function (e) {
+            e.preventDefault()
 
-        let sinhe = true
+            let sinhe = true
 
-        let nome = document.getElementById('nomePAlt').value
-        let localizacao = document.getElementById('nomeLAlt').value
-        let link = document.getElementById('nomeLinkAlt').value
+            let nome = document.getElementById('nomePAlt').value
+            let localizacao = document.getElementById('nomeLAlt').value
+            let link = document.getElementById('nomeLinkAlt').value
 
 
-        if(localizacao == "" || link == ""){
-            let conf = confirm("Tem campos por preencher, continuar?")
+            if (localizacao == "" || link == "") {
+                let conf = confirm("Tem campos por preencher, continuar?")
 
-            if(!conf) sinhe = false
-        }
-    
-        if(sinhe){
-            for(let i = 0; i< parcerias.length; i++){
-                if(idDaParceriaModificar == parcerias[i].id){
-                    parcerias[i].nome = nome
-                    parcerias[i].localizacao = localizacao
-                    parcerias[i].link = link
+                if (!conf) sinhe = false
+            }
 
-                    document.getElementById('MensagemMamaAquiNaPila').innerHTML = "Be mudado, És Ganda cena"
+            if (sinhe) {
+                for (let i = 0; i < parcerias.length; i++) {
+                    if (idDaParceriaModificar == parcerias[i].id) {
+                        parcerias[i].nome = nome
+                        parcerias[i].localizacao = localizacao
+                        parcerias[i].link = link
+
+                        document.getElementById('MensagemMamaAquiNaPila').innerHTML = "Be mudado, És Ganda cena"
+                    }
                 }
-            }
 
 
-            document.getElementById('corpoParcerias').innerHTML = ""
-            for(let i = 0; i<parcerias.length; i++){
-                preencherTabelaUtiPar(parcerias[i].nome, parcerias[i].link, parcerias[i].id, true)
+                document.getElementById('corpoParcerias').innerHTML = ""
+                for (let i = 0; i < parcerias.length; i++) {
+                    preencherTabelaUtiPar(parcerias[i].nome, parcerias[i].link, parcerias[i].id, true)
+                }
+                //Falta gravar o novo array
+
             }
-            //Falta gravar o novo array
-            
-        }
-    })
+        })
+
+    }
 
     let forminhaModificarEvento = document.getElementById('FormRegistarEventoAlt')
-    forminhaModificarEvento.addEventListener('submit', function(e){
-        e.preventDefault()
+    if (forminhaModificarEvento != undefined) {
+        forminhaModificarEvento.addEventListener('submit', function (e) {
+            e.preventDefault()
 
-        // let nomi
-    })
+            let continuar = true
+
+            let nomi = document.getElementById('NomeEventoAlt').value //required
+            let dataEve = document.getElementById('DataEventoAlt').value //required
+            let horaEve = document.getElementById('HoraEventoAlt').value
+            let descricaoEve = document.getElementById('DescriçãoEventoAlt').value
+            let categoriaEve = document.getElementById('CategoriaEventoAlt').value //required
+            let fotoEve = document.getElementById('FotografiaEventoAlt').value
+            let responsavelEve = document.getElementById('ResponsavelEventoAlt').value //required
+
+            if (horaEve == "" || descricaoEve == "" || fotoEve == "") {
+                let confirmar = confirm("Tem campos por preencher, continuar?")
+
+                if (!confirmar) continuar = false
+            }
+
+            if (continuar) {
+
+                let a = ideventoModificar
+
+                for (let i = 0; i < eventos.length; i++) {
+                    if (eventos[i].id == a) {
+                        eventos[i].nome = nomi
+
+                        let dataPlim = dataEve + ';' + horaEve
+                        eventos[i].data[0] = dataPlim //Ver se fazer push disto faz sentido ou nem por isso
+
+                        eventos[i].descricao = descricaoEve
+
+                        eventos[i].fotografia = fotoEve
+
+                        eventos[i].responsavel = responsavelEve
+                    }
+                }
+            }
+        })
+    }
+
+
+
+    //Página do Evento 
+    if (document.getElementById('paginaEvento') != null) {
+        if (localStorage.getItem('EventoMostrar')) { //FAzer tudo aqui dentro? Por agora sim, sim porque se não vai estar a comentar o quê....
+            let a = JSON.parse(localStorage.getItem('EventoMostrar'))
+            let eventoLindo = new Evento(a._nome, a._data, a._descricao, a._categoria, a._imagem, a._responsavel, a._userId)
+            eventoLindo._id = a._id
+            //this.alert(eventoLindo.nome)
+
+            let leData = eventoLindo.data[0].split(';')[0]
+            console.log(a)
+            let ajuda = new Date(leData)
+            this.console.log(ajuda)
+            document.getElementById('diaMes').innerHTML = ajuda.toString().split(' ')[2] + "  " + ajuda.toString().split(' ')[1] //Transformar isto para aparecer o mes por extenso
+            document.getElementById('nomeEvento').innerHTML = eventoLindo.nome
+            document.getElementById('leResponsavel').innerHTML = "por: " + eventoLindo.responsavel
+            document.getElementById('LaDescricao').innerHTML = eventoLindo.descricao
+
+            //Categorias, não é preciso fazer como em cima, porque já está feito na função
+            apresentarCategorias(false)
+            mostrarLosComentarios(eventoLindo.id)
+
+
+            if (!logged) document.getElementById('btnInscrever').disabled = true //Confirmar se está a funcionar  
+
+            //Fazer cenaas para o botão de comentar
+            let btnComentar = document.getElementById('btnComentar')
+            btnComentar.addEventListener('click', function () {
+                let caixaComentário = document.getElementById('message').value
+
+
+                if (caixaComentário != "") {
+
+                    let novoComentario = new Comentario(caixaComentário, utilizadores[indexUtilizador].id, eventoLindo.id)
+
+                    console.log(novoComentario)
+                    comentarios.push(novoComentario)
+
+                    localStorage.setItem('comentarios', JSON.stringify(comentarios))
+                    caixaComentário.value = "" //Não sei se vai resultar
+                }
+                else {
+                    alert("Que comentário interessante, Bem miudo")
+                }
+
+                //Função para mandar Eventos
+                if (comentarios.length > 0) {
+                    mostrarLosComentarios(eventoLindo.id, utilizadores[indexUtilizador].id)
+                }
+                else {
+                    document.getElementById('containerComentarios').innerHTML = "Não há comentarios ainda"
+                }
+
+            })
+
+            //Fazer mais merdas para o botão de Increver se
+            let btnInscrever = document.getElementById('btnInscrever')
+            btnInscrever.addEventListener('click', function () {
+                let botaAtacar = eventoLindo.id
+
+                for (let i = 0; i < eventos.length; i++) {
+                    if (eventos[i].id == botaAtacar) {
+                        eventos[i].inscritos = utilizadores[indexUtilizador].id //Esta merda está me a criar um array com dois valores.... Porquê
+                        console.log("fodeu")
+                    }
+                    //Não esquecer de gravar o evento depois
+                }
+            })
+
+            let estrelasPontuar = document.getElementsByClassName('btn btn-default btn-grey btn-sm')
+            console.log(estrelasPontuar)
+            for (let i = 0; i < estrelasPontuar.length; i++) {
+                //this.console.log(estrelasPontuar[i])
+                estrelasPontuar[i].addEventListener('click', botaoPontuar)
+            }
+
+        }
+    }
 }
+
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
 //#######################################################################################################################
 //#######################################################################################################################
 //#######################################################################################################################
 //#######################################################################################################################
 
 //---------------------------------------------- Funções ----------------------------------------------------------------------------------------
-
 //Função para preencher o catálogo com uma mensagem de "erro", para o caso de não existir nenhum evneto à medida que se vai procurando o evento
 function msgErroCatalogo(tamanhoArray) { //Nome de merda
 
@@ -2186,7 +2326,7 @@ function preencherTabelaUtiPar(nome, notNome, LeId, parceria = false) { //Vai re
     corpo.appendChild(linha)
 }
 //Função para editar as parcerias
-function editarParceria(evento){
+function editarParceria(evento) {
 
     console.log(evento.target.className)
 
@@ -2194,7 +2334,7 @@ function editarParceria(evento){
 
     let atacarre = evento.target.className.split(' ')[2]
 
-    let memoNaVirilha = parcerias.filter(function(leParceria){
+    let memoNaVirilha = parcerias.filter(function (leParceria) {
         return leParceria.id == atacarre
     })
 
@@ -2226,8 +2366,8 @@ function LeFuncone(evento, utilizadori) { //Só falta "gravar" o novo array em l
 
                 console.log(evento.path.length)
 
-                if(evento.path.length == 11) remov = evento.path[2].rowIndex -1
-                else if(evento.path.length == 12) remov = evento.path[3].rowIndex-1
+                if (evento.path.length == 11) remov = evento.path[2].rowIndex - 1
+                else if (evento.path.length == 12) remov = evento.path[3].rowIndex - 1
 
                 console.log(remov)
                 document.getElementById('bodyUtilizadores').deleteRow(remov)
@@ -2249,13 +2389,13 @@ function LeFunconeParcerias(events) {
         for (let i = 0; i < parcerias.length; i++) {
             console.log(parcerias[i].id)
             if (parcerias[i].id == atacar) {
-                
+
                 let remov = 0
 
                 console.log(events.path.length)
 
-                if(events.path.length == 11) remov = events.path[2].rowIndex -1
-                else if(events.path.length == 12) remov = events.path[3].rowIndex-1
+                if (events.path.length == 11) remov = events.path[2].rowIndex - 1
+                else if (events.path.length == 12) remov = events.path[3].rowIndex - 1
 
                 console.log("Remove " + remov)
                 document.getElementById('corpoParcerias').deleteRow(remov)
@@ -2324,36 +2464,46 @@ function preencherTabelaEventos(nomeE, dataE, loId) {
     btn2.setAttribute('class', 'btn btn-primary ' + loId)
     let btn2Conteudo = document.createElement('i')
     btn2Conteudo.setAttribute('class', 'fas fa-eye ' + loId)
+    let azito = document.createElement('a')
+    azito.setAttribute('href', 'projeto2_Evento.html')
+    azito.setAttribute('target', '_blank')
 
+    azito.appendChild(btn2)
     btn2.appendChild(btn2Conteudo)
-    leBotones.appendChild(btn2)
+    btn2.addEventListener("click", verEvento)
+
+    leBotones.appendChild(azito)
 
     linha.appendChild(leBotones)
 
     corpo.appendChild(linha)
 }
 //Função para editar uma evento
-function editarEvento(e){
+function editarEvento(e) {
 
     let atacare = e.target.className.split(' ')[2]
     console.log(atacare)
 
-    let caLinda = eventos.filter(function(evento){
+    let caLinda = eventos.filter(function (evento) {
         return evento.id == atacare
-    }) 
+    })
+
 
     caLinda = caLinda[0]
     console.log(caLinda.data[0].split(';'))
 
+    ideventoModificar = caLinda.id
     //Código Chato
     //Nome
     document.getElementById('NomeEventoAlt').value = caLinda.nome
     //Data
-    if(caLinda.data[0].split(';')[0] != "") document.getElementById('DataEventoAlt').value = caLinda.data[0].split(';')[0]
+    if (caLinda.data[0].split(';')[0] != "") document.getElementById('DataEventoAlt').value = caLinda.data[0].split(';')[0]
     //Hora, para estas cenas funcionarem bem, tenho que limpar a modal sempre que esta fechar
-    if(caLinda.data[0].split(';')[1] != "") document.getElementById('HoraEventoAlt').value = caLinda.data[0].split(';')[1]
+    if (caLinda.data[0].split(';')[1] != "") document.getElementById('HoraEventoAlt').value = caLinda.data[0].split(';')[1]
     //Descrição
     document.getElementById('DescriçãoEventoAlt').value = caLinda.descricao
+    //CAtegoria
+    document.getElementById('CategoriaEventoAlt').value = caLinda.categoria[0] //Isto vai ter que passar para um ciclo for.....
     //Imagem
     document.getElementById('FotografiaEventoAlt').value = caLinda.fotografia
     //Responsavel
@@ -2361,14 +2511,14 @@ function editarEvento(e){
 
 }
 
-function auxiliarData(datita){ //Não é preciso esta merda, bennhe
+function auxiliarData(datita) { //Não é preciso esta merda, bennhe
     let leData = ""
 
     console.log(datita)
 
     let cenas = datita.split('-')
 
-    leData = cenas[2] + '-'+ cenas[1] + '-' + cenas[0]
+    leData = cenas[2] + '-' + cenas[1] + '-' + cenas[0]
 
     return leData
 }
@@ -2402,12 +2552,28 @@ function categoriasUnicasFunc(laCategoria) {
 }
 
 //Criar uma função para preencher um div com as categorias todas
-function apresentarCategorias() {
+function apresentarCategorias(mostrarLixo = true) { //Para apresentar as categorias também na página dos eventos
 
-    let containerTags = document.getElementById('containerTags')
+    let containerTags = ""
 
-    for (let i = 0; i < categorias.length; i++) {
+    if (mostrarLixo) containerTags = document.getElementById('containerTags')
+    else containerTags = document.getElementById('categoriasEvento')
+
+    let tamanho = 0
+    let eventito = ""
+
+    if (mostrarLixo) tamanho = categorias.length
+    else {
+        eventito = JSON.parse(localStorage.getItem('EventoMostrar'))
+
+        tamanho = eventito._categoria.length
+        console.log(eventito._categoria)
+    }
+
+    for (let i = 0; i < tamanho; i++) {
         let tag = document.createElement('a')
+
+        //Botão para remover o evento
         let butoneParaRemover = document.createElement('button')
         butoneParaRemover.setAttribute('class', 'btn lixinho ' + categorias[i].id)
         let pilasMaximus = document.createElement('i')
@@ -2416,12 +2582,17 @@ function apresentarCategorias() {
         butoneParaRemover.appendChild(pilasMaximus)
         butoneParaRemover.addEventListener('click', maisUmaFuncione)
 
+        let conteudoTags = ""
 
-        tag.textContent = categorias[i].nome
-        tag.appendChild(butoneParaRemover)
+        if (mostrarLixo) conteudoTags = categorias[i].nome
+        else conteudoTags = eventito._categoria[i]
+
+        tag.textContent = conteudoTags
+        if (mostrarLixo == true) tag.appendChild(butoneParaRemover)
         containerTags.appendChild(tag)
     }
 }
+
 
 //Função para encher o array de categorias ao inicio
 function mamaAquiNaPila() {
@@ -2456,7 +2627,7 @@ function maisLixoEventos(event) {
     let conf = confirm('Vai apagar o evento, continuar?')
 
     if (conf) { //Falta gravar o array 
-        document.getElementById('corpoEventos').deleteRow(event.rowIndex)        
+        document.getElementById('corpoEventos').deleteRow(event.rowIndex)
 
         for (let i = 0; i < eventos.length; i++) {
             if (idAtacar == eventos[i].id) eventos.splice(i, 1)
@@ -2472,24 +2643,186 @@ function maisLixoEventos(event) {
 
 }
 
-function maisUmaFuncione(event){
+function maisUmaFuncione(event) {
 
     //console.log(event.target.className)
     let atacare = event.target.className.split(' ')[3]
     console.log(atacare)
 
-    for(let i = 0 ; i<categorias.length; i++){
-        if(categorias[i].id == atacare){
+    for (let i = 0; i < categorias.length; i++) {
+        if (categorias[i].id == atacare) {
             let a = categorias.splice(i, 1)
             console.log(a[0].nome)
         }
     }
 
     document.getElementById('containerTags').innerHTML = ""
-    apresentarCategorias()    
+    apresentarCategorias()
 }
 
-//##########################################################################################################
+
+//Função para guardar os valores para depois usar los na página dos eventos
+function verEvento(e) {
+
+    let atacari = e.target.className.split(' ')[2]
+    console.log(atacari)
+
+    let pimba = eventos.filter(function (event) {
+        return event.id == atacari
+    })
+
+    pimba = pimba[0]
+    console.log(pimba.nome)
+
+    localStorage.setItem("EventoMostrar", JSON.stringify(pimba))
+}
+
+//Função para mostrar os comentários
+function mostrarLosComentarios(eventoId, utilizadorId = 0) { //Depois tenho que passar pelos utilizadores e pelos utilizadores e pelos eventos????
+
+    let magicoUtilizador = ""
+
+    if (utilizadorId != 0) {
+        magicoUtilizador = utilizadores.filter(function (util) {
+            return util.id == utilizadorId
+        })
+        magicoUtilizador = magicoUtilizador[0]
+    }
+
+    let gracasADeusNaoNasciEvento = eventos.filter(function (eve) {
+        return eve.id == eventoId
+    })
+
+
+    gracasADeusNaoNasciEvento = gracasADeusNaoNasciEvento[0]
+    //console.log(magicoUtilizador, aindaBemQueNaoNasciEvento)
+
+    let comentariosDoEvento = comentarios.filter(function (comentario) {
+        return comentario.eventoId == gracasADeusNaoNasciEvento.id
+    })
+
+    console.log(comentariosDoEvento)
+
+    let masterDiv = document.getElementById('containerComentarios')
+    if (utilizadorId == 0) masterDiv.innerHTML = ""
+
+    let tamanho = 0
+    if (utilizadorId != 0) tamanho = 1
+    else tamanho = comentariosDoEvento.length
+
+    for (let i = 0; i < tamanho; i++) { //Ou fazer mais filters para ir adaptando os utilizadores... 
+
+        if (utilizadorId == 0) {
+            magicoUtilizador = utilizadores.filter(function (util) {
+                return util.id == comentariosDoEvento[i].userId
+            })
+            magicoUtilizador = magicoUtilizador[0]
+        }
+
+        //Criar a caixa de comentário
+        let caixaGrande = document.createElement('div')
+        caixaGrande.setAttribute('class', 'media comment-box')
+
+        let caixaComImagem = document.createElement('div')  //Fazer appened
+        caixaComImagem.setAttribute('class', 'media-left')
+
+        let referenciaParaPaginaUtilizador = document.createElement('a')
+        referenciaParaPaginaUtilizador.setAttribute('href', 'projeto2_Perfil.html')
+
+        //Adicionar o eventoListener à imagem
+        let imagem = document.createElement('img')
+        let conteudoImagem = ""
+        if (magicoUtilizador.fotografia == "") conteudoImagem = magicoUtilizador.fotografia //Posso ter que mudar isto visto que os utilizadores estão a ficar mal
+        else conteudoImagem = "https://drwfxyu78e9uq.cloudfront.net/usercontent/olhafrutafresca/media/images/95082ab-batata-doce.jpg"
+
+        imagem.setAttribute('src', conteudoImagem)
+
+        referenciaParaPaginaUtilizador.appendChild(imagem)
+        caixaComImagem.appendChild(referenciaParaPaginaUtilizador)
+        caixaGrande.appendChild(caixaComImagem)
+
+        let divComentario = document.createElement('div')
+        divComentario.setAttribute('class', 'media-body')
+
+        let nomeComentario = document.createElement('h4')
+        nomeComentario.setAttribute('class', 'media-heading')
+        nomeComentario.textContent = magicoUtilizador.nome
+
+        //console.log(magicoUtilizador)
+        divComentario.appendChild(nomeComentario)
+
+        let textoComentario = document.createElement('p')
+        if (utilizadorId == 0) textoComentario.textContent = comentariosDoEvento[i].comentario
+        else {
+            if (comentariosDoEvento[comentariosDoEvento.length - 1].comentario != undefined) {
+                textoComentario.textContent = comentariosDoEvento[comentariosDoEvento.length - 1].comentario //Para ir buscar só o ultimio comentário feito
+            }
+        }
+
+        divComentario.appendChild(textoComentario)
+        caixaGrande.appendChild(divComentario)
+        masterDiv.appendChild(caixaGrande)
+    }
+
+}
+
+let valorDeMercado = 0; //Valor que vai seer adicionado à pontuação
+
+function botaoPontuar(e) { //Isto vai abrir um botão para deixar pontuar, cada utilizador só vai pontuar o evento 1 vez, secalhar adicionar um bolleano para dizer se já pontoou ou não
+
+    let botaozao = document.getElementById('botaoPontuar')
+    let estrelasPontuar = document.getElementsByClassName('btn btn-default btn-grey btn-sm')
+
+    botaozao.style.display = 'inline-block'
+
+    let botone = document.getElementById('botaoPontuar')
+    botone.addEventListener('click', realmentePontuar)
+
+    //Agora, pintar as estrelas
+    
+    if (e.target.id == "") valorDeMercado = parseInt(e.target.parentNode.id)
+    else valorDeMercado = parseInt(e.target.id)
+
+    //console.log(valorDeMercado)
+
+    for(let i = 0; i<estrelasPontuar.length; i++){
+        if(estrelasPontuar[i].id <= valorDeMercado){
+            estrelasPontuar[i].style.background = "yellow"
+        }
+        else{
+            estrelasPontuar[i].style.background = "grey"
+        }
+    }
+}
+
+function realmentePontuar() { //Em principio as matemáticas vão ser feitas na classe
+    let a = ""
+    if (localStorage.getItem('EventoMostrar')) {
+        a = JSON.parse(localStorage.getItem('EventoMostrar'))
+    }
+
+    let elIndex = 0;
+    for (let i = 0; i < eventos.length; i++) {
+        if (eventos[i].id == a._id) {
+            elIndex = i
+        }
+    }
+
+    //Matemáticas
+    // console.log(eventos[elIndex].nome) //Dá o que quero
+    eventos[elIndex].pontuacao = valorDeMercado
+    document.getElementById('pontuacaoMedia').innerHTML = `${eventos[elIndex].pontuacao} <small style="font-size:20px">/5</small>`
+}
+
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
+//#######################################################################################################################
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2501,7 +2834,240 @@ function Mapa() {
     // Posicionar o mapa
     let map = new google.maps.Map(document.getElementById('map'), {
         center: location,
-        zoom: 14
+        zoom: 14,
+        styles: [
+            {
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#1d2c4d"
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#8ec3b9"
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#1a3646"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.country",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#4b6878"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.land_parcel",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#64779e"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.province",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#4b6878"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.man_made",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#334e87"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.natural",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#023e58"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#283d6a"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#6f9ba5"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#1d2c4d"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#023e58"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#3C7680"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#304a7d"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#98a5be"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#1d2c4d"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#2c6675"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#255763"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#b0d5ce"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#023e58"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#98a5be"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#1d2c4d"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.line",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#283d6a"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.station",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#3a4762"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#0e1626"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#4e6d70"
+                    }
+                ]
+            }
+        ]
     });
 
     // Ponto no mapa....
@@ -2509,9 +3075,6 @@ function Mapa() {
         position: location,
         map: map
     });
-
-
-
     //var map = new google.maps.Map(document.getElementById("mapa"), mapProp);
 }
 
@@ -2524,28 +3087,6 @@ if (document.getElementById('myCarousel') != undefined) {
         })
     });
 }
-
-
-
-
-
-//CArrosel
-// $('.carousel[data-type="multi"] .item').each(function () {
-//     var next = $(this).next();
-//     if (!next.length) {
-//         next = $(this).siblings(':first');
-//     }
-//     next.children(':first-child').clone().appendTo($(this));
-
-//     for (var i = 0; i < 2; i++) {
-//         next = next.next();
-//         if (!next.length) {
-//             next = $(this).siblings(':first');
-//         }
-
-//         next.children(':first-child').clone().appendTo($(this));
-//     }
-// });
 
 //Clockpicker
 // var input = $('#input-a');
@@ -2566,19 +3107,3 @@ if (document.getElementById('myCarousel') != undefined) {
 //     input.clockpicker('show')
 //             .clockpicker('toggleView', 'hours');
 // });
-
-
-/* <div class="carousel-item col-md-4 active">
-                    <div class="card">
-                        <img class="card-img-top img-fixed" src="http://placehold.it/800x600/f44242/fff" alt="Card image cap">
-                        <div class="card-body">
-                            <h4 class="card-title">Nome do Evento 1</h4>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum
-                                quod sed veniam, commodi illo corrupti nulla velit et.</p>
-                            <a class="btn btn-primary">+</a>
-                            <p class="card-text">
-                                <small class="text-muted">Data - Pontuação</small>
-                            </p>
-                        </div>
-                    </div>
-                </div> */

@@ -6,9 +6,22 @@
   color: red;
 }
 
-p{
-  text-align: justify;
+  /*adicionado pelo jabardoum aka 9170287*/
+h1 {
+    font-family:  'Source Sans Pro', sans-serif;;
+    font-size: 56px;
+    line-height: 80px;
 }
+      /*adicionado pelo jabardoum - part 2 (agora nos cinemas)*/
+p {
+    font-family: 'Source Sans Pro', sans-serif;;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+/* p{
+  text-align: justify;
+} */
 
 footer {
   padding: 10px;
@@ -83,6 +96,57 @@ figure img {
 .pilasMaximus{
   text-align: center;
 }
+
+/*Merdas do Miguel*/
+/*Daqui*/
+/* olha a navbar, que linda*/
+#chupaAsMinhasTolas{
+  background: linear-gradient(to bottom right,  #001124 ,  #536976);
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  border:0;
+}
+
+#linhaQueSepara{
+  border: 0.5px solid #fff;
+  cursor: default;
+}
+
+#Login{
+  color: white;
+  margin: 0px 0px 0px 20px;
+}
+
+#Registar{
+  color:white;
+}
+
+.nav-item{
+  list-style-type: none;
+  display: inline-block;
+  line-height: 40 px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* #gandas botoes do navbar */
+.nav-link {
+  font-family: 'Source Sans Pro', sans-serif;
+  display: block;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin:0 20px 0 20px;
+}
+
+/* Mudar a cor do hober ma wiggas */
+.nav-link:hover {
+  background-color: #ea9c00;
+  color: white;
+  animation-delay: 2ms;
+}
+
+/* Aqui, foi o jobem Michael*/
 /*########################################################3*/
 
 /*Usar esta merda para fazer o menu nos cards*/
@@ -103,7 +167,7 @@ button.navbar-toggler-1{
   color: blue; 
 }
 
-/*Novas Merdas*/
+/*Novas Merdas - Pedro*/
 #eventimg {
   width: 100%;
 }
