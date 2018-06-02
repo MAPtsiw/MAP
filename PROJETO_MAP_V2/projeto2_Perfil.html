@@ -2,13 +2,28 @@
 <html lang="en">
 
 <head>
-    <title>Perfil do Utilizador</title>
+    <title>Perfil</title>
+    <link rel="icon" href="images/favicon.png" type="image">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+    <!-- Minhas Merdas -->
+    <link rel="stylesheet" href="projeto2.css">
+    <script src="projeto2.js"></script>
+
+    <!-- Script para o google maps-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWwaEDkLeJWWeW2VzjqxXCJsqXuzqPLRc&callback=Mapa">
+    </script>
+
+    <!-- Fonts do site -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
         crossorigin="anonymous">
 
     <!-- Optional JavaScript -->
@@ -21,19 +36,18 @@
         crossorigin="anonymous"></script>
 
 
-    <!-- Minhas Merdas -->
-    <link rel="stylesheet" href="projeto2.css">
-    <script src="projeto2.js"></script>
 </head>
 
 <body>
 
     <!-- Navbar que vai ser igual para todos -->
-    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="projeto2.html">Map</a>
+    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <img id="logobar" src="images/MAP.png">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon dark-blue-text"></span>
         </button>
 
         <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
@@ -41,7 +55,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!-- Tinha active na class -->
-                    <a class="nav-link" href="projeto2.html">Home
+                    <a class="nav-link w3-bar-item w3-button" style="padding: 20 20 20 20" href="#chupaAsMinhasTolas">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -63,35 +77,39 @@
                 <li class="nav-item">
                     <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
                 </li>
+
                 <li id="Perfil" class="nav-item" style="display: none">
                     <!-- Para tirar esta opçao remove se o "style" -->
                     <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
                 </li>
+
+                <li id="linhaQueSepara">
+                </li>
+
                 <li class="nav-item">
                     <!-- Botao de Login -->
-                    <input id="Login" class="form-inline my-2 my-lg-0 btn btn-primary" type="button" value="Log-In" data-toggle="modal" data-target="#ModalLogin">
+                    <a id="Login" class="nav-link" value="Log-In" data-toggle="modal" data-target="#ModalLogin">Log-In</a>
+                </li>
 
-                    <!-- Botao de Logoff -->
-                    <input id="Logoff" class="form-inline my-2 my-lg-0 btn btn-primary green" type="button" value="Log-Off" style="display: none;">
-                    <!-- com block não funciona, tem que ser com inline-block-->
-
+                <!-- Botao de Logoff -->
+                <input id="Logoff" class="form-inline my-2 my-lg-0 btn btn-primary green" type="button" value="Log-Off" style="display: none;">
+                <!-- com block não funciona, tem que ser com inline-block-->
+                <li class="nav-item">
                     <!-- Botao de Registar -->
-                    <input id="Registar" class="form-inline my-2 my-lg-0 btn btn-secundary red" type="button" value="Registar" data-toggle="modal"
-                        data-target="#ModalRegistar">
+                    <a id="Registar" class="nav-link" value="Registar" data-toggle="modal" data-target="#ModalRegistar">Registar</a>
 
-
+                </li>
 
                 </li>
             </ul>
         </div>
         <!-- <form class="form-inline my-2 my-lg-0"> O que fazer com isto????
-        
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form> -->
+            
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form> -->
         <!-- </div> -->
     </nav>
-
 
 
 
@@ -144,9 +162,9 @@
                             </select>
                         </div>
                         <!-- <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                    </div> -->
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                        </div> -->
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
@@ -186,9 +204,9 @@
                             <input id="passLogin" type="password" class="form-control" placeholder="Password">
                         </div>
                         <!-- <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                            </div> -->
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div> -->
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
@@ -203,6 +221,172 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <!--Layout Da Página-->
+
+    <div class="container">
+        <div class="row profile">
+            <div class="col-md-3">
+                <div class="profile-sidebar">
+                    <!-- SIDEBAR USERPIC -->
+                    <div class="profile-userpic">
+                        <img src="images/6.jpg" class="img-responsive" alt="">
+                    </div>
+                    <!-- END SIDEBAR USERPIC -->
+                    <!-- SIDEBAR USER TITLE -->
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">
+                            Nome do Utilizador
+                            <a href="#"> (Editar)</a>
+                        </div>
+                        <br>
+                        <div class="profile-usertitle-type">
+                            Tipo de Utilizador (Docente/Estudante)
+                        </div>
+                    </div>
+                    <!-- END SIDEBAR USER TITLE -->
+                    <!-- SIDEBAR BUTTONS -->
+                    <div class="profile-userbuttons">
+                        <button type="button" class="btn btn-success btn-sm"> Seguir </button>
+                        <button type="button" class="btn btn-danger btn-sm">Mensagem</button>
+                    </div>
+                    <!-- END SIDEBAR BUTTONS -->
+                    <!-- END MENU -->
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="profile-content">
+                    <h4>Eventos participados:</h4>
+                    <hr class="my-2">
+                    <div class="row">
+                        <div class "col-md-4">
+                            <div class="card" style="width: 15rem;">
+                                <img class="card-img-top" src="images/evento1.png" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nome do evento</h5>
+                                    <p class="card-data"> Data do evento</p>
+                                    <p class="card-organizador"> Organizador do evento</p>
+                                    <a href="#" class="btn btn-orange"> Saber mais</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class "col-md-4">
+                            <div class="card" style="width: 15rem;">
+                                <img class="card-img-top" src="images/evento2.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nome do evento</h5>
+                                    <p class="card-data"> Data do evento</p>
+                                    <p class="card-organizador"> Organizador do evento</p>
+                                    <a href="#" class="btn btn-orange"> Saber mais</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class "col-md-4">
+                            <div class="card" style="width: 15rem;">
+                                <img class="card-img-top" src="images/evento3.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nome do evento</h5>
+                                    <p class="card-data"> Data do evento</p>
+                                    <p class="card-organizador"> Organizador do evento</p>
+                                    <a href="#" class="btn btn-orange"> Saber mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <h4>Eventos recomendados:</h4>
+                    <hr class="my-2">
+                    <div class="row">
+                        <div class "col-md-4">
+                            <div class="card" style="width: 15rem;">
+                                <img class="card-img-top" src="images/evento2.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nome do evento</h5>
+                                    <p class="card-data"> Data do evento</p>
+                                    <p class="card-organizador"> Organizador do evento</p>
+                                    <a href="#" class="btn btn-orange"> Saber mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer-->
+
+    <footer>
+        <div class="container">
+            <div class="row text-center text-xs-center text-sm-left text-md-left">
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <h5>Navegação</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <a href="javascript:void();">
+                                <i class="fa fa-angle-double-right"></i> Home</a>
+                        </li>
+                        <li>
+                            <a href="#aboutus">
+                                <i class="fa fa-angle-double-right"></i> About Us</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void();">
+                                <i class="fa fa-angle-double-right"></i> Catálogo</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void();">
+                                <i class="fa fa-angle-double-right"></i> FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <h5>Contactos</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <p>mapmepmip@gmail.com</p>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <h5>ESMAD</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <p> Escola Superior de Media Artes e Design</p>
+                        </li>
+
+                    </ul>
+                </div>
+                <div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
+            </div>
+        </div>
+    </footer>
+
 </body>
 
 </html>
