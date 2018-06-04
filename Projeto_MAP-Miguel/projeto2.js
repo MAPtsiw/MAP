@@ -707,6 +707,7 @@ window.onload = function () {
 
 
     let formModificarEvento = document.getElementById('ModalModificarEvento')
+    if(formModificarEvento != null){   
     formModificarEvento.addEventListener('submit', function (e) {
         e.preventDefault()
 
@@ -717,6 +718,8 @@ window.onload = function () {
                 elId = i
             }
         }
+        
+
 
         eventos[elId].nome = document.getElementById('NomeEvento2').value
         eventos[elId].data[0] = document.getElementById('DataEvento2').value + ";" + document.getElementById('HoraEvento2').value
@@ -732,6 +735,7 @@ window.onload = function () {
         //"Gravar" as mudanças
         localStorage.setItem("eventos", JSON.stringify(eventos)) //O que estou a fazer mal para ao dar refresh os eventos não estarem alterados
     })
+}
 
     //Modal Adicionar Evento
     //Limpar
@@ -1871,6 +1875,18 @@ if (document.getElementById('myCarousel') != undefined) {
             interval: 6000
         })
     });
+}
+
+//funcionalidade de mostrar e esconder a navbar
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("chupaAsMinhasTolas").style.top = "0";
+  } else {
+    document.getElementById("chupaAsMinhasTolas").style.top = "-50px";
+  }
+  prevScrollpos = currentScrollPos;
 }
 
 

@@ -49,12 +49,12 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!-- Tinha active na class -->
-                    <a class="nav-link w3-bar-item w3-button" style="padding: 20 20 20 20" href="#chupaAsMinhasTolas">Home
+                    <a class="nav-link w3-bar-item w3-button" style="padding: 20 20 20 20" href="#chupaAsMinhasTolas"><i id="iconNav" class="fas fa-home"></i>Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="projeto2_Agenda.html">Catálogo</a>
+                    <a class="nav-link" href="projeto2_Agenda.html"><i id="iconNav" class="far fa-calendar-alt"></i>Catálogo</a>
                 </li>
                 <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -69,15 +69,16 @@
                     </div>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
+                    <a class="nav-link" href="projeto2_Testemunhos.html"><i id="iconNav" class="fas fa-comments"></i>Testemunho Estudantes</a>
                 </li>
 
                 <li id="Perfil" class="nav-item" style="display: none">
                     <!-- Para tirar esta opçao remove se o "style" -->
-                    <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
+                    <a href="projeto2_Perfil.html" class="nav-link"><i id="iconNav" class="fas fa-user"></i>Perfil</a>
                 </li>
 
                 <li id="linhaQueSepara">
+
                 </li>
 
                 <li class="nav-item">
@@ -217,32 +218,41 @@
         </div>
 
     
-
-            
         <!--Layout Da Página-->
 
 <div id="container Perfil" class="container">
   <div class="jumbotron jumbotron-fluid">
     <div class="container jajao">
        <div class="form-row perfil">
-           <div class="form-group col-md-4">
+           <div id="perfilprt1" class="form-group col-md-4">
+               <br>
                <h2>Meu Perfil</h2>
-               <img id="imagemUser" class="img-fluid" src="http://i.imgur.com/0Toijxx.jpg?1" alt="Responsive Image" width="230" height="200">
+               <div id="informaçõesPerfil" class="card">
+               <img id="imagemUser" class="img-fluid" src="https://cdn4.iconfinder.com/data/icons/eldorado-user/40/user-512.png" alt="Responsive Image">
                <!--http://i.imgur.com/0Toijxx.jpg?1 _ link da imagem kkkkkk-->
-               <br><br>
+               <br>
                <p id="nomeUser">Nome:</p>
                <p id="AnoCurricular">Ano Curricular:</p>
-               <hr class="my-2" >
+            </div>
+               <br>
                <p>Descrição</p>
-               <textarea type="text" maxlength="150" rows="5" cols="30"></textarea>
+               <textarea id="Descriptone" type="text" maxlength="150" rows="5" cols="32"></textarea>
                <br><br>
-               <p id="alterarDados">Alterar dados</p>
+               <button id="config">Configurações</button>
+               <br><br>
            </div>
-        
+
            <div class="form-group col-md-8">
+                <br>
                 <h2>Eventos</h2>
+                <div>
+
+                </div>
                 <br><br>
                 <h4>Participou nestes eventos:</h4>
+                <div>
+
+                </div>
                 <hr class="my-2">
                 <br><br>
                 <h4>Recomendações:</h4>
@@ -252,6 +262,8 @@
     </div>
 </div>
 </div>
+
+
         
 <!--footer-->
 
@@ -263,19 +275,19 @@
                 <ul class="list-unstyled quick-links">
                     <li>
                         <a href="javascript:void();">
-                            <i class="fa fa-angle-double-right"></i> Home</a>
+                            <i id="iconFooter" class="fa fa-angle-double-right"></i> Home</a>
                     </li>
                     <li>
                         <a href="#aboutus">
-                            <i class="fa fa-angle-double-right"></i> About Us</a>
+                            <i id="iconFooter" class="fa fa-angle-double-right"></i> About Us</a>
                     </li>
                     <li>
                         <a href="javascript:void();">
-                            <i class="fa fa-angle-double-right"></i> Catálogo</a>
+                            <i id="iconFooter" class="fa fa-angle-double-right"></i> Catálogo</a>
                     </li>
                     <li>
                         <a href="javascript:void();">
-                            <i class="fa fa-angle-double-right"></i> FAQ</a>
+                            <i id="iconFooter" class="fa fa-angle-double-right"></i> FAQ</a>
                     </li>
                 </ul>
             </div>
@@ -287,22 +299,22 @@
                     </li>
                     <li class="list-inline-item">
                         <a href="javascript:void();">
-                            <i class="fab fa-facebook"></i>
+                            <i id="iconFooter" class="fab fa-facebook"></i>
                         </a>
                     </li>
                     <li class="list-inline-item">
                         <a href="javascript:void();">
-                            <i class="fab fa-twitter"></i>
+                            <i id="iconFooter" class="fab fa-twitter"></i>
                         </a>
                     </li>
                     <li class="list-inline-item">
                         <a href="javascript:void();">
-                            <i class="fab fa-instagram"></i>
+                            <i id="iconFooter" class="fab fa-instagram"></i>
                         </a>
                     </li>
                     <li class="list-inline-item">
                         <a href="javascript:void();">
-                            <i class="fab fa-youtube"></i>
+                            <i id="iconFooter" class="fab fa-youtube"></i>
                         </a>
                     </li>
                 </ul>
