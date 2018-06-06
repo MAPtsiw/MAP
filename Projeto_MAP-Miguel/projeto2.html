@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Home Page - MAP</title>
+    <link rel="icon" href="images/favicon.png" type="image">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!-- Do Video -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+    <!-- Minhas Merdas -->
+    <link rel="stylesheet" href="projeto2.css">
+    <script src="classes.js"></script>
+    <script src="projeto2.js"></script>
+
+    <!-- Script para o google maps-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWwaEDkLeJWWeW2VzjqxXCJsqXuzqPLRc&callback=Mapa">
+    </script>
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+        crossorigin="anonymous">
+
+
+    <!-- ClockPicker script -->
+    <!-- <script type="text/javascript" src="https://bootstrap-clockpicker.min.js"></script> -->
+
+    <!-- <style>
+    #carouselExampleControls > img{
+        height: 100px;
+    }
+    
+    #navbarSupportedContent{
+        background-color: forestgreen;
+    }
+    </style> -->
+
+
+</head>
+
+<body>
+
+    <!-- Navbar que vai ser igual para todos -->
+    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="projeto2.html">
+            <img id="logobar" src="images/MAP.png">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+        <div class="navbar-collapse collapse w-100 order-3" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li id="Admin" class="nav-item" style="display: none">
+                    <a class="nav-link" href="projeto2_Admin.html">Administrador</a>
+                </li>
+                <li class="nav-item">
+                    <!-- Tinha active na class -->
+                    <a class="nav-link" href="projeto2.html">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="projeto2_Agenda.html">Catálogo</a>
+                </li>
+                <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
+                </li>
+                <li id="Perfil" class="nav-item" style="display: none">
+                    <!-- Para tirar esta opçao remove se o "style" -->
+                    <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
+                </li>
+
+                <li class="nav-item">
+                    <!-- Botao de Login -->
+                    <input id="Login" class="form-inline my-2 my-lg-0 btn btn-primary" type="button" value="Log-In" data-toggle="modal" data-target="#ModalLogin">
+
+                    <!-- Botao de Logoff -->
+                    <input id="Logoff" class="form-inline my-2 my-lg-0 btn btn-primary green" type="button" value="Log-Off" style="display: none;">
+                    <!-- com block não funciona, tem que ser com inline-block-->
+
+                    <!-- Botao de Registar -->
+                    <input id="Registar" class="form-inline my-2 my-lg-0 btn btn-secundary red" type="button" value="Registar" data-toggle="modal"
+                        data-target="#ModalRegistar">
+
+
+
+                </li>
+            </ul>
+        </div>
+        <!-- <form class="form-inline my-2 my-lg-0"> O que fazer com isto????
+        
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form> -->
+        <!-- </div> -->
+    </nav>
+
+
+    <div class="container-fluid">
+        <h1 class="text-center mb-3">Eventos Populares</h1>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div id="containerCardsCarrosel" class="carousel-inner row w-100 mx-auto">
+                <!--    <div class="carousel-item col-md-4 active">
+                    <div class="card">
+                        <img class="card-img-top img-fixed" src="http://placehold.it/800x600/f44242/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Nome do Evento 1</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum
+                                quod sed veniam, commodi illo corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                            <p class="card-text">
+                                <small class="text-muted">Data - Pontuação</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/418cf4/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Nome do Evento 2</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum
+                                quod sed veniam, commodi illo corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                            <p class="card-text">
+                                <small class="text-muted">Data - Pontuação</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/3ed846/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Nome do Evento 3</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum
+                                quod sed veniam, commodi illo corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                            <p class="card-text">
+                                <small class="text-muted">Data - Pontuação</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/42ebf4/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Nome do Evento 4</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum
+                                quod sed veniam, commodi illo corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                            <p class="card-text">
+                                <small class="text-muted">Data - Pontuação</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/f49b41/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Nome do Evento 5</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum
+                                quod sed veniam, commodi illo corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                            <p class="card-text">
+                                <small class="text-muted">Data - Pontuação</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/f4f141/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Nome do Evento 6</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum
+                                quod sed veniam, commodi illo corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                            <p class="card-text">
+                                <small class="text-muted">Data - Pontuação</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item col-md-4">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="http://placehold.it/800x600/8e41f4/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Nome do Evento 7</h4>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum
+                                quod sed veniam, commodi illo corrupti nulla velit et.</p>
+                            <a class="btn btn-primary">+</a>
+                            <p class="card-text">
+                                <small class="text-muted">Data - Pontuação</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+
+
+
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+
+
+        <!-- FIM DO CAROSEL-->
+
+        <br>
+
+
+
+        <hr class="my-3">
+
+        <!-- ############################# Search Bar #################### -->
+        <form>
+            <!-- Isto está dentro de um form porquê???? -->
+            <!-- <div class="col-sm-6 col-sm-offset-3">
+        <div class="home_searce_domain_area">
+            <div class="main_home_searce_domain_content">
+                <input type="text" placeholder="Your Domain Name ..." />
+                <select class="form-control">
+                    <option>.com</option>
+                    <option>.net</option>
+                    <option>.co</option>
+                </select>
+                <input type="submit" value="Check Availability" />
+            </div>
+        </div>
+    </div> -->
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                </div>
+                <div class="form-group col-md-8">
+                    <div class="input-group">
+                        <input id="searchNome" type="text" class="form-control" placeholder="Nome">
+                        <input id="searchGenero" type="text" class="form-control" placeholder="Género">
+                        <select id="searchData" class="form-control">
+                            <option value="Todos">Todas as datas</option>
+                            <option value="hoje">Hoje</option>
+                            <option value="amanha">Amanhã</option>
+                            <option value="estaSemana">Esta semana</option>
+                            <option value="fds">Este fim de semana</option>
+                            <option value="proximaSemana">Próxima semana</option>
+                            <option value="proximoMes">No próximo mês</option>
+                        </select>
+                        <div class="input-group-append">
+                            <a href="projeto2_Agenda.html">
+                                <button id="btnPesquisar" class="btn btn-primary" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </a>
+                            <button id="btnAdicionarEventos" class="btn btn-secondary" type="button" style="display: none" data-target="#ModalAdicionnarEventos"
+                                data-toggle="modal">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-2"></div>
+            </div>
+
+
+            <!-- Para não me foder 
+<div class="form-row">
+    <div class="form-group col-md-4">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </div>
+    <div class="form-group col-md-4">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" style="border: black solid 3px" aria-label="Search">
+    </div>
+</div> -->
+        </form>
+
+
+        <hr class="my-3">
+
+        <!-- About Us -->
+        <div class="jumbotron jumbotron-fluid ">
+            <div class="container">
+                <h1 id="aboutus" class="display-3">About Us</h1>
+                <p class="lead">Equipa</p>
+                <hr class="my-2">
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut harum culpa ab quia voluptatum quod sed veniam, commodi illo
+                            corrupti nulla velit et. Nobis velit itaque quas placeat numquam repellat! Suscipit tenetur iste
+                            accusantium, praesentium porro inventore animi quisquam nisi modi ut nostrum vitae dolorem error!
+                            Laboriosam pariatur iusto ratione dolorem maxime porro nemo asperiores, nam est error ex ipsa.
+                            Provident quia harum corporis voluptas voluptate labore consequuntur modi totam officia quidem
+                            incidunt mollitia error id nulla eius nesciunt animi sunt vero aliquid obcaecati nam optio, vitae,
+                            molestiae ratione. Minima!
+                        </p>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <!-- por as imagens do grupo -->
+                        <figure>
+                            <img src="http://www.comunidaderangers.com.br/wp-content/uploads/2014/08/Wakfu-Capa2.jpg" alt="user">
+                        </figure>
+                        <p> Miguel Coiso</p>
+                        <br>
+                        <figure>
+                            <img src="http://www.comunidaderangers.com.br/wp-content/uploads/2014/08/Wakfu-Capa2.jpg" alt="user">
+                        </figure>
+                        <p> Álvaro Holstein </p>
+                        <br>
+                        <figure>
+                            <img src="http://www.comunidaderangers.com.br/wp-content/uploads/2014/08/Wakfu-Capa2.jpg" alt="user">
+                        </figure>
+                        <p> Pedro Fragata</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ###################################### FOOTER ####################################-->
+        <footer>
+            <div class="container">
+                <div class="row text-center text-xs-center text-sm-left text-md-left">
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <h5>Navegação</h5>
+                        <ul class="list-unstyled quick-links">
+                            <li>
+                                <a href="javascript:void();">
+                                    <i class="fa fa-angle-double-right"></i> Home</a>
+                            </li>
+                            <li>
+                                <a href="#aboutus">
+                                    <i class="fa fa-angle-double-right"></i> About Us</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void();">
+                                    <i class="fa fa-angle-double-right"></i> Catálogo</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void();">
+                                    <i class="fa fa-angle-double-right"></i> FAQ</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <h5>Contactos</h5>
+                        <ul class="list-unstyled quick-links">
+                            <li>
+                                <p>mapmepmip@gmail.com</p>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript:void();">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript:void();">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript:void();">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="javascript:void();">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <h5>ESMAD</h5>
+                        <ul class="list-unstyled quick-links">
+                            <li>
+                                <p> Escola Superior de Media Artes e Design</p>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
+                </div>
+
+
+            </div>
+        </footer>
+        <!-- /Footer -->
+
+
+        <!-- Modais -->
+
+        <!-- Modal Registo -->
+        <div class="modal fade" id="ModalRegistar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Registar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- Formulário -->
+                        <form id="FormRegisto">
+                            <div class="form-group">
+                                <label for="Nome">Nome</label>
+                                <input id="Nome" type="text" class="form-control" placeholder="Nome..." value="Jajão" required>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="Mail">Email address</label>
+                                <input id="Mail" type="email" class="form-control" placeholder="Enter email" value="ad@gmail.com" required>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="PassRegisto">Password</label>
+                                <input id="PassRegisto" type="password" class="form-control" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ConfPassRegisto">Confirmar Password</label>
+                                <input id="ConfPassRegisto" type="password" class="form-control" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="Fotografia">Fotografia
+                                    <small style="color: gray; font-size: 10px">(Opcional)</small>
+                                </label>
+                                <input id="Fotografia" type="url" class="form-control" placeholder="Link da foto">
+                            </div>
+                            <div class="form-group">
+                                <select name="" id="tipoUtilizador">
+                                    <option disabled selected hidden>Tipo de Utilizador</option>
+                                    <option value="Docente">Docente</option>
+                                    <option value="Estudante">Estudante</option>
+                                </select>
+                            </div>
+                            <!-- <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div> -->
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+
+                    <p id="MsgErroRegistar" class="mx-auto"></p>
+                    <!-- Vai servir para por mensagens de Erro -->
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Registar</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Login-->
+        <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Log-In</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- Formulário -->
+                        <form id="FormLogin">
+                            <div class="form-group">
+                                <label for="mailLogin">Email address</label>
+                                <input id="mailLogin" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                            </div>
+                            <div class="form-group">
+                                <label for="passLogin">Password</label>
+                                <input id="passLogin" type="password" class="form-control" placeholder="Password">
+                            </div>
+                            <!-- <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div> -->
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+
+                    <p id="MsgErroLogin" class="mx-auto"></p>
+                    <!-- Vai servir para por mensagens de Erro -->
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Log-In</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Adicionar Evento -->
+        <div class="modal fade" id="ModalAdicionnarEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Adicionar Evento</h5>
+                        <!-- Mudar o nome disto quando for para editar o evento, nah -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- Formulário -->
+                        <form id="FormRegistarEvento">
+                            <div class="form-group">
+                                <label for="NomeEvento">Nome</label>
+                                <input id="NomeEvento" type="text" class="form-control" placeholder="Introdução ao JS" value="Introdução ao JS" required>
+
+                            </div>
+                            <div class="form-row">
+
+                                <!-- Data -->
+                                <label for="DataEvento">Data</label>
+                                <input id="DataEvento" type="date" class="form-group" required>
+                                <!-- Deixar alterar esta merda também -->
+
+                                <!-- Hora, maneira simples -->
+                                <label for="HoraEvento">Hora</label>
+                                <input id="HoraEvento" type="time" class="form-group">
+
+                                <!-- Hora, esta merda ainda não está a funcionar -->
+                                <!-- <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                <input type="text" class="form-control" value="13:14">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div> -->
+                                <!-- <script type="text/javascript">
+                                $('.clockpicker').clockpicker();
+                            </script> -->
+
+                            </div>
+                            <div class="form-group">
+                                <label for="DescriçãoEvento">Descrição</label>
+                                <textarea id="DescriçãoEvento" class="form-control" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="CategoriaEvento">Categoria</label>
+                                <!-- Pode ser um select depois -->
+                                <input id="CategoriaEvento" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="FotografiaEvento">Fotografia
+                                    <small style="color: gray; font-size: 10px">(Opcional)</small>
+                                </label>
+                                <input id="FotografiaEvento" type="url" class="form-control" placeholder="Link da foto">
+                            </div>
+                            <div class="form-group">
+                                <label for="ResponsavelEvento">Responsável pelo Evento</label>
+                                <input id="ResponsavelEvento" type="text" class="form-control" placeholder="Docente Responsável" required>
+                            </div>
+                            <!-- <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div> -->
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+
+                    <p id="MsgErroRegistarEventos" class="mx-auto"></p>
+                    <!-- Vai servir para por mensagens de Erro -->
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Registar</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>
+
+<!--- Merdas -->
+
+<!-- Este não tá a funcionar-->
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div id="Hamburguer" class="navbar-header">
+              Botão para a versão "mobile", botão hamburguer, que só vai aparecer se o ecrã for pequeno
+                 1 
+                <button type="button" class="navbar-toogle btn btn-defualt" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                     Três traços do menu Hamburguer
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+                <a href="#" class="navbar-brand">
+                    <img src="C:\Users\Álvaro\Desktop\Faculdade ESMAD\2º Semestre\Projeto I\Projeto\2º Tentativa\Bootstrap Exemplos\Bootstrap Website Starter Files\img\w3newbie.png"
+                        alt="">
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active">
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                    <li>
+                        <a href="#">Eventos</a>
+                    </li>
+                    <li>
+                        <a href="#">Sevices</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav> -->
+
+<!-- 
+    https://i.ytimg.com/vi/QWh0CIls9SM/maxresdefault.jpg
+    http://www.comunidaderangers.com.br/wp-content/uploads/2014/08/Wakfu-Capa2.jpg
+    https://i.ytimg.com/vi/bUE796mXx-s/maxresdefault.jpg -->
+
+
+<!-- CArrosel tentativa 1 
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" style="height:300px !important;">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="https://i.ytimg.com/vi/QWh0CIls9SM/maxresdefault.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="http://www.comunidaderangers.com.br/wp-content/uploads/2014/08/Wakfu-Capa2.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="https://i.ytimg.com/vi/bUE796mXx-s/maxresdefault.jpg" alt="Third slide">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div> -->

@@ -7,14 +7,19 @@
 }
 
   /*adicionado pelo jabardoum aka 9170287*/
-h1 {
-  font-family:  'Source Sans Pro', sans-serif;;
-  font-size: 56px;
-  line-height: 80px;
+h1, h2, h3, h4, h5 {
+  font-family:  'Source Sans Pro', 'bender', sans-serif !important;
+
  }
+
+h2{
+  font-family:  'Source Sans Pro', 'bender', sans-serif !important;
+}
+
+
     /*adicionado pelo jabardoum - part 2 (agora nos cinemas)*/
  p {
-  font-family: 'Source Sans Pro', sans-serif;;
+  font-family: 'Source Sans Pro',sans-serif ;
   font-size: 16px;
   line-height: 25px;
  }
@@ -275,9 +280,13 @@ body {
   background: #555; 
 }
 
+/*Card dos testemunhos*/
 .card{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+
+
+
 /* Aqui, foi o jobem Michael*/
 
 
