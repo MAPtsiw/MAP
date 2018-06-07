@@ -9,6 +9,26 @@ class Utilizador {
         this.tipoUtilizador = tipo //Vai distinguir se o utilizador é Estudante ou docente
 
         this._id = Utilizador.getLastId() + 1
+    } //Para o Docente, falta o short CV, Unidades Curriculares, e a Formação
+
+    //Estes três campos vão ter que ser metidos na classe depois de se criar o objeto
+    get cv(){
+        return this._cv
+    }
+    set cv(valor){
+        this._cv = valor
+    }
+    get aulas(){
+        return this._aulas
+    }
+    set aulas(valor){
+        this._aulas = valor
+    }
+    get formacao(){
+        return this._formacao
+    }
+    set formacao(valor){
+        this._formacao = valor
     }
 
     get nome() {
@@ -108,7 +128,7 @@ class Evento {
     get pontuacao() {
         return this._pontuacao
     }
-
+    
     set pontuacao(valor) {
         let merdas = Evento.fazerPontuacao(valor)
         console.log("merdas - " + merdas)
@@ -352,7 +372,7 @@ class Comentario {
 
 
 class Testemunho {
-    constructor(testemunho, userId) {
+    constructor(testemunho, userId) { //Comparar o user Id para ver se o utilizador já fez algum testemunho
         this.testemunho = testemunho
         this.userId = userId
 

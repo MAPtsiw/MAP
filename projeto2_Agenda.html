@@ -45,14 +45,13 @@
 <body>
 
     <!-- Navbar que vai ser igual para todos -->
-    <!-- Navbar que vai ser igual para todos -->
     <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="#">
             <img id="logobar" src="images/MAP.png">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon dark-blue-text"></span>
+            <span class="fa fa-bars fa-1x"></span>
         </button>
 
         <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
@@ -60,12 +59,14 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!-- Tinha active na class -->
-                    <a class="nav-link w3-bar-item w3-button" style="padding: 20 20 20 20" href="#chupaAsMinhasTolas">Home
+                    <a class="nav-link w3-bar-item w3-button" style="padding: 20 20 20 20" href="projeto2.html">
+                        <i class="fas fa-home iconNav"></i>Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="projeto2_Agenda.html">Catálogo</a>
+                    <a class="nav-link" href="projeto2_Agenda.html">
+                        <i class="far fa-calendar-alt iconNav"></i>Catálogo</a>
                 </li>
                 <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -80,12 +81,19 @@
                     </div>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
+                    <a class="nav-link" href="projeto2_Testemunhos.html">
+                        <i class="fas fa-comments iconNav"></i>Testemunho Estudantes</a>
                 </li>
 
                 <li id="Perfil" class="nav-item" style="display: none">
                     <!-- Para tirar esta opçao remove se o "style" -->
-                    <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
+                    <a href="projeto2_Perfil.html" class="nav-link">
+                        <i class="fas fa-user iconNav"></i>Perfil</a>
+                </li>
+
+                <li id="Admin" class="nav-item" style="display: none">
+                    <a href="projeto2_Admin.html" class="nav-link">
+                        <i class="fas fa-user iconNav"></i>Admin</a>
                 </li>
 
                 <li id="linhaQueSepara">
@@ -138,27 +146,27 @@
                                 </span>
                             </th>
                         </tr>
-                        <tr>
-                            <th>Su</th>
-                            <th>Mo</th>
-                            <th>Tu</th>
-                            <th>We</th>
-                            <th>Th</th>
-                            <th>Fr</th>
-                            <th>Sa</th>
+                        <tr class="dias-semana">
+                            <th>Dom</th>
+                            <th>Seg</th>
+                            <th>Ter</th>
+                            <th>Qua</th>
+                            <th>Quim</th>
+                            <th>Sex</th>
+                            <th>Sab</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="Dias">
                             <!-- Ter atenção aos indices e brincar com navegação, apagar isto porque aparece no innerHTML -->
-                            <td class="muted">29</td>
+                            <td class="muted">0</td>
                             <!-- Alterar os dias em JS, como caralhos -->
-                            <td class="muted">30</td>
-                            <td class="muted">31</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
+                            <td class="muted">0</td>
+                            <td class="muted">0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
                         </tr>
                         <tr class="Dias">
                             <td>5</td>
@@ -199,6 +207,16 @@
                             <td class="muted">2</td>
                             <td class="muted">3</td>
                         </tr>
+                        <tr class="Dias" style="display: none;">
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="muted">0</td>
+                            <td class="muted">0</td>
+                            <td class="muted">0</td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -208,7 +226,7 @@
     <hr class="my-3">
 
     <!-- Catálogo -->
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron-fluid" style="background: inherit">
         <div class="container">
             <h1 class="display-3">Catálogo</h1>
             <p class="lead">Eventos a realizar</p>
@@ -277,18 +295,18 @@
                                 <div class="collapse" id="collapseExample">
                                     <div class="card card-body">
                                         <p class="ordenhados">
-                                            <input class="ordenhar" type="radio" name="ola" value="Melhor Pontuados">Melhor Pontuados
+                                            <input class="ordenhar" type="radio" name="ola" value="Melhor Pontuados">   Melhor Pontuados
                                         </p>
                                         <p class="ordenhados">
-                                            <input class="ordenhar" type="radio" name="ola" value="Eventos Realizados">Eventos Realizados
+                                            <input class="ordenhar" type="radio" name="ola" value="Eventos Realizados"> Eventos Realizados
                                         </p>
                                         <p class="ordenhados">
-                                            <input class="ordenhar" type="radio" name="ola" value="por Realizar">Eventos por Realizar
+                                            <input class="ordenhar" type="radio" name="ola" value="por Realizar">   Eventos por Realizar
                                         </p>
                                         <p class="ordenhados">
-                                            <input class="ordenhar" type="radio" name="ola" value="Recentes">Mais Recentes
+                                            <input class="ordenhar" type="radio" name="ola" value="Recentes">       Mais Recentes
                                         </p>
-                                        <button type="button" id="btnPesquisaAvancada" class="btn btn-secundary">
+                                        <button type="button" id="btnPesquisaAvancada" class="btn btn-orange">
                                             Pesquisar
                                         </button>
                                     </div>
@@ -301,15 +319,15 @@
                     </div>
 
 
-                    <!-- Para não me foder 
+                    <!-- Para não me foder  alalalalalalalala
 <div class="form-row">
         <div class="form-group col-md-4">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </div>
         <div class="form-group col-md-4">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" style="border: black solid 3px" aria-label="Search">
-        </div>
-    </div> -->
+        </div>-->
+                </div>
             </form>
 
             <br>
@@ -369,8 +387,8 @@
 
 
             </div>
-            </div>
         </div>
+        <!-- </div> -->
     </div>
 
     <!-- ###################################### FOOTER ####################################-->
@@ -393,8 +411,8 @@
                                 <i class="fa fa-angle-double-right"></i> Catálogo</a>
                         </li>
                         <li>
-                            <a href="javascript:void();">
-                                <i class="fa fa-angle-double-right"></i> FAQ</a>
+                            <a href="projeto2_Parcerias.html">
+                                <i class="fa fa-angle-double-right"></i> Parcerias</a>
                         </li>
                     </ul>
                 </div>
@@ -487,7 +505,7 @@
                         </div>
                         <div class="form-group">
                             <select name="" id="tipoUtilizador">
-                                <option value="Admin">Adminstrador</option>
+                                <option disabled selected hidden>Tipo Utilizador</option>
                                 <option value="Docente">Docente</option>
                                 <option value="Estudante">Estudante</option>
                             </select>
@@ -496,6 +514,23 @@
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                 </div> -->
+                        <!-- Esta div só vai aparecer caso se escolha Docente
+                    Ao alterar para Estudante deve desaparecer  -->
+                        <!-- Por esta merda Bonita -->
+                        <div id="caLeindo" style="display: none">
+                            <div class="form-group">
+                                <p>Formação</p>
+                                <textarea id="formacao" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <p>Unidades Curriculares Selecionadas</p>
+                                <textarea id="unidadesCurriculares" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-goup">
+                                <p>Short CV</p>
+                                <textarea id="shortCV" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

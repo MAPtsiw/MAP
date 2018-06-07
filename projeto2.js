@@ -29,6 +29,9 @@ let idDaParceriaModificar = 0
 //Mesma merda que em cima para os eventos
 let ideventoModificar = 0
 
+//Mostrar ou não a opção de editar o perfil
+let editarPerfil = true
+
 //------------------------------------------
 
 
@@ -50,7 +53,8 @@ window.onload = function () {
     //Variavel para o item da navbar para o admin
     let adminzito = document.getElementById('Admin')
 
-    calendarioFixe(datinha.getMonth() + 1, datinha.getFullYear())
+    if (document.getElementById('container-Calendario') != null)
+        calendarioFixe(datinha.getMonth() + 1, datinha.getFullYear())
 
     //Isto deve ser a primeira cena a fazer em principio
     //Local Storage, encher os arrays, utilizadores e eventos
@@ -59,7 +63,7 @@ window.onload = function () {
 
         //Maneira de encher o array sem ter que mexer nas variáceis internas
         for (let i = 0; i < a.length; i++) {
-            let b = new Utilizador(a[i]._nome, a[i]._password, a[i]._mail, a[i]._tipo)
+            let b = new Utilizador(a[i]._nome, a[i]._password, a[i]._mail, a[i]._fotografia, a[i]._tipo)
             utilizadores.push(b)
         }
 
@@ -97,6 +101,9 @@ window.onload = function () {
         console.log(parcerias)
     }
 
+    //Preencher a lista de Parcerias
+    preencherListaDeParcerias()
+
     if (this.localStorage.getItem('comentarios')) {
         let a = JSON.parse(localStorage.getItem('comentarios'))
 
@@ -107,16 +114,30 @@ window.onload = function () {
         console.log(comentarios)
     }
 
-    for (let i = 0; i < utilizadores.length; i++) { //porque fodeu se
-        utilizadores[i].fotografia = "Docente"
+    if (this.localStorage.getItem('testemunhos')) {
+        let a = JSON.parse(localStorage.getItem('testemunhos'))
+
+        for (let i = 0; i < a.length; i++) {
+            let b = new Testemunho(a[i]._testemunho, a[i]._userId)
+            testemunhos.push(b)
+        }
+        console.log(testemunhos)
     }
+    // for (let i = 0; i < utilizadores.length; i++) { //porque fodeu se
+    //     utilizadores[i].tipoUtilizador = "Docente"
+    // }
+
+    // utilizadores[4].tipoUtilizador = "Administrador"
+
+    //localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+    //Espero que não seja preciso usar isto outra vez, a parte de cima
+
+
     //só para ter um caraho de um administrador
     // let r = new Utilizador("El Admin", "123", "adminFixi@gmail.com", "", "Adminstrador")
     // utilizadores.push(r)
 
-    utilizadores[4].fotografia = "Administrador"
 
-    //localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
 
     //Iniciar o indexUtilizador como estava antes
     indexUtilizador = JSON.parse(localStorage.getItem('indexUtilizador'))
@@ -124,7 +145,7 @@ window.onload = function () {
 
     //Adminhe
     if (adminzito != null) {
-        if (utilizadores[indexUtilizador].fotografia == "Administrador") {
+        if (utilizadores[indexUtilizador].tipoUtilizador == "Administrador") {
             adminzito.style.display = 'inline-block'
         }
     }
@@ -156,7 +177,7 @@ window.onload = function () {
         }
 
         //Função para adicionar a opção de ver o perfil do utilizador, se esta merda fosse com windows forms.....
-        verPerfil(true);
+        if (utilizadores[indexUtilizador].tipoUtilizador != 'Administrador') verPerfil(true);
 
     }
     else {
@@ -200,6 +221,7 @@ window.onload = function () {
     //Preencher o array de categorias
     mamaAquiNaPila()
 
+
     //Preencher a tabela dos utilizadores por agora
     if (document.getElementById('bodyUtilizadores') != null) {
         for (let i = 0; i < utilizadores.length; i++) {
@@ -223,13 +245,16 @@ window.onload = function () {
         //Preencher com tags a pagina de admin, vós entendeis
         categoriasUnicasFunc() //Tenho mesmo que mexer nisto
         apresentarCategorias()
+
+        //Vai ficar aqui porque sim e por agora
+        cardsDoAdmin()
     }
 
 
 
 
     //Para o caso de o utilizador estar logado e entrar na página Inicial sem fazer login
-    if (btnAdicionar != null && logged == true)
+    if (btnAdicionar != null && logged == true && utilizadores[indexUtilizador].tipoUtilizador != "Estudante")
         btnAdicionar.style.display = 'inline-block'
 
     //Preencher o catálogo com eventos
@@ -298,6 +323,23 @@ window.onload = function () {
         if (password == confPass && continuar == true) {
             //Criar Utilizador
             let novoUtilizador = new Utilizador(nome, password, eMail, foto, tipo) //Porque caralhos me está a por o tipo de utilizador na foto????
+
+            //Mais umas
+            if (novoUtilizador.tipoUtilizador == "Docente") {
+                let formacao = document.getElementById('formacao').value
+                let aulitas = document.getElementById('unidadesCurriculares').value
+                let shortCv = document.getElementById('shortCV').value
+
+                // if(formacao == "" || aulitas == "" || shortCv == ""){
+                // msgErro.innerHTML = "\n Tens Campos Importantes por preencher", criar uma msg de Erro jeitosa
+
+                novoUtilizador.formacao = formacao
+                novoUtilizador.cv = shortCv
+                novoUtilizador.aulas = aulitas
+                // }
+            }
+
+            // console.log(novoUtilizador)
 
             //Mete-lo no array
             utilizadores.push(novoUtilizador)
@@ -395,7 +437,7 @@ window.onload = function () {
             btnLogoff.style.display = "inline-block"
 
             //Mostrar na navbar o item para o adminstrador
-            if (utilizadores[indexUtilizador].fotografia == "Administrador") {
+            if (utilizadores[indexUtilizador].tipoUtilizador == "Administrador") {
                 adminzito.style.display = 'inline-block'
             }
 
@@ -403,7 +445,7 @@ window.onload = function () {
             let btnRegistar = document.getElementById('Registar')
             btnRegistar.disabled = true
 
-            if (btnAdicionar != null && utilizadores[indexUtilizador].fotografia != "Estudante") //Está fotografia, mas tá mal, só não sei porque
+            if (btnAdicionar != null && utilizadores[indexUtilizador].tipoUtilizador != "Estudante") //Está fotografia, mas tá mal, só não sei porque
                 btnAdicionar.style.display = 'inline-block'
 
             msgErro.innerHTML = "Bem vindo, " + utilizadores[indexUtilizador].nome + " !!!"
@@ -413,7 +455,9 @@ window.onload = function () {
             }
 
             //Função para adicionar a opção de ver o perfil do utilizador, se esta merda fosse com windows forms.....
-            verPerfil(true);
+            if (utilizadores[indexUtilizador].tipoUtilizador != 'Administrador') verPerfil(true);
+            // editarPerfil = true;
+            // localStorage.setItem('editarPerfil', JSON.stringify(editarPerfil))
 
             location.reload() //Por alguma razºao esta merda não está a fazer reload
         }
@@ -1129,15 +1173,21 @@ window.onload = function () {
             eventoLindo._id = a._id
             //this.alert(eventoLindo.nome)
 
-            let leData = eventoLindo.data[0].split(';')[0]
+            let leData = ""
+            if (eventoLindo.data[0] |= null) leData = eventoLindo.data[0].split(';')[0]
+
             console.log(a)
             let ajuda = new Date(leData)
             this.console.log(ajuda)
-            document.getElementById('diaMes').innerHTML = ajuda.toString().split(' ')[2] + "  " + ajuda.toString().split(' ')[1] //Transformar isto para aparecer o mes por extenso
+            if (leData != "") document.getElementById('diaMes').innerHTML = "Data:<br>" + ajuda.toString().split(' ')[2] + "  " + ajuda.toString().split(' ')[1] //Transformar isto para aparecer o mes por extenso
+            else document.getElementById('diaMes').innerHTML = "Data: <br>Por definir"
+
             document.getElementById('nomeEvento').innerHTML = eventoLindo.nome
             document.getElementById('leResponsavel').innerHTML = "por: " + eventoLindo.responsavel
             document.getElementById('LaDescricao').innerHTML = eventoLindo.descricao
 
+            if (eventoLindo.localizacao != null) document.getElementById('localizacao').innerHTML = "Localização:<br>" + eventoLindo.localizacao
+            else document.getElementById('localizacao').innerHTML = "Localização:<br> Por Definir..."
             //Categorias, não é preciso fazer como em cima, porque já está feito na função
             apresentarCategorias(false)
             mostrarLosComentarios(eventoLindo.id)
@@ -1148,31 +1198,35 @@ window.onload = function () {
             //Fazer cenaas para o botão de comentar
             let btnComentar = document.getElementById('btnComentar')
             btnComentar.addEventListener('click', function () {
-                let caixaComentário = document.getElementById('message').value
+                if (logged) {
+                    let caixaComentário = document.getElementById('message').value
 
 
-                if (caixaComentário != "") {
+                    if (caixaComentário != "") {
 
-                    let novoComentario = new Comentario(caixaComentário, utilizadores[indexUtilizador].id, eventoLindo.id)
+                        let novoComentario = new Comentario(caixaComentário, utilizadores[indexUtilizador].id, eventoLindo.id)
 
-                    console.log(novoComentario)
-                    comentarios.push(novoComentario)
+                        console.log(novoComentario)
+                        comentarios.push(novoComentario)
 
-                    localStorage.setItem('comentarios', JSON.stringify(comentarios))
-                    caixaComentário.value = "" //Não sei se vai resultar
+                        localStorage.setItem('comentarios', JSON.stringify(comentarios))
+                        caixaComentário.value = "" //Não sei se vai resultar
+                    }
+                    else {
+                        alert("Que comentário interessante, Bem miudo")
+                    }
+
+                    //Função para mandar Eventos
+                    if (comentarios.length > 0) {
+                        mostrarLosComentarios(eventoLindo.id, utilizadores[indexUtilizador].id)
+                    }
+                    else {
+                        document.getElementById('containerComentarios').innerHTML = "Não há comentarios ainda"
+                    }
                 }
                 else {
-                    alert("Que comentário interessante, Bem miudo")
+                    alert('Tens que estar logado para comentar')
                 }
-
-                //Função para mandar Eventos
-                if (comentarios.length > 0) {
-                    mostrarLosComentarios(eventoLindo.id, utilizadores[indexUtilizador].id)
-                }
-                else {
-                    document.getElementById('containerComentarios').innerHTML = "Não há comentarios ainda"
-                }
-
             })
 
             //Fazer mais merdas para o botão de Increver se
@@ -1188,18 +1242,195 @@ window.onload = function () {
                     //Não esquecer de gravar o evento depois
                 }
             })
-
-            let estrelasPontuar = document.getElementsByClassName('btn btn-default btn-grey btn-sm')
-            console.log(estrelasPontuar)
-            for (let i = 0; i < estrelasPontuar.length; i++) {
-                //this.console.log(estrelasPontuar[i])
-                estrelasPontuar[i].addEventListener('click', botaoPontuar)
+            if (logged == true) {
+                let estrelasPontuar = document.getElementsByClassName('btn btn-default btn-grey btn-sm')
+                console.log(estrelasPontuar)
+                for (let i = 0; i < estrelasPontuar.length; i++) {
+                    //this.console.log(estrelasPontuar[i])
+                    estrelasPontuar[i].addEventListener('click', botaoPontuar)
+                }
             }
+        }
+    }
+
+    let botaoTestemunhar = document.getElementById('aPilaDoMiguel')
+    if (botaoTestemunhar != null) {
+
+        //Preencher os testemunhos, caso já tenham sido criados
+        if (testemunhos.length > 0) preencherTestemunhos()
+        // else document.getElementById('containerTestemunhos').innerHTML = "Ainda não há testemunhos"
+
+        let elTestemunho = document.getElementById('LeTestemunho') //TextArea
+        let jaExiste = false
+        let loIndex = 0
+        let texto = ""
+        botaoTestemunhar.addEventListener('click', function () {
+
+            let somaESegue = true
+
+
+            for (let i = 0; i < testemunhos.length; i++) {
+                if (testemunhos[i].userId == utilizadores[indexUtilizador].id) {
+                    loIndex = i
+                    texto = testemunhos[i].testemunho
+                    somaESegue = false
+                }
+            }
+
+            if (logged) {
+                botaoTestemunhar.setAttribute('data-target', '#ModalTestemunho')
+                botaoTestemunhar.setAttribute('data-toggle', 'modal')
+            }
+            else if (!logged) {
+                botaoTestemunhar.removeAttribute('data-target')
+                botaoTestemunhar.removeAttribute('data-toggle')
+                alert('Tens que estar logado ó macaco')
+            }
+
+            if (somaESegue == false && logged == true) {
+                let continuar = confirm("Já testemunhas te uma vez\nQueres editar o teu Testemunho?")
+
+                if (continuar) {
+                    document.getElementById('TituloTestemunho').innerHTML = "Alterar Testemunho do " + utilizadores[indexUtilizador].nome
+                    texto = elTestemunho.value
+                    jaExiste = true
+                }
+                else {
+                    botaoTestemunhar.removeAttribute('data-target')
+                    botaoTestemunhar.removeAttribute('data-toggle')
+                }
+            }
+        })
+
+        let submitTestemunho = document.getElementById('submitTestemunho')
+        submitTestemunho.addEventListener('click', function () {
+
+            if (!jaExiste) {
+                let novoTestamento = new Testemunho(elTestemunho.value, utilizadores[indexUtilizador].id)
+                console.log('aata')
+                testemunhos.push(novoTestamento)
+            }
+            else {
+                testemunhos[loIndex].testemunho = elTestemunho.value
+                console.log(testemunhos[loIndex].testemunho)
+            }
+
+            console.log(testemunhos, loIndex)
+            console.log(jaExiste)
+
+            localStorage.setItem('testemunhos', JSON.stringify(testemunhos))
+
+            //Acho que tem que ser aqui
+            preencherTestemunhos()
+
+        })
+    }
+
+    //Mostrar ou não as cenas para um docente se Registar´
+    //Depois ao fechar o modal tirar também os campos que são só para o docente
+    const selectTipoUtilizador = document.getElementById('tipoUtilizador')
+    if (selectTipoUtilizador != null) {
+        selectTipoUtilizador.addEventListener('change', function () {
+            let leMer = selectTipoUtilizador.options[selectTipoUtilizador.selectedIndex].value
+            let merdinhasDeDocente = document.getElementById('caLeindo')
+            console.log(leMer)
+            if (leMer == "Docente") merdinhasDeDocente.style.display = "block"
+            else if (leMer == "Estudante") merdinhasDeDocente.style.display = "none"
+        })
+    }
+
+    //Filtrar os utilizadores que correspondem à pesquisa, de cada vez que o utilizador insere uma letra
+    let pesquisarUtilizador = document.getElementById('pesquisarUtilizador')
+    if (pesquisarUtilizador != null) {
+        pesquisarUtilizador.addEventListener('keyup', function (e) {
+            // console.log(pesquisarUtilizador.value)
+            let procurar = pesquisarUtilizador.value
+            console.log(procurar)
+
+            //Criar o dropdown à medida que o utilizador vai escrevendo
+            let utilizadoresFiltrados = utilizadores.filter(function (eles) {
+                return eles.nome
+                    .toUpperCase()
+                    .includes(procurar.toUpperCase())
+            })
+
+            console.log(utilizadoresFiltrados) //Até aqui está bem, mas depois fodeu
+
+            let drop = document.getElementById('Cenas')
+            drop.innerHTML = ""
+
+            if (procurar != "") {
+                for (let i = 0; i < utilizadoresFiltrados.length; i++) {
+                    let a = document.createElement('a')
+                    let li = document.createElement('li')
+                    li.setAttribute('class', utilizadoresFiltrados[i].id)
+                    li.appendChild(a)
+                    // a.setAttribute('href', 'projeto2_Perfil.html')
+                    a.setAttribute('class', utilizadoresFiltrados[i].id)
+                    a.setAttribute('href', 'projeto2_Perfil.html')
+                    a.textContent = utilizadoresFiltrados[i].nome
+                    li.addEventListener('click', guardarUtilizador)
+                    //Isto vai ter que levar para a página do utilizador
+                    drop.appendChild(li)
+                }
+            }
+        })
+    }
+
+
+    //Preencher a página de Utilizador 
+    if (document.getElementById('paginaPerfil') != null) {
+        if (this.localStorage.getItem('UtilizadorMostrar')) {
+            let loUtilizador = JSON.parse(this.localStorage.getItem('UtilizadorMostrar'))
+
+            let imagemUtil = document.getElementById('ImagemUtilizador')
+            if (loUtilizador._fotografia == "") imagemUtil.setAttribute('src', 'https://drwfxyu78e9uq.cloudfront.net/usercontent/olhafrutafresca/media/images/95082ab-batata-doce.jpg')
+            else imagemUtil.setAttribute('src', loUtilizador._fotografia)
+
+            let nomeUtilizador = document.getElementById('NomeUtilizador')
+            nomeUtilizador.innerHTML = loUtilizador._nome
+            let tipoDeUtil = this.document.getElementById('tipoDeUtilizador')
+            tipoDeUtil.innerHTML = `Tipo De Utilizador     (${loUtilizador._tipo})`
+
+            //Para o caso de ser Docente mostrar os campos deste
+            let divDocente = document.getElementById('docente-div')
+            if (loUtilizador._tipo == "Docente") {
+                divDocente.style.display = "inline-block"
+
+                if (loUtilizador._cv != null) console.log('ata') //VEr se isto está a funcionar
+                else document.getElementById('shortCv').innerHTML = "Por preencher"
+
+                if (loUtilizador._aulas != null) this.console.log('ata2')
+                else this.document.getElementById('lecionadas').innerHTML = "Por preencher"
+
+                if (loUtilizador._formacao != null) console.log('ata3')
+                else document.getElementById('Formacao').innerHTML = "Por preencher..."
+            }
+            else divDocente.style.display = 'none'
+
+            //Mostrar ou não o botão de mostrar o perfil, consoante o sitio onde se foi para o perfil
+            if (this.localStorage.getItem('editarPerfil')) {
+                let editar = JSON.parse(this.localStorage.getItem('editarPerfil'))
+                console.log('Editar Perfil = ' + editar)
+
+                if (!editar) {
+                    let editarOPerfil = document.getElementById('ButoneEditar')
+                    editarOPerfil.style.display = 'none'
+                }
+            }
+
 
         }
     }
-}
 
+    //Vai servir para dizer que é para mostrar o Editar no perfil de utilizador
+    if (this.document.getElementById('Perfil') != null) {
+        document.getElementById('Perfil').addEventListener('click', function () {
+            editarPerfil = true;
+            localStorage.setItem('editarPerfil', JSON.stringify(editarPerfil))
+        })
+    }
+}
 //#######################################################################################################################
 //#######################################################################################################################
 //#######################################################################################################################
@@ -1225,10 +1456,10 @@ function paNaoSei(eventoUserId) {
 
     let mostrar = false;
 
-    if (logged == true && utilizadores[indexUtilizador].fotografia == "Administrador") {
+    if (logged == true && utilizadores[indexUtilizador].tipoUtilizador == "Administrador") {
         mostrar = true
     }
-    else if (logged == true && utilizadores[indexUtilizador].fotografia == "Docente") { //Isto está como fotografia poorque mim ser estupido, é para ficar em tipoUtilizador
+    else if (logged == true && utilizadores[indexUtilizador].tipoUtilizador == "Docente") { //Isto está como fotografia poorque mim ser estupido, é para ficar em tipoUtilizador
         if (eventoUserId == utilizadores[indexUtilizador].id) {
             mostrar = true
         }
@@ -1416,21 +1647,15 @@ function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHor
     //Adicionar lhe um eventListener
     btn2.addEventListener('click', funcaoLeinda)
 
-    let btn3 = document.createElement('button')
-    btn3.setAttribute('class', 'dropdown-item')
-    btn3.setAttribute('type', 'button')
-    btn3.textContent = "ata"
-
     divPequena.appendChild(btn1)
     divPequena.appendChild(btn2)
-    divPequena.appendChild(btn3)
 
     //Container principal
     let bossContainer = document.getElementById('ohPaEle') //Meter tudo aqui
 
     //O cartão em si
     let cartao = document.createElement('div')
-    cartao.setAttribute('class', 'card col-lg-3 ' + eventos[indice].id) //Em vez de lg, secalhar fica md
+    cartao.setAttribute('class', 'card col-lg-4 ' + eventos[indice].id) //Em vez de lg, secalhar fica md
 
     //Div Imagem / Imagem 
     let divHeader = document.createElement('div')
@@ -1463,6 +1688,9 @@ function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHor
     descricao.textContent = ajustarDescricao(cardDescricao)
     corpitoJeitoso.appendChild(descricao)
 
+    let hr = document.createElement('hr')
+    corpitoJeitoso.appendChild(hr)
+
     //Data
     let dataCard = document.createElement('p')
     dataCard.setAttribute('class', 'mnac')
@@ -1481,19 +1709,31 @@ function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHor
     pont.textContent = "Pontuação: " + cardPontuacao
     corpitoJeitoso.appendChild(pont)
 
+
+    let hr1 = document.createElement('hr')
+    corpitoJeitoso.appendChild(hr1)
+
+    let botaoVer = document.createElement('a')
+    botaoVer.setAttribute('href', 'projeto2_Evento.html')
+    botaoVer.setAttribute('class', 'btn btn-orange ' + eventos[indice].id)
+    botaoVer.textContent = "Saber Mais"
+    botaoVer.addEventListener('click', verEvento)
+    corpitoJeitoso.appendChild(botaoVer)
+
     //Meter o corpo no cartão... Eu daqui a uns anos, get it, sem abrigo eheh
     cartao.appendChild(corpitoJeitoso)
 
 
     //Esta div leva 4 cards, fazer um if aqui para dizer se ficam na linha ou é criada outra, como caralhos fazer esta filha da putice
-    if (indice % 4 == 0) {
+    if (indice % 3 == 0) {
         linhaContainer = document.createElement('div')
         linhaContainer.setAttribute('class', 'row linha-cards')
+        linhaContainer.style.width = "100%"
     }
 
     //Mats
     contador += indice
-    if (contador > 4) contador = 0; //Confirmar se é =4 ou >4
+    if (contador > 3) contador = 0; //Confirmar se é =4 ou >4
 
     //appened quase Final
     linhaContainer.appendChild(cartao)
@@ -1877,21 +2117,38 @@ function calendarioFixe(mes, ano) { //TEm que ser o numero do mês
     let data1 = data.toString().split(' ') //[0]- Dia da semana, [1]- Mês, [2]- Dia, [3]- Ano, etc...
 
     let fimMes = fimDoMes(mes)
+    let fimDoMesAnterior = fimDoMes(mes - 1)
 
     let indici = inicioDoMes(data1[0])
     //console.log("O indice devolvido é - " + indici)
 
+    let contadorDiasQueFaltam = fimDoMesAnterior - indici
+    console.log(contadorDiasQueFaltam)
+    console.log(indici)
+
+
     let contadorDias = 1
+    let contadorDiasUltimos = 1
+
+    if (indici > 5) dias[5].removeAttribute('style')
+    else dias[5].style.display = 'none'
 
     for (let i = 0; i < dias.length; i++) {
-        for (let k = indici; k < dias[i].children.length; k++) {
+        for (let k = 0; k < dias[i].children.length; k++) {
 
             if (contadorDias <= fimMes) {
 
-                dias[i].children[k].innerHTML = contadorDias
-                //console.log("indice - " + k + "|| dias - " + contadorDias)
-                contadorDias++;
-
+                contadorDiasQueFaltam++
+                if (k < indici && i == 0) dias[i].children[k].innerHTML = `<i style="color:green">${contadorDiasQueFaltam}<i>`
+                else {
+                    dias[i].children[k].innerHTML = contadorDias
+                    //console.log("indice - " + k + "|| dias - " + contadorDias)
+                    contadorDias++;
+                }
+            }
+            else {
+                dias[i].children[k].innerHTML = `<i style="color:green">${contadorDiasUltimos}<i>`
+                contadorDiasUltimos++;
             }
 
         }
@@ -2537,7 +2794,8 @@ function categoriasUnicasFunc(laCategoria) {
     //A Funçaõ vai receber uma categoria que vai ser "avaliada", para ver se  nome já existe ou não
     if (categorias.length > 0 && laCategoria != undefined) {
         for (let i = 0; i < categorias.length; i++) {
-            if (categorias[i].nome.toUpperCase() == laCategoria.toUpperCase()) unica = false
+            console.log(categorias[i].nome[0].toString())
+            if (categorias[i].nome[0].toString().toUpperCase() == laCategoria[0].toString().toUpperCase()) unica = false
             // if (unica == true) categorias.push(laCategoria)
         }
     }
@@ -2603,7 +2861,7 @@ function mamaAquiNaPila() {
         for (let k = 0; k < eventos[i].categoria.length; k++)
 
             if (categorias.length == 0) {
-                console.log(eventos[i].categoria[k])
+                //console.log(eventos[i].categoria[k]) //é um array porque pode haver mais que uma categoria associada ao evento
                 a = new Categoria(eventos[i].categoria[k])
                 categorias.push(a)
             }
@@ -2732,7 +2990,7 @@ function mostrarLosComentarios(eventoId, utilizadorId = 0) { //Depois tenho que 
         //Adicionar o eventoListener à imagem
         let imagem = document.createElement('img')
         let conteudoImagem = ""
-        if (magicoUtilizador.fotografia == "") conteudoImagem = magicoUtilizador.fotografia //Posso ter que mudar isto visto que os utilizadores estão a ficar mal
+        if (magicoUtilizador.fotografia != "") conteudoImagem = magicoUtilizador.fotografia //Posso ter que mudar isto visto que os utilizadores estão a ficar mal, feito, já está bem em principio
         else conteudoImagem = "https://drwfxyu78e9uq.cloudfront.net/usercontent/olhafrutafresca/media/images/95082ab-batata-doce.jpg"
 
         imagem.setAttribute('src', conteudoImagem)
@@ -2779,17 +3037,17 @@ function botaoPontuar(e) { //Isto vai abrir um botão para deixar pontuar, cada 
     botone.addEventListener('click', realmentePontuar)
 
     //Agora, pintar as estrelas
-    
+
     if (e.target.id == "") valorDeMercado = parseInt(e.target.parentNode.id)
     else valorDeMercado = parseInt(e.target.id)
 
     //console.log(valorDeMercado)
 
-    for(let i = 0; i<estrelasPontuar.length; i++){
-        if(estrelasPontuar[i].id <= valorDeMercado){
+    for (let i = 0; i < estrelasPontuar.length; i++) {
+        if (estrelasPontuar[i].id <= valorDeMercado) {
             estrelasPontuar[i].style.background = "yellow"
         }
-        else{
+        else {
             estrelasPontuar[i].style.background = "grey"
         }
     }
@@ -2814,6 +3072,228 @@ function realmentePontuar() { //Em principio as matemáticas vão ser feitas na 
     document.getElementById('pontuacaoMedia').innerHTML = `${eventos[elIndex].pontuacao} <small style="font-size:20px">/5</small>`
 }
 
+//Função para verificar os inscritos
+function inscritosEvento(idDoEvento) { //recebe o id do evento e corre o array de inscritos nesse e devolve os num novo array
+
+    let novoArray = []
+
+    let elEvento = eventos.filter(function (evento) {
+        return evento.id == idDoEvento
+    })
+
+    for (let i = 0; i < elEvento[0].inscritos.length; i++) {
+        for (let k = 0; k < utilizadores.length; k++) {
+            if (elEvento[0].inscritos[i] == utilizadores[k].id) novoArray.push(utilizadores[i]) //Assim é só passar a foto destes utilizadores em vez de estar a fazer match de id's   
+        }
+    }
+
+    return novoArray
+}
+
+
+//Função para preencher a cena com a cabeçorra dos utilizadores
+function cabeconas(arrayPassar) { //Este array deve ser o array que é devolvido na função inscritosEvento()
+
+    let leContainer = document.getElementById('containerInscritos')
+
+    for (let i = 0; i < 4; i++) { //arrayPassar.length, não vai ser este o tamanho, porque vão aparecer no máximo 3 caras + 1 (+) 
+        let div = document.createElement('div')
+        div.setAttribute('class', 'col-sm-3')
+
+        leContainer.appendChild(div)
+
+        let maisUmDiv = document.createElement('div')
+
+        div.appendChild(maisUmDiv)
+
+        let figureTag = document.createElement('figure')
+
+        maisUmDiv.appendChild(figureTag)
+
+        let leImagem = document.createElement('img')
+        leImagem.setAttribute('class', 'pessoas-inscritas')
+
+        let imagemLinda = ""
+        if (i == 3) imagemLinda = "+.png"
+        else if (arrayPassar[i].fotografia == "") imagemLinda = "https://drwfxyu78e9uq.cloudfront.net/usercontent/olhafrutafresca/media/images/95082ab-batata-doce.jpg"
+        else imagemLinda = arrayPassar[i].fotografia
+
+        leImagem.setAttribute('src', imagemLinda)
+        leImagem.setAttribute('alt', 'Inscritos') //Porque user friendly é FIXI
+
+        figureTag.appendChild(leImagem)
+
+        //Em principio tá
+        //Falta só criar uma função para as carinhas que faça a ligação para a página desse utilizador
+        //preciso de por os id's dos utilizadores nas caras para isso...
+    }
+}
+
+function preencherTestemunhos() {
+
+    let leDiv = document.getElementById('containerTestemunhos')
+    leDiv.innerHTML = ""
+
+    let srcImagem = ""
+    let nomeUtilizador = ""
+    for (let i = 0; i < testemunhos.length; i++) {
+
+        let div1 = document.createElement('div')
+
+        if (i == 0 || i % 3 == 0) {
+            let DivDosDivs = document.createElement('div')
+            DivDosDivs.setAttribute('class', 'row')
+            DivDosDivs.appendChild(div1)
+            leDiv.appendChild(DivDosDivs)
+            if (i != 0) {
+                let br = document.createElement('br')
+                leDiv.appendChild(br)
+            }
+        }
+
+
+        div1.setAttribute('class', 'col-xs-12 col-sm-6 col-md-4 leTestamento')
+
+        let div2 = document.createElement('div')
+        div1.appendChild(div2)
+
+        let div3 = document.createElement('div')
+        div3.setAttribute('class', 'testemunho')
+        div2.appendChild(div3)
+
+        let div4 = document.createElement('div')
+        div4.setAttribute('class', 'card')
+        div3.appendChild(div4)
+
+        let div5 = document.createElement('div')
+        div5.setAttribute('class', 'card-body text-center')
+        div4.appendChild(div5)
+
+        let figure = document.createElement('figure')
+        div5.appendChild(figure)
+
+        //Imagem
+        let img = document.createElement('img')
+        img.setAttribute('class', 'img-testemunho')
+        img.setAttribute('alt', 'Cara Do Gajo/a')
+
+        for (let k = 0; k < utilizadores.length; k++) {
+            if (testemunhos[i].userId == utilizadores[k].id) {
+
+                //Imagem
+                if (utilizadores[k].fotografia == "") srcImagem = "https://drwfxyu78e9uq.cloudfront.net/usercontent/olhafrutafresca/media/images/95082ab-batata-doce.jpg"
+                else srcImagem = utilizadores[k].fotografia
+
+                //Nome de Utilizador
+                nomeUtilizador = utilizadores[k].nome
+            }
+        }
+
+        img.setAttribute('src', srcImagem)
+        figure.appendChild(img)
+        //---------------------------------------------------
+
+        let h5 = document.createElement('h5')
+        h5.setAttribute('class', 'nome-testemunho')
+        h5.textContent = nomeUtilizador
+
+        div5.appendChild(h5)
+
+        let p = document.createElement('p')
+        p.setAttribute('class', 'texto-testemunho')
+        p.textContent = testemunhos[i].testemunho
+        console.log(testemunhos[i].testemunho)
+
+        div5.appendChild(p)
+    }
+}
+
+//Função para dar os valores aos cardsna página do Admin
+function cardsDoAdmin() {
+    let contEventos = document.getElementById('contadorEventos')
+    let contParcerias = document.getElementById('contadorParcerias')
+    let contCategorias = document.getElementById('contadorCategorias')
+    let contEstudantes = document.getElementById('contadorEstudantes')
+    let contDocentes = document.getElementById('contadorDocentes')
+
+    let a = 0, b = 0;
+    for (let i = 0; i < utilizadores.length; i++) {
+        if (utilizadores[i].tipoUtilizador == "Docente") a++
+        else if (utilizadores[i].tipoUtilizador == 'Estudante') b++
+    }
+
+    contEstudantes.innerHTML = "Estudantes: " + b; contDocentes.innerHTML = "Docentes: " + a;
+
+    contEventos.innerHTML = eventos.length
+    contParcerias.innerHTML = parcerias.length
+    contCategorias.innerHTML = categorias.length;
+}
+
+//Função para guardar o utilizador escolhido para ver a página de perfil, em local storage
+function guardarUtilizador(e) {
+
+    let idAtacar = e.target.className
+
+    let elUtilizador = utilizadores.filter(function (utilizadore) {
+        return utilizadore.id == idAtacar
+    })
+
+    console.log(elUtilizador[0])
+
+    editarPerfil = false
+    localStorage.setItem("editarPerfil", JSON.stringify(editarPerfil))
+    localStorage.setItem("UtilizadorMostrar", JSON.stringify(elUtilizador[0]))
+}
+
+//Função para preencher as parcerias
+function preencherListaDeParcerias() {
+    if (document.getElementById('parcerias') != null) {
+
+        let fazerAppenedAqui = document.getElementById('asParcerias')
+        fazerAppenedAqui.innerHTML = ""
+
+        for (let i = 0; i < parcerias.length; i++) {
+            let li = document.createElement('li')
+            let div = document.createElement('div')
+            div.setAttribute('class', 'parc')
+
+            li.appendChild(div)
+
+            let h2 = document.createElement('h2')
+            h2.setAttribute('class', 'title')
+            h2.textContent = parcerias[i].nome
+
+            div.appendChild(h2)
+
+            let p = document.createElement('p')
+            p.setAttribute('class', 'loc')
+            p.textContent = parcerias[i].localizacao
+
+            div.appendChild(p)
+
+            let ul = document.createElement('ul')
+
+            div.appendChild(ul)
+
+            let li2 = document.createElement('li')
+
+            ul.appendChild(li2)
+
+
+
+            let a = document.createElement('a')
+            a.setAttribute('href', parcerias[i].link)
+
+            console.log(parcerias[i].link)
+            if (parcerias[i].link != "") a.innerHTML = parcerias[i].link
+            else a.innerHTML = "Bem Fodeu, Burra"
+
+            li2.appendChild(a)
+
+            fazerAppenedAqui.appendChild(li)
+        }
+    }
+}
 //#######################################################################################################################
 //#######################################################################################################################
 //#######################################################################################################################

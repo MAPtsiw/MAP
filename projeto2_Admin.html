@@ -45,7 +45,7 @@
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon dark-blue-text"></span>
+            <span class="fa fa-bars fa-1x"></span>
         </button>
 
         <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
@@ -53,12 +53,14 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <!-- Tinha active na class -->
-                    <a class="nav-link w3-bar-item w3-button" style="padding: 20 20 20 20" href="#chupaAsMinhasTolas">Home
+                    <a class="nav-link w3-bar-item w3-button" style="padding: 20 20 20 20" href="projeto2.html">
+                        <i class="fas fa-home iconNav"></i>Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="projeto2_Agenda.html">Catálogo</a>
+                    <a class="nav-link" href="projeto2_Agenda.html">
+                        <i class="far fa-calendar-alt iconNav"></i>Catálogo</a>
                 </li>
                 <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -73,12 +75,19 @@
                     </div>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="projeto2_Testemunhos.html">Testemunho Estudantes</a>
+                    <a class="nav-link" href="projeto2_Testemunhos.html">
+                        <i class="fas fa-comments iconNav"></i>Testemunho Estudantes</a>
                 </li>
 
                 <li id="Perfil" class="nav-item" style="display: none">
                     <!-- Para tirar esta opçao remove se o "style" -->
-                    <a href="projeto2_Perfil.html" class="nav-link">Perfil</a>
+                    <a href="projeto2_Perfil.html" class="nav-link">
+                        <i class="fas fa-user iconNav"></i>Perfil</a>
+                </li>
+
+                <li id="Admin" class="nav-item" style="display: none">
+                    <a href="projeto2_Admin.html" class="nav-link">
+                        <i class="fas fa-user iconNav"></i>Admin</a>
                 </li>
 
                 <li id="linhaQueSepara">
@@ -111,11 +120,57 @@
 
     <!-- ####################################### Tudo O resto #######################################-->
 
+
     <!-- Detalhes sobre o site, nº inscritos, nº Eventos, etc  -->
-    <div id="">
+    <div class="row" style="margin: 20px 10px 0px 10px">
+        <div class="card col-md-3 cardsAdmin">
+            <div class="text-center">
+                <a href="#corpoEventos">Nº de Eventos:</a>
+            </div>
+            <div class="card-body">
+                <h4 id="contadorEventos" class="card-title cardsAdminTitulo">
+                    50
+                </h4>
+            </div>
+        </div>
 
+
+        <div class="card col-md-3 cardsAdmin">
+            <div class=" text-center">
+                <a href="#bodyUtilizadores"> Nº de Utilizadores:</a>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title cardsAdminTitulo">
+                    <p id="contadorDocentes">Docentes: 50</p>
+                    <p id="contadorEstudantes">Estudantes: 50</p>
+                </h4>
+            </div>
+        </div>
+
+
+        <div class="card col-md-3 cardsAdmin">
+            <div class=" text-center">
+                <a href="#containerTags"> Nº de Categorias:</a>
+            </div>
+            <div class="card-body">
+                <h4 id="contadorCategorias" class="card-title cardsAdminTitulo">
+                    50
+                </h4>
+            </div>
+        </div>
+
+
+        <div class="card col-md-3 cardsAdmin">
+            <div class=" text-center">
+                <a href="#tableParcerias">Nº de Parceiras:</a>
+            </div>
+            <div class="card-body">
+                <h4 id="contadorParcerias" class="card-title cardsAdminTitulo">
+                    50
+                </h4>
+            </div>
+        </div>
     </div>
-
     <!-- Duas tabelas -> Utilizadores e eventos -->
     <div class="row">
 
@@ -296,8 +351,8 @@
                                 <i class="fa fa-angle-double-right"></i> Catálogo</a>
                         </li>
                         <li>
-                            <a href="javascript:void();">
-                                <i class="fa fa-angle-double-right"></i> FAQ</a>
+                            <a href="projeto2_Parcerias.html">
+                                <i class="fa fa-angle-double-right"></i> Parcerias</a>
                         </li>
                     </ul>
                 </div>
