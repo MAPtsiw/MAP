@@ -11,6 +11,10 @@ let comentarios = []
 
 let testemunhos = []
 
+let recomendados = []
+
+let eventosParticipados = []
+
 //Vai servir para saber se há alguém com sessão iniciada ou não
 let logged = false;
 
@@ -26,7 +30,7 @@ let idEventoAlterar = 0
 //Variavel que vai guardar o id da parceria a alterar
 let idDaParceriaModificar = 0
 
-//Mesma merda que em cima para os eventos
+//Mesma coisa que em cima para os eventos
 let ideventoModificar = 0
 
 //Mostrar ou não a opção de editar o perfil
@@ -53,8 +57,11 @@ window.onload = function () {
     //Variavel para o item da navbar para o admin
     let adminzito = document.getElementById('Admin')
 
-    if (document.getElementById('container-Calendario') != null)
+    if (document.getElementById('container-Calendario') != null) {
+        this.console.log('ata Calendario')
         calendarioFixe(datinha.getMonth() + 1, datinha.getFullYear())
+    }
+
 
     //Isto deve ser a primeira cena a fazer em principio
     //Local Storage, encher os arrays, utilizadores e eventos
@@ -63,7 +70,7 @@ window.onload = function () {
 
         //Maneira de encher o array sem ter que mexer nas variáceis internas
         for (let i = 0; i < a.length; i++) {
-            let b = new Utilizador(a[i]._nome, a[i]._password, a[i]._mail, a[i]._fotografia, a[i]._tipo)
+            let b = new Utilizador(a[i]._nome, a[i]._password, a[i]._mail, a[i]._fotografia, a[i]._tipo, a[i]._cv, a[i]._aulas, a[i]._formacao)
             utilizadores.push(b)
         }
 
@@ -71,7 +78,7 @@ window.onload = function () {
 
         //Tou a fazer isto porque ao fazer utilizadores.nome aos utilizadores que ficaram no localstorage, isto devolve undefined
         //mas se criar um novo objeto que não estava guardado já funciona, mas se fizer utilizadores._nome, já me dá o valor direito
-        //e tenho as merdas bem na class....
+        //e tenho as coisas bem na class....
         //Não funcionou...
 
         // for(let i = 0; i<meninos.length; i++){
@@ -84,7 +91,7 @@ window.onload = function () {
 
         //nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador]._id
         for (let i = 0; i < a.length; i++) {
-            let b = new Evento(a[i]._nome, a[i]._data, a[i]._descricao, a[i]._categoria, a[i]._imagem, a[i]._responsavel, a[i]._userId)
+            let b = new Evento(a[i]._nome, a[i]._data, a[i]._descricao, a[i]._categoria, a[i]._imagem, a[i]._responsavel, a[i]._userId, a[i]._pontuacao, a[i]._inscritos)
             eventos.push(b)
         }
 
@@ -123,7 +130,7 @@ window.onload = function () {
         }
         console.log(testemunhos)
     }
-    // for (let i = 0; i < utilizadores.length; i++) { //porque fodeu se
+    // for (let i = 0; i < utilizadores.length; i++) { //porque coisa se
     //     utilizadores[i].tipoUtilizador = "Docente"
     // }
 
@@ -138,6 +145,15 @@ window.onload = function () {
     // utilizadores.push(r)
 
 
+    if (this.localStorage.getItem('recomendados')) {
+        let a = JSON.parse(localStorage.getItem('recomendados'))
+
+        for (let i = 0; i < a.length; i++) {
+            let b = new Recomendado(a[i]._eventoId, a[i]._userId)
+            recomendados.push(b)
+        }
+        console.log(recomendados)
+    }
 
     //Iniciar o indexUtilizador como estava antes
     indexUtilizador = JSON.parse(localStorage.getItem('indexUtilizador'))
@@ -176,7 +192,7 @@ window.onload = function () {
             btnAdicionar.style.display = 'inline-block'
         }
 
-        //Função para adicionar a opção de ver o perfil do utilizador, se esta merda fosse com windows forms.....
+        //Função para adicionar a opção de ver o perfil do utilizador, se esta coisa fosse com windows forms.....
         if (utilizadores[indexUtilizador].tipoUtilizador != 'Administrador') verPerfil(true);
 
     }
@@ -213,13 +229,13 @@ window.onload = function () {
     minDate();
 
     //Definir a data e o ano no calendário
-    coco();
+    anoCalendario();
 
     //Marcar os dias que têm eventos, tem que estar aqui po que senão o array ainda não está preenchido
     marcarDias(datinha.getMonth() + 1);
 
     //Preencher o array de categorias
-    mamaAquiNaPila()
+    EncherCategoriasInicio()
 
 
     //Preencher a tabela dos utilizadores por agora
@@ -243,7 +259,7 @@ window.onload = function () {
         }
 
         //Preencher com tags a pagina de admin, vós entendeis
-        categoriasUnicasFunc() //Tenho mesmo que mexer nisto
+        categoriasUnicasFunc() //Tenho mesmo que mexer nisto, em principio isto não é preciso
         apresentarCategorias()
 
         //Vai ficar aqui porque sim e por agora
@@ -277,7 +293,7 @@ window.onload = function () {
                     eventos[i].descricao,
                     "Por Anunciar",
                     "Por Anunciar",
-                    eventos[i].pontuacao //Fazer alguma merda quando a pontuação não estiver definida
+                    eventos[i].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
                     , i)
             }
 
@@ -305,7 +321,7 @@ window.onload = function () {
 
         if (foto == "") {
 
-            let conf = confirm("Não introduziu uma foto \nContinuar sem mostrar as beiças?") //Dá para editar o texto desta merda?
+            let conf = confirm("Não introduziu uma foto \nContinuar sem mostrar as beiças?") //Dá para editar o texto desta coisa?
 
             if (conf == false)
                 continuar = false
@@ -322,7 +338,7 @@ window.onload = function () {
 
         if (password == confPass && continuar == true) {
             //Criar Utilizador
-            let novoUtilizador = new Utilizador(nome, password, eMail, foto, tipo) //Porque caralhos me está a por o tipo de utilizador na foto????
+            let novoUtilizador = new Utilizador(nome, password, eMail, foto, tipo) //Porque   me está a por o tipo de utilizador na foto????
 
             //Mais umas
             if (novoUtilizador.tipoUtilizador == "Docente") {
@@ -344,14 +360,14 @@ window.onload = function () {
             //Mete-lo no array
             utilizadores.push(novoUtilizador)
 
-            //Devem faltar merdas
+            //Devem faltar coisas
 
-            //1º Merda
+            //1º coisa
             //Avisar que se registou ou fez login com sucesso
 
             msgErro.innerHTML = "Registado com sucesso!!!!"
 
-            //2º Merda 
+            //2º coisa 
             //Local storage
             localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
 
@@ -425,7 +441,7 @@ window.onload = function () {
         let msgErro = document.getElementById('MsgErroLogin')
         if (ok == true) {
             //Dizer que o utilizador está com sessão iniciada
-            logged = true; //Vai servir para várias merdas a seguir
+            logged = true; //Vai servir para várias coisas a seguir
             localStorage.setItem('logged', JSON.stringify(logged))
 
 
@@ -454,12 +470,12 @@ window.onload = function () {
                 btnAdicionar.style.display = 'inline-block'
             }
 
-            //Função para adicionar a opção de ver o perfil do utilizador, se esta merda fosse com windows forms.....
+            //Função para adicionar a opção de ver o perfil do utilizador, se esta coisa fosse com windows forms.....
             if (utilizadores[indexUtilizador].tipoUtilizador != 'Administrador') verPerfil(true);
             // editarPerfil = true;
             // localStorage.setItem('editarPerfil', JSON.stringify(editarPerfil))
 
-            location.reload() //Por alguma razºao esta merda não está a fazer reload
+            location.reload() //Por alguma razºao esta coisa não está a fazer reload
         }
         else {
             msgErro.innerHTML = mensagemErro(erroMail, erroPass) //Função que personaliza a mensagem de erro
@@ -512,7 +528,7 @@ window.onload = function () {
 
     })
 
-    //Meter merdas para o botão de adcionar Eventos (Modal Eventos)
+    //Meter coisas para o botão de adcionar Eventos (Modal Eventos)
     let formEvento = document.getElementById('FormRegistarEvento')
 
     if (formEvento != null) {
@@ -570,7 +586,7 @@ window.onload = function () {
 
             //Descrição
             if (descricao == "") {
-                let conf = confirm("Continuar sem explicar o que caralhos é o evento???")
+                let conf = confirm("Continuar sem explicar o que é o evento???")
 
                 if (!conf) {
                     document.getElementById('DescriçãoEvento').focus()
@@ -581,7 +597,7 @@ window.onload = function () {
             //Fotografia
             if (foto == "") {
 
-                let conf = confirm("Não introduziu uma foto \nContinuar sem mostrar as beiças?") //Dá para editar o texto desta merda?
+                let conf = confirm("Não introduziu uma foto \nContinuar sem mostrar as beiças?") //Dá para editar o texto desta coisa?
 
                 if (conf == false) {
                     continuar = false
@@ -591,14 +607,14 @@ window.onload = function () {
 
 
             if (continuar == true) {
-                //O que vai ficar no evento.Categoria vai ser o id de uma categoria
-                if (categoriasUnicasFunc(categoria)) {
-                    //Fazer esta merda
+                //O que vai ficar no evento.Categoria vai ser o id de uma categoria, ou não
+                if (categoriasUnicasFunc(categoria) == true) {
+                    //Fazer esta coisa
 
                     categorias.push(categoria)
                 }
 
-                let novoEvento = new Evento(nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador].id)
+                let novoEvento = new Evento(nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador].id, 0, 0)
 
                 eventos.push(novoEvento)
 
@@ -610,7 +626,7 @@ window.onload = function () {
                 msgErro.innerHTML = "Belo ebento :)"
             }
             else {
-                msgErro.innerHTML += "Está qualquer coisa male" //Esta merda está a entrar aqui quando não devia
+                msgErro.innerHTML += "Está qualquer coisa male" //Esta coisa está a entrar aqui quando não devia
             }
         })
     }
@@ -680,7 +696,7 @@ window.onload = function () {
                                     losDiasOcupados[i].data[0].split(';')[0],
                                     losDiasOcupados[i].data[0].split(';')[1],
                                     losDiasOcupados[i].pontuacao,
-                                    i, mostrar)
+                                    i, mostrar, 'ohPaEle')
                             }
                             else if (losDiasOcupados[i].data != undefined && losDiasOcupados[i].data[0] == undefined) {
                                 preencherCatalogo(losDiasOcupados[i].nome,
@@ -689,7 +705,7 @@ window.onload = function () {
                                     "Por Anunciar",
                                     "Por Anunciar",
                                     losDiasOcupados[i].pontuacao,
-                                    i, mostrar)
+                                    i, mostrar, 'ohPaEle')
                             }
                         }
                     }
@@ -807,7 +823,7 @@ window.onload = function () {
                     })
                     msgErroCatalogo(filtraditos.length)
                 }
-            } //Tenho que ver o que esta merda vai dar e depois fazer alterações em principio
+            } //Tenho que ver o que esta coisa vai dar e depois fazer alterações em principio
 
             //Ainda tenho que fazer a função para a data, por agora testar só pelos dois campos, udpadate: filtrar por nome e categoria esta feito, nenhum erro por agora
 
@@ -840,7 +856,7 @@ window.onload = function () {
                                 filtraditos[i].data[0].split(';')[0],
                                 filtraditos[i].data[0].split(';')[1],
                                 filtraditos[i].pontuacao
-                                , i, chicharrito)
+                                , i, chicharrito, 'ohPaEle')
                         }
                         else if (filtraditos[i].data[0] == undefined) {
                             preencherCatalogo(filtraditos[i].nome,
@@ -848,11 +864,14 @@ window.onload = function () {
                                 filtraditos[i].descricao,
                                 "Por Anunciar",
                                 "Por Anunciar",
-                                filtraditos[i].pontuacao //Fazer alguma merda quando a pontuação não estiver definida
-                                , i, chicharrito)
+                                filtraditos[i].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
+                                , i, chicharrito, 'ohPaEle')
                         }
                     }
                 }
+            }
+            else if (filtraditos.length == 0) {
+                document.getElementById('ohPaEle').innerHTML = "Não há eventos que correspondam à pesquisa!!!"
             }
         })
     }
@@ -954,7 +973,7 @@ window.onload = function () {
                                 realizados[i].data[0].split(';')[0],
                                 realizados[i].data[0].split(';')[1],
                                 realizados[i].pontuacao,
-                                i, mostrar)
+                                i, mostrar, 'ohPaEle')
                         }
                         else if (realizados[i].data != undefined && realizados[i].data[0] == undefined) {
                             preencherCatalogo(realizados[i].nome,
@@ -963,7 +982,7 @@ window.onload = function () {
                                 "Por Anunciar",
                                 "Por Anunciar",
                                 realizados[i].pontuacao,
-                                i, mostrar)
+                                i, mostrar, 'ohPaEle')
                         }
                     }
                 }
@@ -986,7 +1005,7 @@ window.onload = function () {
                                 notRealizados[i].data[0].split(';')[0],
                                 notRealizados[i].data[0].split(';')[1],
                                 notRealizados[i].pontuacao,
-                                i, mostrar)
+                                i, mostrar, 'ohPaEle')
                         }
                         else if (notRealizados[i].data != undefined && notRealizados[i].data[0] == undefined) {
                             preencherCatalogo(notRealizados[i].nome,
@@ -995,7 +1014,7 @@ window.onload = function () {
                                 "Por Anunciar",
                                 "Por Anunciar",
                                 notRealizados[i].pontuacao,
-                                i, mostrar)
+                                i, mostrar, 'ohPaEle')
                         }
                     }
                 }
@@ -1169,7 +1188,7 @@ window.onload = function () {
     if (document.getElementById('paginaEvento') != null) {
         if (localStorage.getItem('EventoMostrar')) { //FAzer tudo aqui dentro? Por agora sim, sim porque se não vai estar a comentar o quê....
             let a = JSON.parse(localStorage.getItem('EventoMostrar'))
-            let eventoLindo = new Evento(a._nome, a._data, a._descricao, a._categoria, a._imagem, a._responsavel, a._userId)
+            let eventoLindo = new Evento(a._nome, a._data, a._descricao, a._categoria, a._imagem, a._responsavel, a._userId, a._pontuacao, a._inscritos)
             eventoLindo._id = a._id
             //this.alert(eventoLindo.nome)
 
@@ -1185,12 +1204,24 @@ window.onload = function () {
             document.getElementById('nomeEvento').innerHTML = eventoLindo.nome
             document.getElementById('leResponsavel').innerHTML = "por: " + eventoLindo.responsavel
             document.getElementById('LaDescricao').innerHTML = eventoLindo.descricao
+            if (eventoLindo.pontuacao != 0) this.document.getElementById('pontuacaoMedia').innerHTML = eventoLindo.pontuacao + " /5";
+            else document.getElementById('pontuacaoMedia').innerHTML = "Por definir"
 
             if (eventoLindo.localizacao != null) document.getElementById('localizacao').innerHTML = "Localização:<br>" + eventoLindo.localizacao
             else document.getElementById('localizacao').innerHTML = "Localização:<br> Por Definir..."
             //Categorias, não é preciso fazer como em cima, porque já está feito na função
             apresentarCategorias(false)
             mostrarLosComentarios(eventoLindo.id)
+
+            //Criar um array para ver a malta que est+a inscita no evento
+            let maltaInscrita = []
+            for (let i = 0; i < eventoLindo.inscritos.length; i++) {
+                for (let j = 0; j < utilizadores.length; j++) {
+                    if (eventoLindo.inscritos[i] == utilizadores[j].id) maltaInscrita.push(utilizadores[i])
+                }
+            }
+
+            cabeconas(maltaInscrita);
 
 
             if (!logged) document.getElementById('btnInscrever').disabled = true //Confirmar se está a funcionar  
@@ -1229,31 +1260,86 @@ window.onload = function () {
                 }
             })
 
-            //Fazer mais merdas para o botão de Increver se
+            //Fazer mais coisas para o botão de Increver se
             let btnInscrever = document.getElementById('btnInscrever')
             btnInscrever.addEventListener('click', function () {
                 let botaAtacar = eventoLindo.id
 
+                let loIndexi = 0
+                let tamanhoNot = 0;
                 for (let i = 0; i < eventos.length; i++) {
                     if (eventos[i].id == botaAtacar) {
-                        eventos[i].inscritos = utilizadores[indexUtilizador].id //Esta merda está me a criar um array com dois valores.... Porquê
-                        console.log("fodeu")
+                        loIndexi = i
+                        tamanhoNot = eventos[i].inscritos.length
+                        eventos[i].inscritos = utilizadores[indexUtilizador].id //Done coisa
+
+                        //console.log("ata")
                     }
-                    //Não esquecer de gravar o evento depois
+                }
+
+                if (tamanhoNot == eventos[loIndexi].inscritos.length) {
+                    alert('Já tas inscrito oh burra')
+                }
+                else {
+                    localStorage.setItem('eventos', JSON.stringify(eventos))
+                    alert('Tás inscritos')
                 }
             })
-            if (logged == true) {
-                let estrelasPontuar = document.getElementsByClassName('btn btn-default btn-grey btn-sm')
-                console.log(estrelasPontuar)
-                for (let i = 0; i < estrelasPontuar.length; i++) {
-                    //this.console.log(estrelasPontuar[i])
-                    estrelasPontuar[i].addEventListener('click', botaoPontuar)
-                }
+            //Pontuar o   do evento
+            //if (logged == true) { //Fazer esta confirmação no evento, e assim aviso que tem que estar logado para pontuar
+            let estrelasPontuar = document.getElementsByClassName('btn btn-default btn-grey btn-sm')
+            //console.log(estrelasPontuar)
+            for (let i = 0; i < estrelasPontuar.length; i++) {
+                //this.console.log(estrelasPontuar[i])
+                estrelasPontuar[i].addEventListener('click', botaoPontuar)
+            }
+            //}
+
+            const btnRecomendar = document.getElementById('btnRecomendar')
+            if (logged) {
+                btnRecomendar.addEventListener('click', function () {
+                    let recomendar = ""
+                    if (recomendados.length == 0) {
+                        recomendar = new Recomendado(eventoLindo.id, utilizadores[indexUtilizador].id)
+                        recomendados.push(recomendar)
+                    }
+                    else {
+                        let seguir = true, indexi = 0;
+                        for (let i = 0; i < recomendados.length; i++) {
+                            if (recomendados[i].eventoId == eventoLindo.id) {
+                                seguir = false
+                                indexi = i;
+                            }
+                        }
+                        let seguir2 = true;
+                        if (!seguir) {
+
+                            for (let i = 0; i < recomendados[indexi].userId.length; i++) {
+                                if (recomendados[indexi].userId[i] == utilizadores[indexUtilizador].id) {
+                                    seguir2 = false
+                                }
+                            }
+                        }
+                        else {
+                            recomendar = new Recomendado(eventoLindo.id, utilizadores[indexUtilizador].id)
+                            recomendados.push(recomendar)
+                        }
+
+                        if (seguir2) {
+                            recomendados[indexi].userId = utilizadores[indexUtilizador].id
+                        }
+                    }
+                    localStorage.setItem('recomendados', JSON.stringify(recomendados))
+                    console.log(recomendados)
+                })
+            }
+            else {
+                alert('Tens que estar logado para recomendar o evento')
             }
         }
     }
 
-    let botaoTestemunhar = document.getElementById('aPilaDoMiguel')
+    let botaoTestemunhar = document.getElementById('aDoMiguel')
     if (botaoTestemunhar != null) {
 
         //Preencher os testemunhos, caso já tenham sido criados
@@ -1354,7 +1440,7 @@ window.onload = function () {
                     .includes(procurar.toUpperCase())
             })
 
-            console.log(utilizadoresFiltrados) //Até aqui está bem, mas depois fodeu
+            console.log(utilizadoresFiltrados) //Até aqui está bem, mas depois coisa
 
             let drop = document.getElementById('Cenas')
             drop.innerHTML = ""
@@ -1381,11 +1467,25 @@ window.onload = function () {
     //Preencher a página de Utilizador 
     if (document.getElementById('paginaPerfil') != null) {
         if (this.localStorage.getItem('UtilizadorMostrar')) {
-            let loUtilizador = JSON.parse(this.localStorage.getItem('UtilizadorMostrar'))
+            let loUtilizador = ""
 
+            editarPerfil = JSON.parse(localStorage.getItem('editarPerfil'))
+            console.log(editarPerfil)
+            if (editarPerfil) loUtilizador = utilizadores[indexUtilizador]
+            else loUtilizador = JSON.parse(this.localStorage.getItem('UtilizadorMostrar'))
+
+            let laImagem = ""
             let imagemUtil = document.getElementById('ImagemUtilizador')
-            if (loUtilizador._fotografia == "") imagemUtil.setAttribute('src', 'https://drwfxyu78e9uq.cloudfront.net/usercontent/olhafrutafresca/media/images/95082ab-batata-doce.jpg')
-            else imagemUtil.setAttribute('src', loUtilizador._fotografia)
+            if (loUtilizador._fotografia == "") laImagem = 'https://drwfxyu78e9uq.cloudfront.net/usercontent/olhafrutafresca/media/images/95082ab-batata-doce.jpg'
+            else laImagem = loUtilizador._fotografia
+
+            imagemUtil.setAttribute('src', laImagem)
+
+            // let imagemUtilFundo = this.document.getElementById('notSideBar')
+            // imagemUtilFundo.style.backgroundImage = `url(${laImagem})`
+            // imagemUtilFundo.setAttribute('class', 'imagem-fundo-utilizador')
+
+            this.console.log(laImagem)
 
             let nomeUtilizador = document.getElementById('NomeUtilizador')
             nomeUtilizador.innerHTML = loUtilizador._nome
@@ -1397,13 +1497,13 @@ window.onload = function () {
             if (loUtilizador._tipo == "Docente") {
                 divDocente.style.display = "inline-block"
 
-                if (loUtilizador._cv != null) console.log('ata') //VEr se isto está a funcionar
+                if (loUtilizador._cv != null) document.getElementById('shortCv').innerHTML = loUtilizador._cv //VEr se isto está a funcionar
                 else document.getElementById('shortCv').innerHTML = "Por preencher"
 
-                if (loUtilizador._aulas != null) this.console.log('ata2')
+                if (loUtilizador._aulas != null) this.document.getElementById('lecionadas').innerHTML = loUtilizador._aulas
                 else this.document.getElementById('lecionadas').innerHTML = "Por preencher"
 
-                if (loUtilizador._formacao != null) console.log('ata3')
+                if (loUtilizador._formacao != null) document.getElementById('Formacao').innerHTML = loUtilizador._formacao
                 else document.getElementById('Formacao').innerHTML = "Por preencher..."
             }
             else divDocente.style.display = 'none'
@@ -1411,7 +1511,7 @@ window.onload = function () {
             //Mostrar ou não o botão de mostrar o perfil, consoante o sitio onde se foi para o perfil
             if (this.localStorage.getItem('editarPerfil')) {
                 let editar = JSON.parse(this.localStorage.getItem('editarPerfil'))
-                console.log('Editar Perfil = ' + editar)
+                // console.log('Editar Perfil = ' + editar)
 
                 if (!editar) {
                     let editarOPerfil = document.getElementById('ButoneEditar')
@@ -1419,7 +1519,164 @@ window.onload = function () {
                 }
             }
 
+            //Preencher os eventos participados
+            // eventosParticipados = []
 
+            document.getElementById("eventosParticipados").innerHTML = ""
+            let contadori = 0;
+            for (let i = 0; i < eventos.length; i++) {
+                for (let k = 0; k < eventos[i].inscritos.length; k++) {
+                    if (eventos[i].inscritos[k] == loUtilizador._id) {
+                        this.console.log('ata ata')
+                        contadori++;
+                        if (logged == true) mostrar = paNaoSei(eventos[i].userId)
+
+                        if (eventos[i].data[0] != undefined) {
+                            preencherCatalogo(eventos[i].nome,
+                                eventos[i].imagem,
+                                eventos[i].descricao,
+                                eventos[i].data[0].split(';')[0],
+                                eventos[i].data[0].split(';')[1],
+                                eventos[i].pontuacao
+                                , i, mostrar, 'eventosParticipados')
+                        }
+                        else if (eventos[i].data[0] == undefined) {
+                            preencherCatalogo(eventos[i].nome,
+                                eventos[i].imagem,
+                                eventos[i].descricao,
+                                "Por Anunciar",
+                                "Por Anunciar",
+                                eventos[i].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
+                                , i, mostrar, 'eventosParticipados')
+                        }
+                    }
+                }
+            }
+
+            if (contadori == 0) document.getElementById("eventosParticipados").innerHTML = "Ainda não participou em nenhum evento"
+
+            let arrayRecomendados = recomendadosFunc(loUtilizador._id)
+            document.getElementById('eventosRecomendados').innerHTML = ""
+            let contadorii = 0;
+            for (let i = 0; i < eventos.length; i++) {
+                for (let k = 0; k < arrayRecomendados.length; k++) {
+                    console.log(arrayRecomendados[k])
+                    if (eventos[i].id == arrayRecomendados[k]) {
+                        console.log('ata')
+                        contadorii++;
+                        if (logged == true) mostrar = paNaoSei(eventos[i].userId)
+
+                        if (eventos[i].data[0] != undefined) {
+                            preencherCatalogo(eventos[i].nome,
+                                eventos[i].imagem,
+                                eventos[i].descricao,
+                                eventos[i].data[0].split(';')[0],
+                                eventos[i].data[0].split(';')[1],
+                                eventos[i].pontuacao
+                                , i, mostrar, 'eventosRecomendados')
+                        }
+                        else if (eventos[i].data[0] == undefined) {
+                            preencherCatalogo(eventos[i].nome,
+                                eventos[i].imagem,
+                                eventos[i].descricao,
+                                "Por Anunciar",
+                                "Por Anunciar",
+                                eventos[i].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
+                                , i, mostrar, 'eventosRecomendados')
+                        }
+                    }
+                }
+            }
+            if (contadorii == 0) document.getElementById("eventosRecomendados").innerHTML = "Ainda não recomendou em nenhum evento"
+
+            let cv = document.getElementById('shortCv')
+            let lecionadas = document.getElementById('lecionadas')
+            let formacao = document.getElementById('Formacao')
+            let nome = this.document.getElementById('NomeUtilizador')
+            let divDoNome = document.getElementById('divDoNome')
+
+            //Botão gravar alterações
+            const btnGravar = document.getElementById('gravarAlterações')
+            const btnCancelar = document.getElementById('cancelarAlterações')
+            //Botão de Editar
+            const btnEditar = document.getElementById('ButoneEditar')
+            btnEditar.addEventListener('click', function () {
+                btnGravar.style.display = "inline-block"
+                btnCancelar.style.display = 'inline-block'
+
+                const textareaCV = document.createElement('div')
+                const textareaLecionadas = document.createElement('div')
+                const textareaFormacao = document.createElement('div')
+                const textareaNome = document.createElement('div')
+
+
+
+                //Limpar os campos de docente
+                nome.innerHTML = ""
+                cv.innerHTML = ""
+                lecionadas.innerHTML = ""
+                formacao.innerHTML = ""
+
+                //Formatar as textareas
+                textareaCV.setAttribute('contenteditable', 'true')
+                textareaCV.setAttribute('class', 'campos-docente')
+                textareaLecionadas.setAttribute('contenteditable', 'true')
+                textareaLecionadas.setAttribute('class', 'campos-docente')
+                textareaFormacao.setAttribute('contenteditable', 'true')
+                textareaFormacao.setAttribute('class', 'campos-docente')
+                textareaNome.setAttribute('contenteditable', 'true')
+                textareaNome.setAttribute('class', 'campos-docente')
+
+                // document.getElementsByClassName('campos-docente')[0].focus()
+                //Dar Valores ás textareas
+                textareaNome.innerHTML = loUtilizador._nome
+                textareaCV.innerHTML = loUtilizador._cv
+                textareaLecionadas.innerHTML = loUtilizador._aulas
+                textareaFormacao.innerHTML = loUtilizador._formacao
+
+                //Mostrar as textareas
+                cv.appendChild(textareaCV)
+                lecionadas.appendChild(textareaLecionadas)
+                formacao.appendChild(textareaFormacao)
+                nome.appendChild(textareaNome)
+            })
+
+            let camposDocente = document.getElementsByClassName('campos-docente')
+            let cancelar = false;
+
+            btnCancelar.addEventListener('click', function(){
+
+                for (let i = 0; i < camposDocente.length; i++) {
+                    console.log(camposDocente[i])
+                }
+
+                nome.innerHTML = utilizadores[indexUtilizador].nome
+                cv.innerHTML = utilizadores[indexUtilizador].cv
+                lecionadas.innerHTML = utilizadores[indexUtilizador].aulas
+                formacao.innerHTML = utilizadores[indexUtilizador].formacao
+
+                btnGravar.style.display = "none"
+                btnCancelar.style.display = 'none'
+            })
+            btnGravar.addEventListener('click', function () {
+                
+                utilizadores[indexUtilizador].nome = camposDocente[0].innerHTML
+                utilizadores[indexUtilizador].cv = camposDocente[1].innerHTML
+                utilizadores[indexUtilizador].aulas = camposDocente[2].innerHTML
+                utilizadores[indexUtilizador].formacao = camposDocente[3].innerHTML
+
+                nome.innerHTML = utilizadores[indexUtilizador].nome
+                cv.innerHTML = utilizadores[indexUtilizador].cv
+                lecionadas.innerHTML = utilizadores[indexUtilizador].aulas
+                formacao.innerHTML = utilizadores[indexUtilizador].formacao
+
+                //Gravar o array outra vez
+                localStorage.setItem('utilizadores', JSON.stringify(utilizadores))
+
+                //Esconder o botão de Gravar Alterações
+                btnGravar.style.display = "none"
+                btnCancelar.style.display = 'none'  
+            })
         }
     }
 
@@ -1430,6 +1687,8 @@ window.onload = function () {
             localStorage.setItem('editarPerfil', JSON.stringify(editarPerfil))
         })
     }
+
+
 }
 //#######################################################################################################################
 //#######################################################################################################################
@@ -1441,8 +1700,24 @@ window.onload = function () {
 //#######################################################################################################################
 
 //---------------------------------------------- Funções ----------------------------------------------------------------------------------------
+//Função para saber os eventos que um utilizador recomendou
+function recomendadosFunc(idUtilizador) {
+    let arrayFiltrado = []
+
+    for (let i = 0; i < recomendados.length; i++) {
+        for (let k = 0; k < recomendados[i].userId.length; k++) {
+            console.log(recomendados[i].userId[k])
+            if (recomendados[i].userId[k] == idUtilizador) {
+                arrayFiltrado.push(recomendados[i].eventoId)
+            }
+        }
+    }
+
+    return arrayFiltrado //Vai devolver um array com o id dos eventos que o utilizador recomendou
+}
+
 //Função para preencher o catálogo com uma mensagem de "erro", para o caso de não existir nenhum evneto à medida que se vai procurando o evento
-function msgErroCatalogo(tamanhoArray) { //Nome de merda
+function msgErroCatalogo(tamanhoArray) { //Nome de coisa
 
     // let seguir = true
     if (tamanhoArray == 0) { //Ver como isto fica
@@ -1492,8 +1767,8 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
 
     //Div para por o cartão
     let div1 = document.createElement('div')
-    if (indice == 0) div1.setAttribute('class', 'carousel-item col-md-4 active');
-    else div1.setAttribute('class', 'carousel-item col-md-4')
+    if (indice == 0) div1.setAttribute('class', 'carousel-item col-sm-4 active');
+    else div1.setAttribute('class', 'carousel-item col-sm-4')
     //Cartão
     let div2 = document.createElement('div')
     div2.setAttribute('class', 'card')
@@ -1503,10 +1778,10 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
 
     //Imagem
     let divImg = document.createElement('img') //As imagens não estão a aparecer
-    if (indice == 0) divImg.setAttribute('class', 'card-img-top img-fixed');
-    else divImg.setAttribute('class', 'card-img-top img-fluid')
+    if (indice == 0) divImg.setAttribute('class', 'card-img-top h img-fixed');
+    else divImg.setAttribute('class', 'card-img-top h img-fluid')
 
-    divImg.setAttribute('src', "images/4.png")
+    divImg.setAttribute('src', "images/evento3.jpg")
 
     div2.appendChild(divImg)
 
@@ -1534,19 +1809,30 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
 
     //Botão + (Ver detalhes)
     let btnDetalhes = document.createElement('a')
-    btnDetalhes.setAttribute('class', 'btn btn-primary')
-    btnDetalhes.innerHTML = '+'
+    btnDetalhes.setAttribute('class', 'btn btn-primary ' + eventos[indice].id)
+    btnDetalhes.setAttribute('href', 'projeto2_Evento.html')
+    btnDetalhes.addEventListener('click', verEvento)
+    btnDetalhes.innerHTML = 'Saber Mais'
+    //Adicionar uma funçao que provavelmente já existe a este botao
 
     cardBody.appendChild(btnDetalhes)
 
     //Detalhes do Evento
+    if (cardPontuacao == undefined) cardPontuacao = "Por Pontuar"
     let detalhes = document.createElement('p')
-    detalhes.setAttribute('class', 'card-text desricao-card-carrosel') //Por esta merda em letras mais pequenas
-    detalhes.innerHTML = `Data: ${cardData} 
+    detalhes.setAttribute('class', 'card-text desricao-card-carrosel') //Por esta coisa em letras mais pequenas
+    detalhes.style.marginBottom = "0px"
+    detalhes.innerHTML = `Data: ${cardData} ||  
                         Hora: ${cardHora}
-                        Pontuação: ${cardPontuacao}`
+                        <br>
+                        Pontuação ${cardPontuacao}` //Fica melhor com 3,5 / 5
 
+    // let detalhes2 = document.createElement('p')
+    // detalhes2.setAttribute('class', 'card-text desricao-card-carrosel')
+    // if(cardPontuacao == undefined) cardPontuacao = "Por Pontuar"
+    // detalhes2.innerHTML = `Pontuação ${cardPontuacao}`
     div2.appendChild(detalhes)
+    // div2.appendChild(detalhes2)
 
     container.appendChild(div1)
 
@@ -1573,7 +1859,7 @@ function encherCatalogo() {
                     eventos[i].data[0].split(';')[0],
                     eventos[i].data[0].split(';')[1],
                     eventos[i].pontuacao
-                    , i, mostrar)
+                    , i, mostrar, 'ohPaEle')
             }
             else if (eventos[i].data[0] == undefined) {
                 preencherCatalogo(eventos[i].nome,
@@ -1581,8 +1867,8 @@ function encherCatalogo() {
                     eventos[i].descricao,
                     "Por Anunciar",
                     "Por Anunciar",
-                    eventos[i].pontuacao //Fazer alguma merda quando a pontuação não estiver definida
-                    , i, mostrar)
+                    eventos[i].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
+                    , i, mostrar, 'ohPaEle')
             }
         }
     }
@@ -1592,9 +1878,10 @@ function encherCatalogo() {
 
 let linhaContainer = ""
 
-function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHora, cardPontuacao, indice, mostrarMenu/* = false*/) { //A parte de filtrar é feita antes, esta função só preenche
+function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHora, cardPontuacao, indice, mostrarMenu/* = false*/, idDoContainer) { //A parte de filtrar é feita antes, esta função só preenche
 
     //Botão hamburguer para dropdown
+    console.log(idDoContainer)
 
     //Container
     let divGrande = document.createElement('div')
@@ -1651,7 +1938,7 @@ function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHor
     divPequena.appendChild(btn2)
 
     //Container principal
-    let bossContainer = document.getElementById('ohPaEle') //Meter tudo aqui
+    let bossContainer = document.getElementById(idDoContainer) //Meter tudo aqui
 
     //O cartão em si
     let cartao = document.createElement('div')
@@ -1662,8 +1949,9 @@ function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHor
     divHeader.setAttribute('class', 'card-header')
 
     let imagem = document.createElement('img')
-    imagem.setAttribute('class', 'card-img') //Pode ter que ser card-img-top, só com o card-img é que a imagem see adapta ao tamanho do card
-    imagem.setAttribute('src', cardImage)
+    imagem.setAttribute('class', 'card-img-top c') //Pode ter que ser card-img-top, só com o card-img é que a imagem see adapta ao tamanho do card
+    if (cardImage != "") imagem.setAttribute('src', cardImage)
+    else imagem.setAttribute('src', "https://fotos.web.sapo.io/i/G001374c0/19709608_sHKZc.png")
 
     divHeader.appendChild(imagem) //Imagem no sitio
     cartao.appendChild(divHeader) //Cabeçalho com a imagem dentro do cartão
@@ -1724,16 +2012,16 @@ function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHor
     cartao.appendChild(corpitoJeitoso)
 
 
-    //Esta div leva 4 cards, fazer um if aqui para dizer se ficam na linha ou é criada outra, como caralhos fazer esta filha da putice
-    if (indice % 3 == 0) {
+    //Esta div leva 4 cards, fazer um if aqui para dizer se ficam na linha ou é criada outra, como   fazer esta filha da putice
+    if (indice % 3 == 0 || indice == 0) {
         linhaContainer = document.createElement('div')
         linhaContainer.setAttribute('class', 'row linha-cards')
         linhaContainer.style.width = "100%"
     }
 
     //Mats
-    contador += indice
-    if (contador > 3) contador = 0; //Confirmar se é =4 ou >4
+    // contador += indice
+    // if (contador > 3) contador = 0; //Confirmar se é =4 ou >4
 
     //appened quase Final
     linhaContainer.appendChild(cartao)
@@ -1871,6 +2159,7 @@ function marcarDias(mes) { //Por acabar, vai ter que receber o mes para depois p
             //console.log(eventos[i]._data[0].split(';')[0].split('-')[2])
             if (diasComEventos(dias[k].innerHTML, mes)) {
                 dias[k].setAttribute('class', 'btn-primary')
+                dias[k].style.background = "green"
             }
         }
     }
@@ -1939,13 +2228,13 @@ function minDate() {
 
     let cal = document.getElementById('DataEvento')
 
-    //Estes if's são para quando não existir certo elemento numa página, as merdas não darem erros
+    //Estes if's são para quando não existir certo elemento numa página, para não dar erros
     if (cal != null)
         cal.setAttribute('min', datinha)
 }
 
 //Por o ano no calendário
-function coco() {
+function anoCalendario() {
     if (document.getElementById('DataCalendário') != null) //Isto devia ser feito com try catch
         document.getElementById('DataCalendário').innerHTML = mesNoCalendario
 }
@@ -1958,7 +2247,7 @@ function brincadeirasCalendário(mesito = "") { //Em principio não vai voltar a
     //Inicial por ser a variavel que vai ter a data sem usar nenhuma função
     //Vai ficar deste género: Tue May 08 2018 18:34:27 GMT+0100 (Hora de Verão de GMT)
 
-    // if(mesito != ""){ Fazer esta merda 
+    // if(mesito != ""){ Fazer esta coisa 
 
     // }
     // else{
@@ -1968,7 +2257,7 @@ function brincadeirasCalendário(mesito = "") { //Em principio não vai voltar a
     let dataInicial = new Date()
     console.log("dataInicial - " + dataInicial)
 
-    //Merdas auxiliares
+    //coisas auxiliares
     let data1 = dataInicial.toLocaleDateString()
     console.log("Vai dar mês/dia/ano - " + data1) //Em principio é igual a 08/05/2018
 
@@ -2047,7 +2336,7 @@ function fimDoMes(mes) {
 
     //let mes = parseInt(mesito), em principio isto não é preciso
 
-    if (mes == 1) { //Melhorar este código de merda
+    if (mes == 1) { //Melhorar este código de coisa
         bla = 31;
     }
     else if (mes == 2) { //Fazer o Fevereiro direito
@@ -2099,7 +2388,7 @@ function ajustarDescricao(desc) {
     }
     else {
         frase = desc
-        //console.log('fodeu')
+        //console.log('coisa')
     }
 
     return frase;
@@ -2108,6 +2397,11 @@ function ajustarDescricao(desc) {
 //Função para preecher o calendário com um mes qualquer
 function calendarioFixe(mes, ano) { //TEm que ser o numero do mês
 
+    //Assinalar no calendário o dia em que estamos
+    let diaDeHoje = new Date()
+    diaDeHoje = diaDeHoje.toString().split(' ')[2]
+    console.log('Dia de Hoje = ' + diaDeHoje)
+    //############################################
     let dias = document.getElementsByClassName('Dias')
 
     let diaUm = mes + "/01/" + ano
@@ -2119,12 +2413,13 @@ function calendarioFixe(mes, ano) { //TEm que ser o numero do mês
     let fimMes = fimDoMes(mes)
     let fimDoMesAnterior = fimDoMes(mes - 1)
 
+    //console.log(fimDoMesAnterior)
     let indici = inicioDoMes(data1[0])
     //console.log("O indice devolvido é - " + indici)
 
     let contadorDiasQueFaltam = fimDoMesAnterior - indici
-    console.log(contadorDiasQueFaltam)
-    console.log(indici)
+    // console.log(contadorDiasQueFaltam)
+    // console.log(indici)
 
 
     let contadorDias = 1
@@ -2139,9 +2434,15 @@ function calendarioFixe(mes, ano) { //TEm que ser o numero do mês
             if (contadorDias <= fimMes) {
 
                 contadorDiasQueFaltam++
-                if (k < indici && i == 0) dias[i].children[k].innerHTML = `<i style="color:green">${contadorDiasQueFaltam}<i>`
+                if (k < indici && i == 0) dias[i].children[k].innerHTML = `<i style="color:grey">${contadorDiasQueFaltam}<i>`
                 else {
                     dias[i].children[k].innerHTML = contadorDias
+                    if (contadorDias == diaDeHoje) {
+                        dias[i].children[k].style.background = "#ff950b"
+                    }
+                    else {
+                        dias[i].children[k].removeAttribute('style') //Acho que é preciso, porque senão vai pintando todos os dias à medida que o tempo passa
+                    }
                     //console.log("indice - " + k + "|| dias - " + contadorDias)
                     contadorDias++;
                 }
@@ -2150,7 +2451,6 @@ function calendarioFixe(mes, ano) { //TEm que ser o numero do mês
                 dias[i].children[k].innerHTML = `<i style="color:green">${contadorDiasUltimos}<i>`
                 contadorDiasUltimos++;
             }
-
         }
 
         indici = 0;
@@ -2276,7 +2576,7 @@ function ordenharPorData() {
                         eventos[k].data[0].split(';')[0],
                         eventos[k].data[0].split(';')[1],
                         eventos[k].pontuacao
-                        , i, mostrar)
+                        , i, mostrar, 'ohPaEle')
                 }
                 else if (eventos[k].data[0] == undefined) {
                     preencherCatalogo(eventos[k].nome,
@@ -2284,8 +2584,8 @@ function ordenharPorData() {
                         eventos[k].descricao,
                         "Por Anunciar",
                         "Por Anunciar",
-                        eventos[k].pontuacao //Fazer alguma merda quando a pontuação não estiver definida
-                        , i, mostrar)
+                        eventos[k].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
+                        , i, mostrar, 'ohPaEle')
                 }
             }
         }
@@ -2424,7 +2724,7 @@ function filtrarPorData(arrayLindo, filtration /*Que data vai ser filtrada*/) { 
 
 
 
-    console.log(arrayDevolver) //Este array mesmo sem dar refresh à página não devia acumular se, porque caralhos o faz
+    console.log(arrayDevolver) //Este array mesmo sem dar refresh à página não devia acumular se, porque   o faz
 
     return arrayDevolver
 }
@@ -2447,7 +2747,6 @@ function devolverDiaMes(elDia) {
             .split('-')[0]
 
         let date = mes + '/' + dia + '/' + ano
-        //console.log("mama qui na pila")
 
 
 
@@ -2527,7 +2826,7 @@ function preencherTabelaUtiPar(nome, notNome, LeId, parceria = false) { //Vai re
 
     let corpo = ""
 
-    if (!parceria) corpo = document.getElementById('bodyUtilizadores') //Anexar as merdas aqui
+    if (!parceria) corpo = document.getElementById('bodyUtilizadores') //Anexar as coisas aqui
     else corpo = document.getElementById('corpoParcerias')
 
     let linha = document.createElement('tr')
@@ -2579,6 +2878,22 @@ function preencherTabelaUtiPar(nome, notNome, LeId, parceria = false) { //Vai re
         pipi3.appendChild(leBtn)
         linha.appendChild(pipi3)
     }
+    // else{
+    //     let pipi3 = document.createElement('tr') //coluna
+    //     let leBtn = document.createElement('button') //Botão
+    //     let leBtnConteudo = document.createElement('i') //Conteudo do Botão
+
+
+    //     leBtnConteudo.setAttribute('class', 'fas fa-pencil-alt ' + LeId)
+    //     leBtn.setAttribute('class', 'btn btn-secundary ' + LeId)
+    //     leBtn.setAttribute('data-toggle', 'modal')
+    //     leBtn.setAttribute('data-target', '#ModalAlterarParceria')
+    //     leBtn.addEventListener('click', editarParceria) //por Fazer
+
+    //     leBtn.appendChild(leBtnConteudo)
+    //     pipi3.appendChild(leBtn)
+    //     linha.appendChild(pipi3)
+    // }
 
     corpo.appendChild(linha)
 }
@@ -2768,7 +3083,7 @@ function editarEvento(e) {
 
 }
 
-function auxiliarData(datita) { //Não é preciso esta merda, bennhe
+function auxiliarData(datita) { //Não é preciso esta  , bennhe
     let leData = ""
 
     console.log(datita)
@@ -2794,7 +3109,7 @@ function categoriasUnicasFunc(laCategoria) {
     //A Funçaõ vai receber uma categoria que vai ser "avaliada", para ver se  nome já existe ou não
     if (categorias.length > 0 && laCategoria != undefined) {
         for (let i = 0; i < categorias.length; i++) {
-            console.log(categorias[i].nome[0].toString())
+            //console.log(categorias[i].nome[0].toString())
             if (categorias[i].nome[0].toString().toUpperCase() == laCategoria[0].toString().toUpperCase()) unica = false
             // if (unica == true) categorias.push(laCategoria)
         }
@@ -2834,10 +3149,10 @@ function apresentarCategorias(mostrarLixo = true) { //Para apresentar as categor
         //Botão para remover o evento
         let butoneParaRemover = document.createElement('button')
         butoneParaRemover.setAttribute('class', 'btn lixinho ' + categorias[i].id)
-        let pilasMaximus = document.createElement('i')
-        pilasMaximus.setAttribute('class', 'fas fa-trash pilasMaximus ' + categorias[i].id)
+        let Maximus = document.createElement('i')
+        Maximus.setAttribute('class', 'fas fa-trash Maximus ' + categorias[i].id)
 
-        butoneParaRemover.appendChild(pilasMaximus)
+        butoneParaRemover.appendChild(Maximus)
         butoneParaRemover.addEventListener('click', maisUmaFuncione)
 
         let conteudoTags = ""
@@ -2853,7 +3168,7 @@ function apresentarCategorias(mostrarLixo = true) { //Para apresentar as categor
 
 
 //Função para encher o array de categorias ao inicio
-function mamaAquiNaPila() {
+function EncherCategoriasInicio() {
 
     let a = ""
 
@@ -2865,7 +3180,7 @@ function mamaAquiNaPila() {
                 a = new Categoria(eventos[i].categoria[k])
                 categorias.push(a)
             }
-            else if (categoriasUnicasFunc(eventos[i].categoria[k])) {
+            else if (categoriasUnicasFunc(eventos[i].categoria[k]) == true) {
                 //console.log('ata')
                 a = new Categoria(eventos[i].categoria[k])
                 categorias.push(a)
@@ -3028,29 +3343,35 @@ let valorDeMercado = 0; //Valor que vai seer adicionado à pontuação
 
 function botaoPontuar(e) { //Isto vai abrir um botão para deixar pontuar, cada utilizador só vai pontuar o evento 1 vez, secalhar adicionar um bolleano para dizer se já pontoou ou não
 
-    let botaozao = document.getElementById('botaoPontuar')
-    let estrelasPontuar = document.getElementsByClassName('btn btn-default btn-grey btn-sm')
+    if (logged) {
+        let botaozao = document.getElementById('botaoPontuar')
+        let estrelasPontuar = document.getElementsByClassName('btn btn-default btn-grey btn-sm')
 
-    botaozao.style.display = 'inline-block'
+        botaozao.style.display = 'inline-block'
 
-    let botone = document.getElementById('botaoPontuar')
-    botone.addEventListener('click', realmentePontuar)
+        let botone = document.getElementById('botaoPontuar')
+        botone.addEventListener('click', realmentePontuar)
 
-    //Agora, pintar as estrelas
+        //Agora, pintar as estrelas
 
-    if (e.target.id == "") valorDeMercado = parseInt(e.target.parentNode.id)
-    else valorDeMercado = parseInt(e.target.id)
+        if (e.target.id == "") valorDeMercado = parseInt(e.target.parentNode.id)
+        else valorDeMercado = parseInt(e.target.id)
 
-    //console.log(valorDeMercado)
+        //console.log(valorDeMercado)
 
-    for (let i = 0; i < estrelasPontuar.length; i++) {
-        if (estrelasPontuar[i].id <= valorDeMercado) {
-            estrelasPontuar[i].style.background = "yellow"
-        }
-        else {
-            estrelasPontuar[i].style.background = "grey"
+        for (let i = 0; i < estrelasPontuar.length; i++) {
+            if (estrelasPontuar[i].id <= valorDeMercado) {
+                estrelasPontuar[i].style.background = "rgb(255,193,7)"
+            }
+            else {
+                estrelasPontuar[i].style.background = "grey"
+            }//class="fa fa-star"
         }
     }
+    else {
+        alert("Tens que estar logado para pontuar")
+    }
+
 }
 
 function realmentePontuar() { //Em principio as matemáticas vão ser feitas na classe
@@ -3068,8 +3389,10 @@ function realmentePontuar() { //Em principio as matemáticas vão ser feitas na 
 
     //Matemáticas
     // console.log(eventos[elIndex].nome) //Dá o que quero
+    console.log(valorDeMercado)
     eventos[elIndex].pontuacao = valorDeMercado
     document.getElementById('pontuacaoMedia').innerHTML = `${eventos[elIndex].pontuacao} <small style="font-size:20px">/5</small>`
+    localStorage.setItem('eventos', JSON.stringify(eventos))
 }
 
 //Função para verificar os inscritos
@@ -3095,12 +3418,18 @@ function inscritosEvento(idDoEvento) { //recebe o id do evento e corre o array d
 function cabeconas(arrayPassar) { //Este array deve ser o array que é devolvido na função inscritosEvento()
 
     let leContainer = document.getElementById('containerInscritos')
+    console.log(arrayPassar.length)
+    leContainer.innerHTML = ""
 
+    let divMaximus = document.createElement('div')
+    divMaximus.setAttribute('class', 'row')
+
+    leContainer.appendChild(divMaximus)
     for (let i = 0; i < 4; i++) { //arrayPassar.length, não vai ser este o tamanho, porque vão aparecer no máximo 3 caras + 1 (+) 
         let div = document.createElement('div')
         div.setAttribute('class', 'col-sm-3')
 
-        leContainer.appendChild(div)
+        divMaximus.appendChild(div)
 
         let maisUmDiv = document.createElement('div')
 
@@ -3114,7 +3443,8 @@ function cabeconas(arrayPassar) { //Este array deve ser o array que é devolvido
         leImagem.setAttribute('class', 'pessoas-inscritas')
 
         let imagemLinda = ""
-        if (i == 3) imagemLinda = "+.png"
+        if (i == 3) imagemLinda = "images/+.png"
+        else if (arrayPassar[i] == undefined) imagemLinda = "images/6.jpg"
         else if (arrayPassar[i].fotografia == "") imagemLinda = "https://drwfxyu78e9uq.cloudfront.net/usercontent/olhafrutafresca/media/images/95082ab-batata-doce.jpg"
         else imagemLinda = arrayPassar[i].fotografia
 
@@ -3286,7 +3616,7 @@ function preencherListaDeParcerias() {
 
             console.log(parcerias[i].link)
             if (parcerias[i].link != "") a.innerHTML = parcerias[i].link
-            else a.innerHTML = "Bem Fodeu, Burra"
+            else a.innerHTML = "Está mal"
 
             li2.appendChild(a)
 
@@ -3294,6 +3624,7 @@ function preencherListaDeParcerias() {
         }
     }
 }
+
 //#######################################################################################################################
 //#######################################################################################################################
 //#######################################################################################################################
@@ -3306,7 +3637,7 @@ function preencherListaDeParcerias() {
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 
-//Por este tipo de merdas num outro ficheiro secalhar
+//Por este tipo de coisas num outro ficheiro secalhar
 //Tem que estar fora do window.onload
 function Mapa() {
     let location = new google.maps.LatLng(41.366858, -8.738309);

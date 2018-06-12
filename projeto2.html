@@ -140,7 +140,7 @@
     </nav>
 
 
-    <div class="container-fluid">
+    <div id="containerCarrossel" class="container-fluid">
         <h1 class="text-center mb-3">Eventos Populares</h1>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <div id="containerCardsCarrosel" class="carousel-inner row w-100 mx-auto">
@@ -268,71 +268,14 @@
 
     <hr class="my-3">
 
-    <!-- ############################# Search Bar #################### -->
-    <form>
-        <!-- Isto está dentro de um form porquê???? -->
-        <!-- <div class="col-sm-6 col-sm-offset-3">
-        <div class="home_searce_domain_area">
-            <div class="main_home_searce_domain_content">
-                <input type="text" placeholder="Your Domain Name ..." />
-                <select class="form-control">
-                    <option>.com</option>
-                    <option>.net</option>
-                    <option>.co</option>
-                </select>
-                <input type="submit" value="Check Availability" />
-            </div>
-        </div>
-    </div> -->
-        <div class="form-row">
-            <div class="form-group col-md-2">
-            </div>
-            <div class="form-group col-md-8">
-                <div class="input-group">
-                    <input id="searchNome" type="text" class="form-control" placeholder="Nome">
-                    <input id="searchGenero" type="text" class="form-control" placeholder="Género">
-                    <select id="searchData" class="form-control">
-                        <option value="Todos">Todas as datas</option>
-                        <option value="hoje">Hoje</option>
-                        <option value="amanha">Amanhã</option>
-                        <option value="estaSemana">Esta semana</option>
-                        <option value="fds">Este fim de semana</option>
-                        <option value="proximaSemana">Próxima semana</option>
-                        <option value="proximoMes">No próximo mês</option>
-                    </select>
-                    <div class="input-group-append">
-                        <a href="projeto2_Agenda.html">
-                            <button id="btnPesquisar" class="btn btn-primary" type="button">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </a>
-                        <button id="btnAdicionarEventos" class="btn btn-secondary" type="button" style="display: none" data-target="#ModalAdicionnarEventos"
-                            data-toggle="modal">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col-md-2"></div>
-        </div>
-
-
-        <!-- Para não me foder 
-<div class="form-row">
-    <div class="form-group col-md-4">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </div>
-    <div class="form-group col-md-4">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" style="border: black solid 3px" aria-label="Search">
-    </div>
-</div> -->
-    </form>
+    <!-- A search bar devia ficar aqui mas era um cagalhão
+     -->
 
 
     <hr class="my-3">
 
     <!-- About Us -->
-    <div class="jumbotron jumbotron-fluid" style="background: inherit;">
+    <div class="jumbotron jumbotron-fluid" style="background-color: rgba(0, 0, 0, 0.658); color: whitesmoke; margin-bottom: 0px">
         <div class="container">
             <h1 id="aboutus" class="display-3">About Us</h1>
             <p class="lead">Equipa</p>
@@ -352,17 +295,17 @@
                 <div class="form-group col-md-4">
                     <!-- por as imagens do grupo -->
                     <figure>
-                        <img src="http://www.comunidaderangers.com.br/wp-content/uploads/2014/08/Wakfu-Capa2.jpg" alt="user">
+                        <img src="images/Migueli.jpg" alt="user">
                     </figure>
                     <p> Miguel Coiso</p>
                     <br>
                     <figure>
-                        <img src="http://www.comunidaderangers.com.br/wp-content/uploads/2014/08/Wakfu-Capa2.jpg" alt="user">
+                        <img src="images/Eu.jpg" alt="user">
                     </figure>
                     <p> Álvaro Holstein </p>
                     <br>
                     <figure>
-                        <img src="http://www.comunidaderangers.com.br/wp-content/uploads/2014/08/Wakfu-Capa2.jpg" alt="user">
+                        <img src="images/2.jpg" alt="user">
                     </figure>
                     <p> Pedro Fragata</p>
                 </div>
@@ -371,8 +314,12 @@
     </div>
 
     <!-- ###################################### FOOTER ####################################-->
+    <div id="map" class="col-xs-12 col-sm-3 col-md-12"></div>
+
     <footer>
+
         <div class="container">
+            <!-- Tentar fazer com que fundo do footer seja transparente -->
             <div class="row text-center text-xs-center text-sm-left text-md-left">
                 <div class="col-xs-12 col-sm-3 col-md-3">
                     <h5>Navegação</h5>
@@ -432,7 +379,6 @@
 
                     </ul>
                 </div>
-                <div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
             </div>
 
 
@@ -483,15 +429,32 @@
                         </div>
                         <div class="form-group">
                             <select name="" id="tipoUtilizador">
-                                <option disabled selected hidden>Tipo de Utilizador</option>
+                                <option disabled selected hidden>Tipo Utilizador</option>
                                 <option value="Docente">Docente</option>
                                 <option value="Estudante">Estudante</option>
                             </select>
                         </div>
                         <!-- <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div> -->
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                    </div> -->
+                        <!-- Esta div só vai aparecer caso se escolha Docente
+                        Ao alterar para Estudante deve desaparecer  -->
+                        <!-- Por esta merda Bonita -->
+                        <div id="caLeindo" style="display: none">
+                            <div class="form-group">
+                                <p>Formação</p>
+                                <textarea id="formacao" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <p>Unidades Curriculares Selecionadas</p>
+                                <textarea id="unidadesCurriculares" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-goup">
+                                <p>Short CV</p>
+                                <textarea id="shortCV" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

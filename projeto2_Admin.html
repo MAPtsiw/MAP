@@ -445,7 +445,7 @@
                         </div>
                         <div class="form-group">
                             <select name="" id="tipoUtilizador">
-                                <option disabled selected hidden>Tipo de Utilizador</option>
+                                <option disabled selected hidden>Tipo Utilizador</option>
                                 <option value="Docente">Docente</option>
                                 <option value="Estudante">Estudante</option>
                             </select>
@@ -454,6 +454,23 @@
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                         <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                     </div> -->
+                        <!-- Esta div só vai aparecer caso se escolha Docente
+                        Ao alterar para Estudante deve desaparecer  -->
+                        <!-- Por esta merda Bonita -->
+                        <div id="caLeindo" style="display: none">
+                            <div class="form-group">
+                                <p>Formação</p>
+                                <textarea id="formacao" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <p>Unidades Curriculares Selecionadas</p>
+                                <textarea id="unidadesCurriculares" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-goup">
+                                <p>Short CV</p>
+                                <textarea id="shortCV" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

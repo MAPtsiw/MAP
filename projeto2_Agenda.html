@@ -126,7 +126,7 @@
 
 
     <!-- Calendário, meter isto num jumbotron secalhar, mé .... nah -->
-    <div id="container-Calendario mx-auto" class="container text-center">
+    <div id="container-Calendario" class="container text-center mx-auto">
         <div class="row ">
             <div class="col-12">
                 <table id="calendario" class="table-condensed table-bordered table-striped">
@@ -151,7 +151,7 @@
                             <th>Seg</th>
                             <th>Ter</th>
                             <th>Qua</th>
-                            <th>Quim</th>
+                            <th>Qui</th>
                             <th>Sex</th>
                             <th>Sab</th>
                         </tr>
@@ -236,7 +236,7 @@
             <br>
 
             <!-- ############################# Search Bar #################### -->
-            <form>
+            <form class="searchbar-d" style="background-color: rgba(20, 5, 5, 0.712); border: 2px solid black; border-radius: 10px">
                 <!-- <div class="col-sm-6 col-sm-offset-3">
             <div class="home_searce_domain_area">
                 <div class="main_home_searce_domain_content">
@@ -254,7 +254,7 @@
                     <div class="form-group col-md-2">
                     </div>
                     <div class="form-group col-md-8">
-                        <div class="input-group">
+                        <div class="input-group barraPesquisa">
                             <input id="searchNome" type="text" class="form-control" placeholder="Nome">
                             <input id="searchGenero" type="text" class="form-control" placeholder="Género">
                             <select id="searchData" class="form-control">
@@ -271,40 +271,46 @@
                                     <i class="fa fa-search"></i>
                                 </button>
 
-                                <!-- Botão de Adicionar Eventos -->
-                                <button id="btnAdicionarEventos" class="btn btn-secondary" type="button" style="display: none" data-target="#ModalAdicionnarEventos"
-                                    data-toggle="modal">
-                                    <i class="fa fa-plus"></i>
-                                </button>
 
-                                <!-- Botão para fazer reset ao catálogo -->
-                                <button id="btnLimparCatalogo" class="btn btn-secondary" type="button" style="display: none">
-                                    <i class="fas fa-chess-rook"></i>
-                                </button>
+
+
 
                             </div>
                         </div>
 
-                        <!-- pesquisa Avançada -->
+
+
+                        <br>
                         <div class="form-row">
-                            <div class="form-group col-md-7"></div>
+
+                            <div class="form-group col-md-7">
+                                <!-- Botão de Adicionar Eventos -->
+                                <button id="btnAdicionarEventos" class="btn btn-orange" type="button" style="display: none; color: black;" data-target="#ModalAdicionnarEventos"
+                                    data-toggle="modal">
+                                    Adicionar Evento
+                                    <!-- <i class="fa fa-plus"></i> -->
+                                </button>
+                            </div>
+
+                            <!-- pesquisa Avançada -->
                             <div class="form-group col-md-5">
-                                <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" class="btn btn-orange"
+                                    style="color: black">
                                     Pesquisa Avançada
                                 </a>
                                 <div class="collapse" id="collapseExample">
                                     <div class="card card-body">
                                         <p class="ordenhados">
-                                            <input class="ordenhar" type="radio" name="ola" value="Melhor Pontuados">   Melhor Pontuados
+                                            <input class="ordenhar" type="radio" name="ola" value="Melhor Pontuados"> Melhor Pontuados
                                         </p>
                                         <p class="ordenhados">
                                             <input class="ordenhar" type="radio" name="ola" value="Eventos Realizados"> Eventos Realizados
                                         </p>
                                         <p class="ordenhados">
-                                            <input class="ordenhar" type="radio" name="ola" value="por Realizar">   Eventos por Realizar
+                                            <input class="ordenhar" type="radio" name="ola" value="por Realizar"> Eventos por Realizar
                                         </p>
                                         <p class="ordenhados">
-                                            <input class="ordenhar" type="radio" name="ola" value="Recentes">       Mais Recentes
+                                            <input class="ordenhar" type="radio" name="ola" value="Recentes"> Mais Recentes
                                         </p>
                                         <button type="button" id="btnPesquisaAvancada" class="btn btn-orange">
                                             Pesquisar
@@ -329,6 +335,14 @@
         </div>-->
                 </div>
             </form>
+
+            <div class="row">
+                <!-- Botão para fazer reset ao catálogo -->
+                <button id="btnLimparCatalogo" class="btn mx-auto" type="button" style="display: none; width: 50%; background-color: chocolate">
+                    <i>Limpar Tabela</i>
+                    <!-- class="fas fa-chess-rook" -->
+                </button>
+            </div>
 
             <br>
 
@@ -392,6 +406,8 @@
     </div>
 
     <!-- ###################################### FOOTER ####################################-->
+    <div id="map" class="col-xs-12 col-sm-12 col-md-12"></div>
+
     <footer>
         <div class="container">
             <div class="row text-center text-xs-center text-sm-left text-md-left">
@@ -453,7 +469,6 @@
 
                     </ul>
                 </div>
-                <div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
             </div>
 
 
@@ -636,6 +651,8 @@
                         </div>
                         <div class="form-group">
                             <label for="CategoriaEvento">Categoria</label>
+                            <!-- <br> -->
+                            <small style="color: gray; font-size: 10px">(Mais que uma categoria tem que ser separada por espaços)</small>
                             <!-- Pode ser um select depois -->
                             <input id="CategoriaEvento" type="text" class="form-control" required>
                         </div>

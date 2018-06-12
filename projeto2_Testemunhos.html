@@ -22,9 +22,17 @@
         crossorigin="anonymous"></script>
 
     <!-- Minhas Merdas -->
+    <link rel="stylesheet" href="projeto2.css">
     <script src="classes.js"></script>
     <script src="projeto2.js"></script>
-    <link rel="stylesheet" href="projeto2.css">
+
+    <!-- Script para o google maps-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWwaEDkLeJWWeW2VzjqxXCJsqXuzqPLRc&callback=Mapa">
+    </script>
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+        crossorigin="anonymous">
 </head>
 
 <body>
@@ -227,8 +235,12 @@
     <!-- FIM DE TESTEMUNHOS-->
 
     <!-- ###################################### FOOTER ####################################-->
+    <div id="map" class="col-xs-12 col-sm-3 col-md-12"></div>
+
     <footer>
+
         <div class="container">
+            <!-- Tentar fazer com que fundo do footer seja transparente -->
             <div class="row text-center text-xs-center text-sm-left text-md-left">
                 <div class="col-xs-12 col-sm-3 col-md-3">
                     <h5>Navegação</h5>
@@ -288,7 +300,6 @@
 
                     </ul>
                 </div>
-                <div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
             </div>
 
 
@@ -342,15 +353,32 @@
                     </div>
                     <div class="form-group">
                         <select name="" id="tipoUtilizador">
-                            <option disabled selected hidden>Tipo de Utilizador</option>
+                            <option disabled selected hidden>Tipo Utilizador</option>
                             <option value="Docente">Docente</option>
                             <option value="Estudante">Estudante</option>
                         </select>
                     </div>
                     <!-- <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                        </div> -->
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div> -->
+                    <!-- Esta div só vai aparecer caso se escolha Docente
+                    Ao alterar para Estudante deve desaparecer  -->
+                    <!-- Por esta merda Bonita -->
+                    <div id="caLeindo" style="display: none">
+                        <div class="form-group">
+                            <p>Formação</p>
+                            <textarea id="formacao" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p>Unidades Curriculares Selecionadas</p>
+                            <textarea id="unidadesCurriculares" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-goup">
+                            <p>Short CV</p>
+                            <textarea id="shortCV" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>

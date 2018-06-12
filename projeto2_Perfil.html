@@ -123,8 +123,8 @@
 
     <div class="container">
         <div class="row profile">
-            <div class="col-md-3">
-                <div class="profile-sidebar">
+            <div class="col-md-6 mx-auto">
+                <div id="notSideBar" class="profile-sidebar">
                     <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic">
                         <img id="ImagemUtilizador" src="images/6.jpg" class="img-responsive" alt="">
@@ -132,10 +132,11 @@
                     <!-- END SIDEBAR USERPIC -->
                     <!-- SIDEBAR USER TITLE -->
                     <div class="profile-usertitle">
-                        <div class="profile-usertitle-name">
+                        <div id="divDoNome" class="profile-usertitle-name">
                             <p id="NomeUtilizador">Nome do Utilizador</p>
-                            <a id="ButoneEditar"> (Editar)</a>
                         </div>
+                        <a id="ButoneEditar"> (Editar)</a>
+
                         <br>
                         <div id="tipoDeUtilizador" class="profile-usertitle-type">
                             Tipo de Utilizador (Docente/Estudante)
@@ -148,7 +149,7 @@
                         <button type="button" class="btn btn-orange btn-sm">Mensagem</button>
                     </div>
                     <br>
-                    <div class="row">
+                    <div class="row mx-auto">
 
                         <div class="col-md-11">
                             <div class="input-group searchbar-perfil">
@@ -176,7 +177,9 @@
                     <!-- END MENU -->
                 </div>
             </div>
-            <div class="col-md-9">
+        </div>
+        <div class="row profile">
+            <div class="col-md-12">
                 <div class="profile-content">
                     <div id="docente-div">
                         <h4>Short CV:</h4>
@@ -187,6 +190,7 @@
                                 <li> Livros publicados </li>
                                 <li> Experiencia de trabalho </li>
                             </ul>
+                            <textarea id="textareaCV" cols="30" rows="10" style="display: none"></textarea>
                         </div>
                         <br>
                         <h4>Unidades curriculares lecionadas:</h4>
@@ -197,6 +201,8 @@
                                 <li> PROJETO WEB 1 </li>
                                 <li> PROJETO I </li>
                             </ul>
+                            <textarea id="textareaLecionadas" cols="30" rows="10" style="display: none"></textarea>
+
                         </div>
                         <br>
                         <h4>Formação:</h4>
@@ -208,6 +214,12 @@
                                 <li> Licenciado em Engenharia Electrotécnica e de Computadores pela Faculdade de Engenharia da
                                     Universidade do Porto (FEUP 1986)</li>
                             </ul>
+                            <textarea id="textareaFormacao" cols="30" rows="10" style="display: none"></textarea>
+
+                        </div>
+                        <div class="row">
+                            <button id="gravarAlterações" class="mx-auto btn btn-orange" style="display: none;">Gravar Alterações</button>
+                            <button id="cancelarAlterações" class="mx-auto btn btn-orange" style="display: none;">Cancelar</button>
                         </div>
                     </div>
                     <br>
@@ -216,7 +228,7 @@
 
                     <h4>Eventos participados:</h4>
                     <hr class="my-2">
-                    <div class="row">
+                    <div id="eventosParticipados">
                         <div class "col-md-4">
                             <div class="card" style="width: 15rem;">
                                 <img class="card-img-top" src="images/evento1.png" alt="Card image cap">
@@ -256,15 +268,17 @@
                     <br>
                     <h4>Eventos recomendados:</h4>
                     <hr class="my-2">
-                    <div class="row">
-                        <div class "col-md-4">
-                            <div class="card" style="width: 15rem;">
-                                <img class="card-img-top" src="images/evento2.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">Nome do evento</h5>
-                                    <p class="card-data"> Data do evento</p>
-                                    <p class="card-organizador"> Organizador do evento</p>
-                                    <a href="#" class="btn btn-orange"> Saber mais</a>
+                    <div>
+                        <div id="eventosRecomendados">
+                            <div class "col-md-4">
+                                <div class="card" style="width: 15rem;">
+                                    <img class="card-img-top" src="images/evento2.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nome do evento</h5>
+                                        <p class="card-data"> Data do evento</p>
+                                        <p class="card-organizador"> Organizador do evento</p>
+                                        <a href="#" class="btn btn-orange"> Saber mais</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -389,7 +403,7 @@
                         </div>
                         <div class="form-group">
                             <select name="" id="tipoUtilizador">
-                                <option disabled selected hidden>Tipo de Utilizador</option>
+                                <option disabled selected hidden>Tipo Utilizador</option>
                                 <option value="Docente">Docente</option>
                                 <option value="Estudante">Estudante</option>
                             </select>
@@ -398,6 +412,23 @@
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                         <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                     </div> -->
+                        <!-- Esta div só vai aparecer caso se escolha Docente
+                        Ao alterar para Estudante deve desaparecer  -->
+                        <!-- Por esta merda Bonita -->
+                        <div id="caLeindo" style="display: none">
+                            <div class="form-group">
+                                <p>Formação</p>
+                                <textarea id="formacao" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <p>Unidades Curriculares Selecionadas</p>
+                                <textarea id="unidadesCurriculares" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-goup">
+                                <p>Short CV</p>
+                                <textarea id="shortCV" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

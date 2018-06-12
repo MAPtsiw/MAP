@@ -43,7 +43,7 @@
 
     <!-- Navbar que vai ser igual para todos -->
     <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="projeto2.html">
             <img id="logobar" src="images/MAP.png">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -160,7 +160,7 @@
                     <a href="#" class="btn btn-primary">
                         <i class="fa fa-share align-middle"></i>
                     </a>
-                    <a href="#" class="btn btn-danger">
+                    <a id="btnRecomendar" href="#" class="btn btn-danger">
                         <i class="fa fa-heart align-middle"></i>
                     </a>
                     <a href="#" class="btn btn-success">
@@ -363,6 +363,8 @@
     </div>
 
     <!-- ###################################### FOOTER ####################################-->
+    <div id="map" class="col-xs-12 col-sm-3 col-md-12"></div>
+
     <footer>
         <div class="container">
             <div class="row text-center text-xs-center text-sm-left text-md-left">
@@ -424,7 +426,6 @@
 
                     </ul>
                 </div>
-                <div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
             </div>
 
 
@@ -475,17 +476,32 @@
                     </div>
                     <div class="form-group">
                         <select name="" id="tipoUtilizador">
-                            <option disabled selected hidden>Tipo de Utilizador</option>
+                            <option disabled selected hidden>Tipo Utilizador</option>
                             <option value="Docente">Docente</option>
                             <option value="Estudante">Estudante</option>
                         </select>
                     </div>
                     <!-- <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                        </div> -->
-
-
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div> -->
+                    <!-- Esta div só vai aparecer caso se escolha Docente
+                    Ao alterar para Estudante deve desaparecer  -->
+                    <!-- Por esta merda Bonita -->
+                    <div id="caLeindo" style="display: none">
+                        <div class="form-group">
+                            <p>Formação</p>
+                            <textarea id="formacao" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <p>Unidades Curriculares Selecionadas</p>
+                            <textarea id="unidadesCurriculares" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-goup">
+                            <p>Short CV</p>
+                            <textarea id="shortCV" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
