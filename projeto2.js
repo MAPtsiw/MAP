@@ -608,17 +608,28 @@ window.onload = function () {
 
             if (continuar == true) {
                 //O que vai ficar no evento.Categoria vai ser o id de uma categoria, ou não
+
+                let categoriasVarias = categoria.split(' ')
+                if(categoriasVarias[categoriasVarias.length - 1] == " ") categoriasVarias.pop() //Tirar o ultimo valor do array, porque este é ' '
+                
+                for (let i = 0; i < categoriasVarias.length; i++) {
+                    console.log(categoriasVarias[i])
+                }
+
                 if (categoriasUnicasFunc(categoria) == true) {
                     //Fazer esta coisa
 
                     categorias.push(categoria)
                 }
 
-                let novoEvento = new Evento(nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador].id, 0, 0)
+                let novoEvento = new Evento(nome, dataEhora, descricao, categoriasVarias[0], foto, responsavel, utilizadores[indexUtilizador].id, 0, 0)
+                for (let i = 1; i < categoriasVarias.length; i++) {
+                    novoEvento.categoria = categoriasVarias[i]
+                }
 
                 eventos.push(novoEvento)
 
-                localStorage.setItem('eventos', JSON.stringify(eventos))
+                // localStorage.setItem('eventos', JSON.stringify(eventos))
 
                 console.log(eventos)
                 console.log("O formato da data é = " + novoEvento._data[0])
@@ -1644,7 +1655,7 @@ window.onload = function () {
             let camposDocente = document.getElementsByClassName('campos-docente')
             let cancelar = false;
 
-            btnCancelar.addEventListener('click', function(){
+            btnCancelar.addEventListener('click', function () {
 
                 for (let i = 0; i < camposDocente.length; i++) {
                     console.log(camposDocente[i])
@@ -1659,7 +1670,7 @@ window.onload = function () {
                 btnCancelar.style.display = 'none'
             })
             btnGravar.addEventListener('click', function () {
-                
+
                 utilizadores[indexUtilizador].nome = camposDocente[0].innerHTML
                 utilizadores[indexUtilizador].cv = camposDocente[1].innerHTML
                 utilizadores[indexUtilizador].aulas = camposDocente[2].innerHTML
@@ -1675,7 +1686,7 @@ window.onload = function () {
 
                 //Esconder o botão de Gravar Alterações
                 btnGravar.style.display = "none"
-                btnCancelar.style.display = 'none'  
+                btnCancelar.style.display = 'none'
             })
         }
     }
