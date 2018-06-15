@@ -1,7 +1,7 @@
 //---------------------------------------------- Classes ----------------------------------------------------------------------------------------
 //Isto mal possa vai para um ficheiro à parte, Done alalalalalalalalalalalalalala
 class Utilizador {
-    constructor(nome, pass, mail, foto, tipo, cv, aulas, formacao, pontoou) { //Por agora vai ficar assim, não é dificil de acrescentar merdas
+    constructor(nome, pass, mail, foto, tipo, cv, aulas, formacao) { //Por agora vai ficar assim, não é dificil de acrescentar merdas
         this.nome = nome
         this.password = pass
         this.mail = mail
@@ -11,7 +11,6 @@ class Utilizador {
         this.cv = cv
         this.aulas = aulas
         this.formacao = formacao
-        this.pontoou = pontoou
 
         this._id = Utilizador.getLastId() + 1
     } //Para o Docente, falta o short CV, Unidades Curriculares, e a Formação
@@ -76,12 +75,6 @@ class Utilizador {
         this._tipo = valor
     }
 
-    get pontoou(){
-        return this._pontoou
-    }
-    set pontoou(valor){
-        this._pontoou = valor
-    }
     get id() {
         return this._id
     }
@@ -104,7 +97,6 @@ class Evento {
     constructor(nome, data, descricao, categoria, imagem, responsavel, userId, pontuacao, inscritos) { //Puta de grande
         this._categoria = []
         this._inscritos = []
-        // this._maltaQuePontoou = []
 
         Evento._contador = 0;
         Evento._pontuar = 0;
@@ -148,7 +140,7 @@ class Evento {
 
     set pontuacao(valor) {
         if (valor != 0 && valor != null) {
-            console.log(valor)
+            // console.log(valor)
             let merdas = Evento.fazerPontuacao(valor)
             // console.log("merdas - " + merdas)
             this._pontuacao = merdas
@@ -190,21 +182,23 @@ class Evento {
     }
 
     set categoria(valor) {
+        // console.log(valor)
         let a = true
-        valor = valor.toString()
-        console.log(valor)
-        let categorias = ""
-
-        if(valor.includes(',') == true){
-            console.log('ata')
-            categorias = valor.split(',')
-        } 
-        else categorias = valor.split(' ')
-
-        for (let i = 0; i < categorias.length; i++) {
-            if(this._categoria.length == 0) this._categoria.push(categorias[i])      
-            else if(this._categoria.indexOf(categorias[i]) == -1) this._categoria.push(categorias[i])            
+        
+        if (this._categoria != undefined) {
+            console.log(valor)
+            for (let i = 0; i < this._categoria.length; i++) {
+                
+                console.log(this._categoria[i])
+                if (valor.toUpperCase() == this._categoria[i].toUpperCase()) {
+                    
+                    a = false //return ... Isto faz com que se saia imediatamente do set, sem fazer push do valor
+                }
+            }
         }
+
+        console.log(a)
+        if (a) this._categoria.push(valor)
     }
 
     get imagem() {
@@ -252,35 +246,23 @@ class Evento {
     }
 
     static fazerPontuacao(mamilos) { //Mais uma merda a funcionar em principio
-
-        // // Saber quem é que já pontoou
-        // if(this._maltaQuePontoou.length == 0) this._maltaQuePontoou.push(utilizadores[indexUtilizador].id)
-        // else{
-        //     if(this._maltaQuePontoou.indexOf(utilizadores[indexUtilizador].id)) return //Isto em principio acaba com a função aqui
-        // }
-        // console.log(this._maltaQuePontoou)
-
         let media = 0, soma = 0, contador = 0, maixUmaVariavel = 0;
         Evento._contador++
-       
-        // Evento._pontuar = this._pontuacao
+        // console.log(Evento._contador)
 
         if (Evento._contador == 0) maixUmaVariavel = Evento._contador
         else maixUmaVariavel = Evento._contador - 1
 
-        console.log(Evento._contador)
+        // console.log(maixUmaVariavel)
         soma = Evento._pontuar * maixUmaVariavel
 
-       
-        
+        // console.log("Pontuacao - " + Evento._pontuar)
+        // console.log("Soma - " + soma)
         soma += mamilos
-        console.log("Soma - " + soma)
+        // console.log(soma)
         media = soma / Evento._contador
         Evento._pontuar = media
-        console.log("Pontuacao - " + Evento._pontuar)
-
-        
-
+        // console.log(Evento._pontuar)
         return media
     }
 }

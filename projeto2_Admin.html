@@ -183,6 +183,7 @@
                         <th scope="col">X</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Mail</th>
+                        <th scope="col">Tipo</th>
                         <!-- <th scope="col">Handle</th> -->
                     </tr>
                 </thead>
@@ -221,6 +222,13 @@
         <!-- Tabela de Eventos -->
         <div class="form-group col-md-6">
             <h1 class="text-center">Eventos</h1>
+            <div class="row">
+                <button type="button" class="btn mx-auto" style="width: 50%; background-color: orangered;" data-toggle="modal" data-target="#ModalAdicionnarEventos">
+                    <!-- Não vai ser esta modal que vai ser aberta -->
+                    <i class="">Adicionar Evento</i>
+                </button>
+            </div>
+            <br>
             <table id="tabelaEventos" class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
@@ -263,6 +271,7 @@
                     </tr> -->
                 </tbody>
             </table>
+
         </div>
     </div>
 
@@ -284,9 +293,12 @@
         <!-- Tabela de Parcerias -->
         <div class="form-group col-md-6">
             <h1 class="text-center">Parcerias</h1>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalParceria">
-                <i class="fa fa-plus"></i>
-            </button>
+            <div class="row">
+                <button type="button" class="btn mx-auto" style="width: 50%; background-color: orangered;" data-toggle="modal" data-target="#ModalParceria">
+                    <i class="">Adicionar Parceria</i>
+                </button>
+            </div>
+            <br>
             <table id="tableParcerias" class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
@@ -331,6 +343,9 @@
     <!-- ####################################### Fim de Tudo o Resto ####################################### -->
 
 
+
+    <!-- ###################################### FOOTER ####################################-->
+    <div id="map" class="col-xs-12 col-sm-3 col-md-12"></div>
 
     <footer>
         <div class="container">
@@ -393,18 +408,17 @@
 
                     </ul>
                 </div>
-                <div id="map" class="col-xs-12 col-sm-3 col-md-3"></div>
             </div>
 
 
         </div>
     </footer>
+    <!-- /Footer -->
 
 
 
 
     <!-- Modais -->
-
     <!-- Modal Registo -->
     <div class="modal fade" id="ModalRegistar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -601,7 +615,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Modal Adicionar Evento -->
     <div class="modal fade" id="ModalAdicionnarEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

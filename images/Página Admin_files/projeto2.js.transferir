@@ -70,7 +70,7 @@ window.onload = function () {
 
         //Maneira de encher o array sem ter que mexer nas variáceis internas
         for (let i = 0; i < a.length; i++) {
-            let b = new Utilizador(a[i]._nome, a[i]._password, a[i]._mail, a[i]._fotografia, a[i]._tipo, a[i]._cv, a[i]._aulas, a[i]._formacao, a[i]._pontoou)
+            let b = new Utilizador(a[i]._nome, a[i]._password, a[i]._mail, a[i]._fotografia, a[i]._tipo, a[i]._cv, a[i]._aulas, a[i]._formacao)
             utilizadores.push(b)
         }
 
@@ -91,8 +91,8 @@ window.onload = function () {
 
         //nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador]._id
         for (let i = 0; i < a.length; i++) {
+            this.console.log("Inicio - " + a[i]._categoria)
             let b = new Evento(a[i]._nome, a[i]._data, a[i]._descricao, a[i]._categoria, a[i]._imagem, a[i]._responsavel, a[i]._userId, a[i]._pontuacao, a[i]._inscritos)
-            this.console.log("Inicio - " + b.pontuacao)
             eventos.push(b)
         }
 
@@ -280,26 +280,25 @@ window.onload = function () {
 
         for (let i = 0; i < 6; i++) {
 
-            if (eventos[i] != undefined) {
-                if (eventos[i].data[0] != undefined) {
-                    preencherCarrosel(eventos[i].nome,
-                        eventos[i].imagem,
-                        eventos[i].descricao,
-                        eventos[i].data[0].split(';')[0],
-                        eventos[i].data[0].split(';')[1],
-                        eventos[i].pontuacao
-                        , i)
-                }
-                else if (eventos[i].data[0] == undefined) {
-                    preencherCarrosel(eventos[i].nome,
-                        eventos[i].imagem,
-                        eventos[i].descricao,
-                        "Por Anunciar",
-                        "Por Anunciar",
-                        eventos[i].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
-                        , i)
-                }
+            if (eventos[i].data[0] != undefined) {
+                preencherCarrosel(eventos[i].nome,
+                    eventos[i].imagem,
+                    eventos[i].descricao,
+                    eventos[i].data[0].split(';')[0],
+                    eventos[i].data[0].split(';')[1],
+                    eventos[i].pontuacao
+                    , i)
             }
+            else if (eventos[i].data[0] == undefined) {
+                preencherCarrosel(eventos[i].nome,
+                    eventos[i].imagem,
+                    eventos[i].descricao,
+                    "Por Anunciar",
+                    "Por Anunciar",
+                    eventos[i].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
+                    , i)
+            }
+
         }
     }
 
@@ -341,7 +340,7 @@ window.onload = function () {
 
         if (password == confPass && continuar == true) {
             //Criar Utilizador
-            let novoUtilizador = new Utilizador(nome, password, eMail, foto, tipo, "", "", "", false) //Porque   me está a por o tipo de utilizador na foto????
+            let novoUtilizador = new Utilizador(nome, password, eMail, foto, tipo) //Porque   me está a por o tipo de utilizador na foto????
 
             //Mais umas
             if (novoUtilizador.tipoUtilizador == "Docente") {
@@ -632,7 +631,7 @@ window.onload = function () {
 
                 eventos.push(novoEvento)
 
-                localStorage.setItem('eventos', JSON.stringify(eventos))
+                // localStorage.setItem('eventos', JSON.stringify(eventos))
 
                 console.log(eventos)
                 console.log("O formato da data é = " + novoEvento._data[0])
@@ -1146,8 +1145,8 @@ window.onload = function () {
                 for (let i = 0; i < parcerias.length; i++) {
                     preencherTabelaUtiPar(parcerias[i].nome, parcerias[i].link, parcerias[i].id, true)
                 }
-                //Gravar o novo array
-                localStorage.setItem('parcerias', JSON.stringify(parcerias))
+                //Falta gravar o novo array
+
             }
         })
 
@@ -1188,9 +1187,9 @@ window.onload = function () {
 
                         eventos[i].descricao = descricaoEve
 
-                        if (categoriaEve.length == 1) eventos[i].categoria = descricaoEve[0]
-                        else {
-                            for (let k = 0; k < categoriaEve.length; k++) {
+                        if(categoriaEve.length == 1) eventos[i].categoria = descricaoEve[0]
+                        else{
+                            for(let k = 0; k<categoriaEve.length; k++){
                                 console.log(categoriaEve[k])
                                 eventos[i].categoria = categoriaEve[k]
                             }
@@ -1211,7 +1210,6 @@ window.onload = function () {
     if (document.getElementById('paginaEvento') != null) {
         if (localStorage.getItem('EventoMostrar')) { //FAzer tudo aqui dentro? Por agora sim, sim porque se não vai estar a comentar o quê....
             let a = JSON.parse(localStorage.getItem('EventoMostrar'))
-            this.console.log('Mais uma pontuação - ' + a._pontuacao)
             let eventoLindo = new Evento(a._nome, a._data, a._descricao, a._categoria, a._imagem, a._responsavel, a._userId, a._pontuacao, a._inscritos)
             eventoLindo._id = a._id
             //this.alert(eventoLindo.nome)
@@ -1228,10 +1226,7 @@ window.onload = function () {
             document.getElementById('nomeEvento').innerHTML = eventoLindo.nome
             document.getElementById('leResponsavel').innerHTML = "por: " + eventoLindo.responsavel
             document.getElementById('LaDescricao').innerHTML = eventoLindo.descricao
-            console.log("O caralho da pontuação - " + eventoLindo.pontuacao)
-            if (eventoLindo.pontuacao != undefined) {
-                this.console.log('ata')
-                this.document.getElementById('pontuacaoMedia').innerHTML = eventoLindo.pontuacao + " /5";}
+            if (eventoLindo.pontuacao != 0) this.document.getElementById('pontuacaoMedia').innerHTML = eventoLindo.pontuacao + " /5";
             else document.getElementById('pontuacaoMedia').innerHTML = "Por definir"
 
             if (eventoLindo.localizacao != null) document.getElementById('localizacao').innerHTML = "Localização:<br>" + eventoLindo.localizacao
@@ -3171,29 +3166,29 @@ function editarEvento(e) {
 
 
     caLinda = caLinda[0]
-    if (caLinda.data[0] != undefined) console.log(caLinda.data[0].split(';'))
+    if(caLinda.data[0] != undefined) console.log(caLinda.data[0].split(';'))
 
     ideventoModificar = caLinda.id
     //Código Chato
     //Nome
     document.getElementById('NomeEventoAlt').value = caLinda.nome
     //Data
-    if (caLinda.data[0] != undefined) document.getElementById('DataEventoAlt').value = caLinda.data[0].split(';')[0]
+    if(caLinda.data[0] != undefined) document.getElementById('DataEventoAlt').value = caLinda.data[0].split(';')[0]
     //Hora, para estas cenas funcionarem bem, tenho que limpar a modal sempre que esta fechar
-    if (caLinda.data[0] != undefined) document.getElementById('HoraEventoAlt').value = caLinda.data[0].split(';')[1]
+    if(caLinda.data[0] != undefined) document.getElementById('HoraEventoAlt').value = caLinda.data[0].split(';')[1]
     //Descrição
     document.getElementById('DescriçãoEventoAlt').value = caLinda.descricao
     //CAtegoria
-    if (caLinda.categoria.length == 1) document.getElementById('CategoriaEventoAlt').value = caLinda.categoria[0] //Isto vai ter que passar para um ciclo for.....
-    else {
+    if(caLinda.categoria.length == 1) document.getElementById('CategoriaEventoAlt').value = caLinda.categoria[0] //Isto vai ter que passar para um ciclo for.....
+    else{
         let categoriasTodas = ""
-        for (let i = 0; i < caLinda.categoria.length; i++) {
-            if (i == caLinda.categoria.length - 1) categoriasTodas += caLinda.categoria[i]
+        for(let i = 0; i<caLinda.categoria.length; i++){
+            if(i == caLinda.categoria.length-1) categoriasTodas += caLinda.categoria[i]
             else categoriasTodas += caLinda.categoria[i] + " "
         }
     }
     //Imagem
-    if (caLinda.imagem != undefined) document.getElementById('FotografiaEventoAlt').value = caLinda.imagem
+    if(caLinda.imagem != undefined) document.getElementById('FotografiaEventoAlt').value = caLinda.imagem
     else document.getElementById('FotografiaEventoAlt').value = ""
     //Responsavel
     document.getElementById('ResponsavelEventoAlt').value = caLinda.responsavel
@@ -3339,17 +3334,12 @@ function maisUmaFuncione(event) {
     let atacare = event.target.className.split(' ')[3]
     console.log(atacare)
 
-    let categoriaElminar = ""
     for (let i = 0; i < categorias.length; i++) {
         if (categorias[i].id == atacare) {
-            categoriaElminar = categorias[i].nome
             let a = categorias.splice(i, 1)
             console.log(a[0].nome)
         }
     }
-
-    //Vai eliminar a categoria que foi eliminada dos eventos
-    elimnarCategoriasDosEventos(categoriaElminar)
 
     //Não é preciso gravar o array porque este é preenchido sempre ao inicio
 
@@ -3359,17 +3349,15 @@ function maisUmaFuncione(event) {
 }
 
 //Função para procurar as categorias nos eventos e elimina-las
-function elimnarCategoriasDosEventos(categoriaRemover) {
+function elimnarCategoriasDosEventos(categoriaRemover){
 
-    for (let i = 0; i < eventos.length; i++) {
-        if (eventos[i].categoria.indexOf(categoriaRemover) != -1) {
-            let jajao = eventos[i].categoria.indexOf(categoriaRemover)
-            console.log(jajao)
-            let eliminada = eventos[i].categoria.splice(jajao, 1)
-            alert(`A categoria ${eliminada} foi removida com sucesso`)
+    for(let i = 0; i<eventos.length; i++){
+        if(eventos[i].inscritos.length > 0){
+            for(let k = 0; k<eventos[i].inscritos.length; k++){
+
+            }
         }
     }
-    localStorage.setItem('eventos', JSON.stringify(eventos))
 }
 
 //Função para guardar os valores para depois usar los na página dos eventos
@@ -3383,7 +3371,7 @@ function verEvento(e) {
     })
 
     pimba = pimba[0]
-    console.log(pimba.pontuacao)
+    console.log(pimba.nome)
 
     localStorage.setItem("EventoMostrar", JSON.stringify(pimba))
 }
@@ -3481,24 +3469,21 @@ let valorDeMercado = 0; //Valor que vai seer adicionado à pontuação
 
 function botaoPontuar(e) { //Isto vai abrir um botão para deixar pontuar, cada utilizador só vai pontuar o evento 1 vez, secalhar adicionar um bolleano para dizer se já pontoou ou não
 
-    if (logged && utilizadores[indexUtilizador].pontoou == false) {
+    if (logged) {
         let botaozao = document.getElementById('botaoPontuar')
         let estrelasPontuar = document.getElementsByClassName('btn btn-default btn-grey btn-sm')
 
         botaozao.style.display = 'inline-block'
 
-
-        if (e.target.id == "") valorDeMercado = parseInt(e.target.parentNode.id)
-        else valorDeMercado = parseInt(e.target.id)
         let botone = document.getElementById('botaoPontuar')
         botone.addEventListener('click', realmentePontuar)
 
         //Agora, pintar as estrelas
 
+        if (e.target.id == "") valorDeMercado = parseInt(e.target.parentNode.id)
+        else valorDeMercado = parseInt(e.target.id)
 
-
-
-        console.log(valorDeMercado)
+        //console.log(valorDeMercado)
 
         for (let i = 0; i < estrelasPontuar.length; i++) {
             if (estrelasPontuar[i].id <= valorDeMercado) {
@@ -3510,8 +3495,7 @@ function botaoPontuar(e) { //Isto vai abrir um botão para deixar pontuar, cada 
         }
     }
     else {
-        if(utilizadores[indexUtilizador].pontoou == false) alert('Já pontuaste este evento')
-        else alert("Tens que estar logado para pontuar")
+        alert("Tens que estar logado para pontuar")
     }
 
 }
@@ -3530,16 +3514,11 @@ function realmentePontuar() { //Em principio as matemáticas vão ser feitas na 
     }
 
     //Matemáticas
-    console.log(eventos[elIndex].nome) //Dá o que quero
+    // console.log(eventos[elIndex].nome) //Dá o que quero
     console.log(valorDeMercado)
     eventos[elIndex].pontuacao = valorDeMercado
     document.getElementById('pontuacaoMedia').innerHTML = `${eventos[elIndex].pontuacao} <small style="font-size:20px">/5</small>`
     localStorage.setItem('eventos', JSON.stringify(eventos))
-    //Fazer com que o utilizador não possa voltar a pontuar
-    utilizadores[indexUtilizador].pontoou = true
-    localStorage.setItem('utilizadores', JSON.stringify(utilizadores))
-    
-    localStorage.setItem('eventoMostrar', JSON.stringify(eventos[elIndex]))
 }
 
 //Função para verificar os inscritos
