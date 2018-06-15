@@ -1,0 +1,777 @@
+/* .imagem-fundo-utilizador{
+  background-size: cover;
+/* } */
+/* #MudarOTipoDeUtilizador > li */
+.card-header{
+  width: 100%;
+  padding: 0px;
+}
+.card{
+  background-color: inherit;
+  border-width: 0px;
+}
+.card-body.h, .card-text.desricao-card-carrosel{
+  border-width: 4px;
+  background-color: white;
+}
+.passarRato{
+  cursor: pointer;
+}
+#MudarOTipoDeUtilizador > a:hover{
+  background-color: #ff950b !important;
+}
+.campos-docente{
+  width: 100%;
+  border-width: 10;
+  border-color: black;
+  /* background-color: red; */
+  min-height: 220px;
+  display: inline-block;
+}
+#docente-div{
+width: 100%;
+max-height: auto;
+}
+.card.col-lg-4{
+  background-color: rgb(241, 105, 42);
+  border: 1px solid rgb(226, 217, 213);
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  max-height: auto;
+}
+.card.col-lg-4 > div > a{
+  background-color: rgb(241, 105, 42);
+}
+.card.col-lg-4 > .card-header, .card.col-lg-4 > .card-body{
+  background-color: white;
+}
+.searchbar-d{
+  background: rgb(255, 255, 255);
+  padding:20px;
+  margin:0px 0px 100px 0px;
+  box-shadow: 5px 5px 10px rgba(51, 51, 51, 0.7);
+  width: inherit;
+}
+.barraPesquisa{ /*Não tá a fazer piça nenhuma */
+  width: 100%;
+}
+.card-img-top.h{
+  position: relative;
+  float: left;
+  width:  100%;
+  height: 200px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.carousel2{
+  padding:0px;
+}
+#myCarousel{
+  background-color: rgb(253, 157, 46);
+  padding: 30px;
+  width: auto;
+  height: auto;
+  background-repeat: no-repeat;
+  background-size:100%;  
+  /* padding: 0px; */
+}
+.card-img-top.c{
+  position: relative;
+  float: left;
+  width:  100%;
+  height: 200px;
+  background-position: 50% 50%;
+  background-repeat:   no-repeat;
+  background-size:     cover;
+}
+.iconNav{
+  margin-right: 5px;
+  color: rgb(241, 105, 42);
+}
+#Logoff{
+  background: orange;
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0; padding: 0;
+    display: block;  
+    background-color: #f8faf6;
+  color: black;
+  }
+#MsgErroRegistar, #MsgErroLogin, #MsgErroRegistarEventos{ /*Para mexer nos dois ao mesmo tempo é só por a virgula no meio*/
+
+  text-transform: uppercase;
+  color: red;
+}
+
+/*adicionado pelo jabardoum aka 9170287*/
+h1 {
+    font-family:  'Source Sans Pro', sans-serif;;
+    font-size: 56px;
+    line-height: 80px;
+}
+      /*adicionado pelo jabardoum - part 2 (agora nos cinemas)*/
+p {
+    font-family: 'Source Sans Pro', sans-serif;;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+/* p{
+  text-align: justify;
+} */
+
+footer {
+  padding: 10px;
+  margin: 0;
+  background: linear-gradient(90deg,  #f0e5e5 ,  #ffa42c);
+  color: black;
+}
+
+#map{
+    height: 200px;
+    width: 100%;
+}
+
+#searchBar > div{
+    margin: 0px !important;
+    padding: 0 !important;
+}
+
+.card{
+  border-radius: 5%;
+}
+
+.card-title, .btn-evento { /*hmmm... o botão não está a funcionar com isto mas o resto está*/
+    text-align: center;
+}
+
+.linha-cards{
+  margin: 10px 0px 10px 0px;
+  width: 100% !important; 
+}
+
+/* Calendário */
+#container-Calendario{
+  margin: 0;
+  padding: 0;
+  
+}
+#calendario{
+  width: 100%;
+  box-shadow: 10px 10px 5px grey;
+  margin-top: 60px;
+}
+
+thead th {
+  background: rgba(252, 134, 0, 0.801);
+  color: black;
+}
+
+.dias-semana > th{
+  background-color: #ff950b;
+}
+
+tbody:nth-child(even) {background-color: white;}
+tr:nth-child(even) {background-color: white;}
+/* fim de calendário */
+
+.mnac{
+  font-size: small;
+  margin: 0px;
+}
+
+#logobar {
+  width: 50%;
+  height:50%;
+}
+figure img {
+  width: 90px;
+  height:90px;
+  border-radius: 50%;
+}
+
+.about img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.about p {
+  text-align: center;
+}
+.desricao-card-carrosel{
+  font-size: 12px;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+
+/*Novas merdas Minhas*/
+.lixinho{
+  width: 32px;
+  height:27px;
+  background: inherit;
+}
+.pilasMaximus{
+  text-align: center;
+}
+textarea{
+  resize: vertical;
+}
+section#testemunhos > div.row{
+  margin: 0px;
+}
+.cardsAdmin{
+  border-width: 1px;
+  border-color: black;
+  background: inherit;
+}
+.cardsAdmin >div> a{
+  text-decoration: none;
+  color: #001124;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.cardsAdminTitulo{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  font-weight: bold;
+}
+/* Dropdown Content (Hidden by Default) */
+/* .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f6f6f6;
+  min-width: 230px;
+  border: 1px solid #ddd;
+  z-index: 1;
+  overflow: auto;
+  width: 100%;
+} */
+
+/* Links inside the dropdown */
+/* .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+} */
+
+/* Change color of dropdown links on hover */
+/* .dropdown-content a:hover {background-color: #f1f1f1} */
+
+#pesquisarUtilizador {
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 100%; /* Full-width */ 
+  font-size: 16px; /* Increase font-size */
+  border: 1px solid #ddd; /* Add a grey border */
+}
+
+#Cenas {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  overflow: auto;
+}
+
+#Cenas li a {
+  border: 1px solid #ddd; /* Add a border to all links */
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6; /* Grey background color */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove default text underline */
+  font-size: 18px; /* Increase the font-size */
+  color: black; /* Add a black text color */
+  display: block; /* Make it into a block element to fill the whole list */
+}
+
+#Cenas li a:hover:not(.header) {
+  background-color: grey; /* Add a hover effect to all links, except for headers */
+}
+/*###########################################################################################*/
+/*Merdas do Miguel*/
+/*Daqui*/
+/* olha a navbar, que linda*/
+#containerCarrossel{
+  background: linear-gradient(90deg,  rgba(0, 0, 255) ,  #ffa42c);
+  margin-bottom: 20px;
+}
+#chupaAsMinhasTolas{
+  background: WHITE;
+  box-shadow: 0 10px 10px 0 rgba(16, 50, 240, 0.2);
+  border-radius: 0;
+  position: sticky;
+  border:0;
+}
+#linhaQueSepara{
+  border: 0.5px solid #fff;
+  cursor: default;
+  margin-right: 10px;
+}
+
+#Login{
+  color: white;
+  margin: 0px 0px 0px 20px;
+}
+
+#Registar{
+  color:white;
+}
+
+.nav-item{
+  list-style-type: none;
+  display: inline-block;
+  line-height: 40 px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.nav-link:nth-child(1){
+  color: black;
+}
+/* #gandas botoes do navbar */
+.nav-link {
+  font-family: 'Source Sans Pro', sans-serif;
+  display: block;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin:0 20px 0 20px;
+}
+
+/* Mudar a cor do hober ma wiggas */
+.nav-link:hover {
+  background-color: #ea9c00;
+  color: white;
+  animation-delay: 2ms;
+}
+
+/* Aqui, foi o jobem Michael*/
+/*########################################################3*/
+
+/*Usar esta merda para fazer o menu nos cards*/
+.navbar-toggler-1 .navbar-toggler-icon{
+  background-image: url('https://mdbootstrap.com/img/svg/hamburger8.svg?color=000000');
+  color: #001124;
+}
+
+button.navbar-toggler-1{ 
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  background-color: inherit;
+}
+
+.ordenhados{
+  font-size: 14px;
+  color: black;
+}
+.ordenhar{
+  padding-left: 10px; 
+}
+/*Novas Merdas - Pedro*/
+#eventimg {
+  width: 100%;
+}
+
+.button-inscrever {
+  width: 100%
+}
+
+.evento-dados {
+  background-color: rgb(238, 238, 238);
+}
+
+.p-descricao {
+  padding:20px;
+}
+
+.pessoas-inscritas {
+  width: 50px !important;
+  height:50px !important;
+  border-radius: 50% !important;
+}
+
+
+.tags a{
+  background-color:#756f5d;
+  padding:10px; color:#fff;
+  display:inline-block;
+  font-size:11px;
+  text-transform:uppercase;
+  line-height:11px;
+  border-radius:2px;
+  margin-bottom:5px;
+  margin-right:2px;
+  text-decoration:none;
+}
+
+.searchbar-perfil{
+  margin-left:12px;
+} 
+
+/*TESTE*/
+
+.comment-box {
+  margin-top: 30px !important;
+}
+
+.comment-box img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%
+}
+.comment-box .media-left {
+  padding-right: 10px;
+  width: 65px;
+}
+.comment-box .media-body p {
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 15px;
+}
+.comment-box .media-body .media p {
+  margin-bottom: 0;
+  
+}
+.comment-box .media-heading {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 7px 10px;
+  position: relative;
+  margin-bottom: -1px;
+  font-size: 15px;
+}
+.comment-box .media-heading:before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-width: 1px 0 0 1px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 10px;
+  left: -6px;
+}
+/*Mais cenas Perro*/
+/* NOOOOOOOOOOVO */
+.btn-yellow{
+  color:white;
+}
+.btn-grey{
+background-color:#D8D8D8;
+color:#FFF;
+}
+
+.btn-orange{
+  color: white;
+  background-color: rgb(255, 202, 103);
+}
+
+.profile {
+  margin: 20px 0;
+}
+
+.card-img-top.v{
+    position: relative;
+    float: left;
+    width:  100%;
+    height: 100px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+}
+
+/* Profile sidebar */
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+  background: #fff;
+  max-height: auto;
+}
+
+.profile-userpic img {
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin: 0 auto !important; 
+  width: 50%;
+  height: 50%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+
+}
+
+.profile-usertitle {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-usertitle-name {
+  color: #5a7391;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.profile-usertitle-type {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 15px;
+  margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+  margin-right: 0px;
+}
+
+
+/* Profile Content */
+.profile-content {
+  padding: 20px;
+  background: #fff;
+  min-height: 460px;
+}
+/*Mais merdas do pedro*/
+.fa-1x {
+  font-size: 2.0rem;
+  color:#ea9c00;
+
+}
+
+.parcerias-list {
+  list-style: none;
+  font-family: 'Lato', sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+.parcerias-list > li {
+  box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.7);
+  padding: 0px;
+  margin: 0px 0px 25px;
+}
+
+.parcerias-list > li > .parc {
+  padding-top: 5px;
+  text-align: center;
+}
+.parcerias-list > li > .parc > .title {
+  font-size: 17pt;
+  font-weight: 700;
+  margin: 0px;
+}
+.parcerias-list > li > .parc > .loc {
+  font-size: 13pt;
+  font-weight: 300;
+  margin: 0px;
+}
+.parcerias-list > li > .parc > ul
+{
+  display: table;
+  list-style: none;
+  margin: 10px 0px 0px;
+  padding: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+.parcerias-list > li > .parc > ul > li
+{
+  display: table-cell;
+  cursor: pointer;
+  color: rgb(30, 30, 30);
+  font-size: 11pt;
+  font-weight: 300;
+  padding: 3px 0px;
+}
+  .parcerias-list > li > .parc > ul > li > a {
+  display: block;
+  width: 100%;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+} 
+
+
+.parcerias-list > li > .parc > ul > li:hover{
+  color: rgb(30, 30, 30);
+  background-color:rgb(255, 187, 0);
+}
+
+@media (min-width: 144px) {
+  .parcerias-list > li {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 120px;
+    padding: 0px;
+  }
+
+  .parcerias-list > li > .parc {
+    overflow: hidden;
+    background: linear-gradient(to left, rgba(255,0,0,0), rgb(255, 173, 97));
+  }
+
+  .parcerias-list > li > .parc {
+    position: relative;
+    height: 120px;
+    text-align: left;
+    padding-right: 40px;
+  }	
+  .parcerias-list > li > .parc > .title, 
+  .parcerias-list > li > .parc > .loc {
+    padding: 0px 10px;
+  }
+  .parcerias-list > li > .parc > ul {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+  }
+
+}
+.parcerias-list > li{
+  width: auto ;
+}
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*TESTE*/
+
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*Que não está a funcionar*/
+/*CAROUSEl*/
+@media (min-width: 100px) {
+  /* show 3 items */
+  .carousel-inner .active,
+  .carousel-inner .active + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
+    display: block;
+  }
+
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item,
+  .carousel-inner
+    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
+    + .carousel-item
+    + .carousel-item {
+    transition: none;
+  }
+
+  .carousel-inner .carousel-item-next,
+  .carousel-inner .carousel-item-prev {
+    position: relative;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .carousel-inner
+    .active.carousel-item
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: absolute;
+    top: 0;
+    right: -33.3333%;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* left or forward direction */
+  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+  .carousel-item-next.carousel-item-left + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+  .carousel-item-next.carousel-item-left
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  /* farthest right hidden item must be abso position for animations */
+  .carousel-inner .carousel-item-prev.carousel-item-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* right or prev direction */
+  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+  .carousel-item-prev.carousel-item-right + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+  .carousel-item-prev.carousel-item-right
+    + .carousel-item
+    + .carousel-item
+    + .carousel-item {
+    position: relative;
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+    display: block;
+    visibility: visible;
+  }
+}
+/* &&&&&&&&&&&&&&&&&& FIM DE CAROUSEL &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+ /*.active > div { display:none; }
+ .active > div:first-child { display:block; }*/
+
+/*xs*/
+
+.red {background: red;}
+
+.blue {background: blue;}
+
+.green {background: green;}
+
+.yellow {background: yellow;}
+
+
+
+
+
+
+
+
+
+/*Merdas que já não são usadas*/
+/* @media (max-width: 767px){
+    .carousel .row .span3 {
+    display: block;
+    float: left;
+    width: 25%;
+    margin-left: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    }
+} */
