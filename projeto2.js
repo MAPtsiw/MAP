@@ -41,24 +41,12 @@ let editarPerfil = true
 
 window.onload = function () {
 
-    //TEstes com o calendário
-    //brincadeirasCalendário(); Funciona
-
-    //Criar Eventos default
-    // let par1 = new Parceria("Esmad", 'ali', 'alie')
-    // let par2 = new Parceria('Pporto', 'porto', 'pipi')
-    // let par3 = new Parceria('Fiu', 'fiufiu', 'fiufiufiu')
-
-    // parcerias.push(par1, par2, par3)
-
-
-    let datinha = new Date() //VAi ser mais vezes usado
+    let datinha = new Date()
 
     //Variavel para o item da navbar para o admin
     let adminzito = document.getElementById('Admin')
 
     if (document.getElementById('container-Calendario') != null) {
-        this.console.log('ata Calendario')
         calendarioFixe(datinha.getMonth() + 1, datinha.getFullYear())
     }
 
@@ -70,7 +58,22 @@ window.onload = function () {
 
         //Maneira de encher o array sem ter que mexer nas variáceis internas
         for (let i = 0; i < a.length; i++) {
-            let b = new Utilizador(a[i]._nome, a[i]._password, a[i]._mail, a[i]._fotografia, a[i]._tipo, a[i]._cv, a[i]._aulas, a[i]._formacao, a[i]._pontoou)
+            let aa = 0
+            if (isNaN(parseInt(a[i]._pontoou)) == false) {
+                aa = parseInt(a[i]._pontoou)
+                // console.log(aa)
+            }
+            else {
+                aa = 0
+                // console.log(aa)
+            }
+            let b = new Utilizador(a[i]._nome, a[i]._password, a[i]._mail, a[i]._fotografia, a[i]._tipo, a[i]._cv, a[i]._aulas, a[i]._formacao, aa)
+            // console.log(a[i]._pontoou)
+            if (a[i]._pontoou.length > 0) {
+                for (let k = 1; k < a[i]._pontoou.length; k++) {
+                    b.pontoou = a[i]._pontoou[k]
+                }
+            }
             utilizadores.push(b)
         }
 
@@ -92,11 +95,14 @@ window.onload = function () {
         //nome, dataEhora, descricao, categoria, foto, responsavel, utilizadores[indexUtilizador]._id
         for (let i = 0; i < a.length; i++) {
             let b = new Evento(a[i]._nome, a[i]._data, a[i]._descricao, a[i]._categoria, a[i]._imagem, a[i]._responsavel, a[i]._userId, a[i]._pontuacao, a[i]._inscritos)
+            if (a[i]._inscritos.length > 1) {
+                for (let k = 1; k < a[i]._inscritos.length; k++) {
+                    b.inscritos = a[i]._inscritos[k]
+                }
+            }
             this.console.log("Inicio - " + b.pontuacao)
             eventos.push(b)
         }
-
-
         console.log(eventos)
     }
 
@@ -162,13 +168,13 @@ window.onload = function () {
 
 
     //Adminhe
+    //Mostrar ou não a página de admin
     if (adminzito != null) {
         if (utilizadores[indexUtilizador].tipoUtilizador == "Administrador") {
             adminzito.style.display = 'inline-block'
         }
     }
 
-    //+-Global, só para o que estiver dentro do window.onload
     let btnAdicionar = document.getElementById('btnAdicionarEventos')
 
     //Mostrar ou não o botão de login, consoante o estado da variavel logged
@@ -190,7 +196,7 @@ window.onload = function () {
         let msgErro = document.getElementById('MsgErroRegistar')
         msgErro.innerHTML = "Bem vindo, " + utilizadores[indexUtilizador].nome + " !!!"
 
-        if (utilizadores[indexUtilizador].tipoUtilizador == 'Docente' && btnAdicionar != null) { //A variavel interna é _tipo e não tipoUtilizador
+        if (utilizadores[indexUtilizador].tipoUtilizador == 'Docente' && btnAdicionar != null) {
             btnAdicionar.style.display = 'inline-block'
         }
 
@@ -227,7 +233,7 @@ window.onload = function () {
     }
 
 
-    //Data minima para marcar Eventos... Que belo português fds
+    //Data minima para marcar Eventos
     minDate();
 
     //Definir a data e o ano no calendário
@@ -317,19 +323,19 @@ window.onload = function () {
 
         let tipo = a.options[a.selectedIndex].value //Tipo de Utilizador
 
-
         //Confirmar Pass's
         let continuar = true
         let msgErro = document.getElementById('MsgErroRegistar') //Dá para usar outra vez o nome da variável
 
         if (foto == "") {
 
-            let conf = confirm("Não introduziu uma foto \nContinuar sem mostrar as beiças?") //Dá para editar o texto desta coisa?
+            let conf = confirm("Não introduziu uma foto \nPretende continuar?")
 
             if (conf == false)
                 continuar = false
         }
 
+        //Verificar se o mail já existe
         if (confMail(eMail) == false) {
             continuar = false
             msgErro.innerHTML = "O mail já existe"
@@ -339,11 +345,12 @@ window.onload = function () {
             msgErro.innerHTML = ""
         }
 
-        if (password == confPass && continuar == true) {
+
+        if (password == confPass && continuar == true) { //Verificar se as pass's são iguais
             //Criar Utilizador
             let novoUtilizador = new Utilizador(nome, password, eMail, foto, tipo, "", "", "", false) //Porque   me está a por o tipo de utilizador na foto????
 
-            //Mais umas
+            //Mostrar os campos para o docente preencher, caso este seja docente
             if (novoUtilizador.tipoUtilizador == "Docente") {
                 let formacao = document.getElementById('formacao').value
                 let aulitas = document.getElementById('unidadesCurriculares').value
@@ -358,8 +365,6 @@ window.onload = function () {
                 // }
             }
 
-            // console.log(novoUtilizador)
-
             //Mete-lo no array
             utilizadores.push(novoUtilizador)
 
@@ -367,13 +372,11 @@ window.onload = function () {
 
             //1º coisa
             //Avisar que se registou ou fez login com sucesso
-
             msgErro.innerHTML = "Registado com sucesso!!!!"
 
             //2º coisa 
             //Local storage
             localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
-
 
             console.log(utilizadores)
             //console.log(JSON.stringify(utilizadores))
@@ -423,24 +426,22 @@ window.onload = function () {
         let pass = document.getElementById('passLogin').value
 
         for (let i = 0; i < utilizadores.length; i++) { //Acho que bastava usar o indexUtilizador mas sbé
-            console.log(utilizadores[i].mail)
+            // console.log(utilizadores[i].mail)
 
             if (utilizadores[i].mail == mail) { //Por agora vou trabalhar com as variáveis internas, e assim funciona
-
-
                 erroMail = false //Ou seja, não há erros
 
                 if (utilizadores[i].password == pass) {
                     ok = true
                     erroPass = false;
                     indexUtilizador = i; //Simplificar a vida
-                    console.log("ok = " + ok)
+                    // console.log("ok = " + ok)
                     localStorage.setItem('indexUtilizador', JSON.stringify(indexUtilizador))
                 }
             }
         }
 
-        //Atuar consoante estar tudo bem ou não, pandeleiro
+        //Atuar consoante estar tudo bem ou não
         let msgErro = document.getElementById('MsgErroLogin')
         if (ok == true) {
             //Dizer que o utilizador está com sessão iniciada
@@ -533,7 +534,6 @@ window.onload = function () {
 
     //Meter coisas para o botão de adcionar Eventos (Modal Eventos)
     let formEvento = document.getElementById('FormRegistarEvento')
-
     if (formEvento != null) {
         formEvento.addEventListener('submit', function (e) { //Verificar isto
             e.preventDefault()
@@ -545,10 +545,10 @@ window.onload = function () {
 
             let nome = document.getElementById('NomeEvento').value
             let data = document.getElementById('DataEvento').value
-            console.log("A data é = " + data + " -(Ao ser definida)")
+            // console.log("A data é = " + data + " -(Ao ser definida)")
 
             let hora = document.getElementById('HoraEvento').value //Not required
-            console.log("A hora é = " + hora + " -(Ao ser definida)")
+            // console.log("A hora é = " + hora + " -(Ao ser definida)")
 
             let descricao = document.getElementById('DescriçãoEvento').value //Not required, o valor de uma textarea é .value
             let categoria = document.getElementById('CategoriaEvento').value
@@ -600,12 +600,11 @@ window.onload = function () {
             //Fotografia
             if (foto == "") {
 
-                let conf = confirm("Não introduziu uma foto \nContinuar sem mostrar as beiças?") //Dá para editar o texto desta coisa?
+                let conf = confirm("Não introduziu uma foto \nPretende continuar?") //Dá para editar o texto desta coisa?
 
                 if (conf == false) {
                     continuar = false
                 }
-
             }
 
 
@@ -635,9 +634,46 @@ window.onload = function () {
                 localStorage.setItem('eventos', JSON.stringify(eventos))
 
                 console.log(eventos)
-                console.log("O formato da data é = " + novoEvento._data[0])
+                // console.log("O formato da data é = " + novoEvento._data[0])
 
                 msgErro.innerHTML = "Belo ebento :)"
+
+                if (document.getElementById('corpoEventos') != null) {
+                    document.getElementById('corpoEventos').innerHTML = ""
+                    let datatatata = ""
+                    for (let i = 0; i < eventos.length; i++) {
+                        if (eventos[i].data[0] != undefined) datatatata = eventos[i].data[0].split(';')[0]
+                        preencherTabelaEventos(eventos[i].nome, datatatata, eventos[i].id)
+                    }
+                }
+
+                if (document.getElementById('ohPaEle') != null) {
+                    for (let i = 0; i < eventos.length; i++) {
+
+                        if (logged == true) mostrar = paNaoSei(eventos[i].userId)
+
+                        if (eventos[i].data[0] != undefined) {
+                            preencherCatalogo(eventos[i].nome,
+                                eventos[i].imagem,
+                                eventos[i].descricao,
+                                eventos[i].data[0].split(';')[0],
+                                eventos[i].data[0].split(';')[1],
+                                eventos[i].pontuacao
+                                , i, mostrar, 'ohPaEle')
+                        }
+                        else if (eventos[i].data[0] == undefined) {
+                            preencherCatalogo(eventos[i].nome,
+                                eventos[i].imagem,
+                                eventos[i].descricao,
+                                "Por Anunciar",
+                                "Por Anunciar",
+                                eventos[i].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
+                                , i, mostrar, 'ohPaEle')
+                        }
+
+
+                    }
+                }
             }
             else {
                 msgErro.innerHTML += "Está qualquer coisa male" //Esta coisa está a entrar aqui quando não devia
@@ -648,7 +684,6 @@ window.onload = function () {
     //Modal Adicionar Evento
     //Limpar
     $("#ModalAdicionnarEventos").on('hide.bs.modal', function () {
-
         //Limpar o form
         formEvento.reset()
 
@@ -672,7 +707,7 @@ window.onload = function () {
 
             //Melhorar o confirmar para só aparecer a mensagem se o bo
             if (conf != "" && conf == true) {
-                console.log("Olá Boutarde")
+                // console.log("Olá Boutarde")
                 let elDia = event.target.innerHTML;
                 let temEventos = false
                 let losDiasOcupados = []
@@ -686,7 +721,7 @@ window.onload = function () {
                         if (chacalaca == elDia) {
                             temEventos = true
                             losDiasOcupados.push(eventos[i]) //Depois ao passar o id para a função vai ser dessa maneira que os eventos vão ser filtrados para o catálogo
-                            console.log(losDiasOcupados, temEventos)
+                            // console.log(losDiasOcupados, temEventos)
                             btnResetCatalogo.style.display = 'inline-block'
                         }
                     }
@@ -744,8 +779,6 @@ window.onload = function () {
         setasCalendario[0].addEventListener('click', function () {
 
             //Parte do calendário
-
-
             //Parte das Setas tratada....
             if (contadorSetas > 0) {
                 contadorSetas--;
@@ -800,6 +833,7 @@ window.onload = function () {
             btnResetCatalogo.style.display = 'inline-block'
 
             let filtraditos = [];
+            let arrayAuxiliar = []
 
             let searchNome = document.getElementById('searchNome').value
             let searchGenero = document.getElementById('searchGenero').value
@@ -815,29 +849,65 @@ window.onload = function () {
                         .includes(searchNome.toUpperCase())
                 })
                 msgErroCatalogo(filtraditos.length)
-                console.log(filtraditos + "---" + searchNome)
+                //console.log(filtraditos + "---" + searchNome)
             }
 
+            console.log('genero = ' + searchGenero)
+            console.log(filtraditos) //Até aqui está bem
             if (searchGenero != "") {
-                console.log('genero = ' + searchGenero)
                 if (searchNome == "") {
-                    console.log(eventos)
-                    filtraditos = eventos.filter(function (evento) {
-                        return evento.categoria[0]
-                            .toUpperCase()
-                            .includes(searchGenero.toUpperCase())
-                    })
+                    //console.log(eventos)
+                    // filtraditos = eventos.filter(function (evento) {
+                    //     return evento.categoria[0]
+                    //         .toUpperCase()
+                    //         .includes(searchGenero.toUpperCase())
+                    // })
+
+                    for (let i = 0; i < eventos.length; i++) {
+                        for (let k = 0; k < eventos[i].categoria.length; k++) {
+                            if (eventos[i].categoria[k]
+                                .toUpperCase()
+                                .includes(searchGenero.toUpperCase()) == true) {
+                                filtraditos.push(eventos[i].categoria[k])
+                            }
+                        }
+                    }
                     msgErroCatalogo(filtraditos.length)
                 }
                 else {
-                    filtraditos = filtraditos.filter(function (evento) {
-                        return evento.categoria[0]
-                            .toUpperCase()
-                            .includes(searchGenero.toUpperCase())
-                    })
+                    // filtraditos = filtraditos.filter(function (evento) {
+                    //     return evento.categoria[0]
+                    //         .toUpperCase()
+                    //         .includes(searchGenero.toUpperCase())
+                    // })
+
+                    console.log(filtraditos)
+                    console.log('BIBA')
+                    let tamanho = filtraditos.length
+                    for (let i = 0; i < tamanho; i++) {
+                        console.log(typeof filtraditos[i])
+                        if (typeof filtraditos[i] == 'object') {
+                            for (let k = 0; k < filtraditos[i].categoria.length; k++) {
+                                if (filtraditos[i].categoria[k]
+                                    .toUpperCase()
+                                    .includes(searchGenero.toUpperCase()) == true) {
+                                    // filtraditos = []
+                                    arrayAuxiliar.push(filtraditos[i])
+                                    console.log('ata')
+                                }
+                            }
+                        }
+                    }
+
+                    if (filtraditos.length == 0) filtraditos = []
+                    else {
+                        filtraditos = arrayAuxiliar
+                    }
                     msgErroCatalogo(filtraditos.length)
                 }
-            } //Tenho que ver o que esta coisa vai dar e depois fazer alterações em principio
+            }
+            console.log(filtraditos)
+            //Tenho que ver o que esta coisa vai dar e depois fazer alterações em principio
 
             //Ainda tenho que fazer a função para a data, por agora testar só pelos dois campos, udpadate: filtrar por nome e categoria esta feito, nenhum erro por agora
 
@@ -851,7 +921,7 @@ window.onload = function () {
                 }
             }
 
-            console.log("filtraditos = " + filtraditos)
+            //console.log("filtraditos = " + filtraditos)
             if (filtraditos.length > 0) {
                 if (document.getElementById('ohPaEle') != null) {
                     //Limpar a tabela
@@ -926,8 +996,8 @@ window.onload = function () {
             eventos[elId].imagem = document.getElementById('FotografiaEvento2').value
             eventos[elId].responsavel = document.getElementById('ResponsavelEvento2').value
 
-            //Mensagem de "erro", depois talvez precise de mexer nisto
-            document.getElementById('MsgErroRegistarEventos2').innerHTML = "Como dizia o meu tio Carlos \nBem Introduzido"
+            //Mensagem de "erro"
+            document.getElementById('MsgErroRegistarEventos2').innerHTML = "Registado corretamente"
 
             // console.log(eventos)
             //"Gravar" as mudanças
@@ -966,11 +1036,37 @@ window.onload = function () {
                 }
             }
 
-            eventosRealizadosENemPorIsso();
+            if (cenasPesquisar != "Melhor Pontuados") eventosRealizadosENemPorIsso();
 
             if (cenasPesquisar == "Melhor Pontuados") {
                 document.getElementById('ohPaEle').innerHTML = ""
                 //Só dá para fazer esta quando começarmos a pontuar eventos, mas a função está feita e a funcionar
+                let arrayPontuados = melhorPontuados()
+
+                console.log(arrayPontuados)
+                for (let i = 0; i < arrayPontuados.length; i++) {
+
+                    if (logged == true) mostrar = paNaoSei(arrayPontuados[i].userId)
+
+                    if (arrayPontuados[i].data != undefined && arrayPontuados[i].data[0] != undefined) {
+                        preencherCatalogo(arrayPontuados[i].nome,
+                            arrayPontuados[i].imagem,
+                            arrayPontuados[i].descricao,
+                            arrayPontuados[i].data[0].split(';')[0],
+                            arrayPontuados[i].data[0].split(';')[1],
+                            arrayPontuados[i].pontuacao,
+                            i, mostrar, 'ohPaEle')
+                    }
+                    else if (arrayPontuados[i].data != undefined && arrayPontuados[i].data[0] == undefined) {
+                        preencherCatalogo(arrayPontuados[i].nome,
+                            arrayPontuados[i].imagem,
+                            arrayPontuados[i].descricao,
+                            "Por Anunciar",
+                            "Por Anunciar",
+                            arrayPontuados[i].pontuacao,
+                            i, mostrar, 'ohPaEle')
+                    }
+                }
             }
             else if (cenasPesquisar == "Eventos Realizados") {
                 if (realizados.length > 0) {
@@ -1044,7 +1140,6 @@ window.onload = function () {
     }
 
     //Função para o submit de uma parceria
-
     let formParceria = document.getElementById('formParceria')
     if (formParceria != undefined) {
         formParceria.addEventListener('submit', function (event) {
@@ -1089,9 +1184,12 @@ window.onload = function () {
                 //Gravar o array
                 localStorage.setItem('parcerias', JSON.stringify(parcerias))
 
-                //Dizer que o admin é lindo
-                elErro.innerHTML = "O Admin é Lindo"
+                document.getElementById('corpoParcerias').innerHTML = ""
+                for (let i = 0; i < parcerias.length; i++) {
+                    preencherTabelaUtiPar(parcerias[i].nome, parcerias[i].link, parcerias[i].id, true)
+                }
 
+                document.getElementById('mensagem').innerHTML = "Parceria criada com sucesso"
             }
             else {
                 elErro.innerHTML = msgErro
@@ -1137,10 +1235,9 @@ window.onload = function () {
                         parcerias[i].localizacao = localizacao
                         parcerias[i].link = link
 
-                        document.getElementById('MensagemMamaAquiNaPila').innerHTML = "Be mudado, És Ganda cena"
+                        document.getElementById('MensagemMamaAquiNaPila').innerHTML = "Alterado com sucesso"
                     }
                 }
-
 
                 document.getElementById('corpoParcerias').innerHTML = ""
                 for (let i = 0; i < parcerias.length; i++) {
@@ -1214,7 +1311,7 @@ window.onload = function () {
             this.console.log('Mais uma pontuação - ' + a._pontuacao)
             let eventoLindo = new Evento(a._nome, a._data, a._descricao, a._categoria, a._imagem, a._responsavel, a._userId, a._pontuacao, a._inscritos)
             eventoLindo._id = a._id
-            //this.alert(eventoLindo.nome)
+            console.log(eventoLindo._pontuacao)
 
             let leData = ""
             if (eventoLindo.data[0] |= null) leData = eventoLindo.data[0].split(';')[0]
@@ -1231,7 +1328,8 @@ window.onload = function () {
             console.log("O caralho da pontuação - " + eventoLindo.pontuacao)
             if (eventoLindo.pontuacao != undefined) {
                 this.console.log('ata')
-                this.document.getElementById('pontuacaoMedia').innerHTML = eventoLindo.pontuacao + " /5";}
+                this.document.getElementById('pontuacaoMedia').innerHTML = eventoLindo.pontuacao + " /5";
+            }
             else document.getElementById('pontuacaoMedia').innerHTML = "Por definir"
 
             if (eventoLindo.localizacao != null) document.getElementById('localizacao').innerHTML = "Localização:<br>" + eventoLindo.localizacao
@@ -1259,7 +1357,7 @@ window.onload = function () {
                 if (logged) {
                     let caixaComentário = document.getElementById('message').value
 
-
+                    console.log(caixaComentário)
                     if (caixaComentário != "") {
 
                         let novoComentario = new Comentario(caixaComentário, utilizadores[indexUtilizador].id, eventoLindo.id)
@@ -1269,16 +1367,14 @@ window.onload = function () {
 
                         localStorage.setItem('comentarios', JSON.stringify(comentarios))
                         caixaComentário.value = "" //Não sei se vai resultar
+                        mostrarLosComentarios(eventoLindo.id, utilizadores[indexUtilizador].id)
                     }
                     else {
                         alert("Que comentário interessante, Bem miudo")
                     }
 
                     //Função para mandar Eventos
-                    if (comentarios.length > 0) {
-                        mostrarLosComentarios(eventoLindo.id, utilizadores[indexUtilizador].id)
-                    }
-                    else {
+                    if (comentarios.length == 0) {
                         document.getElementById('containerComentarios').innerHTML = "Não há comentarios ainda"
                     }
                 }
@@ -1305,12 +1401,13 @@ window.onload = function () {
                 }
 
                 if (tamanhoNot == eventos[loIndexi].inscritos.length) {
-                    alert('Já tas inscrito oh burra')
+                    alert('Já tá, benhe')
                 }
                 else {
-                    localStorage.setItem('eventos', JSON.stringify(eventos))
                     alert('Tás inscritos')
                 }
+                localStorage.removeItem('eventos')
+                localStorage.setItem('eventos', JSON.stringify(eventos))
             })
             //Pontuar o   do evento
             //if (logged == true) { //Fazer esta confirmação no evento, e assim aviso que tem que estar logado para pontuar
@@ -1323,8 +1420,9 @@ window.onload = function () {
             //}
 
             const btnRecomendar = document.getElementById('btnRecomendar')
-            if (logged) {
-                btnRecomendar.addEventListener('click', function () {
+
+            btnRecomendar.addEventListener('click', function () {
+                if (logged) {
                     let recomendar = ""
                     if (recomendados.length == 0) {
                         recomendar = new Recomendado(eventoLindo.id, utilizadores[indexUtilizador].id)
@@ -1358,11 +1456,13 @@ window.onload = function () {
                     }
                     localStorage.setItem('recomendados', JSON.stringify(recomendados))
                     console.log(recomendados)
-                })
-            }
-            else {
-                alert('Tens que estar logado para recomendar o evento')
-            }
+                }
+                else {
+                    alert('Tens que estar logado para recomendar o evento')
+                }
+
+            })
+
         }
     }
 
@@ -1379,38 +1479,40 @@ window.onload = function () {
         let texto = ""
         botaoTestemunhar.addEventListener('click', function () {
 
-            let somaESegue = true
+            if (utilizadores[indexUtilizador].tipoUtilizador == 'Estudante') {
+                let somaESegue = true
 
 
-            for (let i = 0; i < testemunhos.length; i++) {
-                if (testemunhos[i].userId == utilizadores[indexUtilizador].id) {
-                    loIndex = i
-                    texto = testemunhos[i].testemunho
-                    somaESegue = false
+                for (let i = 0; i < testemunhos.length; i++) {
+                    if (testemunhos[i].userId == utilizadores[indexUtilizador].id) {
+                        loIndex = i
+                        texto = testemunhos[i].testemunho
+                        somaESegue = false
+                    }
                 }
-            }
 
-            if (logged) {
-                botaoTestemunhar.setAttribute('data-target', '#ModalTestemunho')
-                botaoTestemunhar.setAttribute('data-toggle', 'modal')
-            }
-            else if (!logged) {
-                botaoTestemunhar.removeAttribute('data-target')
-                botaoTestemunhar.removeAttribute('data-toggle')
-                alert('Tens que estar logado ó macaco')
-            }
-
-            if (somaESegue == false && logged == true) {
-                let continuar = confirm("Já testemunhas te uma vez\nQueres editar o teu Testemunho?")
-
-                if (continuar) {
-                    document.getElementById('TituloTestemunho').innerHTML = "Alterar Testemunho do " + utilizadores[indexUtilizador].nome
-                    texto = elTestemunho.value
-                    jaExiste = true
+                if (logged) {
+                    botaoTestemunhar.setAttribute('data-target', '#ModalTestemunho')
+                    botaoTestemunhar.setAttribute('data-toggle', 'modal')
                 }
-                else {
+                else if (!logged) {
                     botaoTestemunhar.removeAttribute('data-target')
                     botaoTestemunhar.removeAttribute('data-toggle')
+                    alert('Tens que estar logado ó macaco')
+                }
+
+                if (somaESegue == false && logged == true) {
+                    let continuar = confirm("Já testemunhas te uma vez\nQueres editar o teu Testemunho?")
+
+                    if (continuar) {
+                        document.getElementById('TituloTestemunho').innerHTML = "Alterar Testemunho do " + utilizadores[indexUtilizador].nome
+                        texto = elTestemunho.value
+                        jaExiste = true
+                    }
+                    else {
+                        botaoTestemunhar.removeAttribute('data-target')
+                        botaoTestemunhar.removeAttribute('data-toggle')
+                    }
                 }
             }
         })
@@ -1517,7 +1619,7 @@ window.onload = function () {
             let nomeUtilizador = document.getElementById('NomeUtilizador')
             nomeUtilizador.innerHTML = loUtilizador._nome
             let tipoDeUtil = this.document.getElementById('tipoDeUtilizador')
-            tipoDeUtil.innerHTML = `Tipo De Utilizador     (${loUtilizador._tipo})`
+            tipoDeUtil.innerHTML = `${loUtilizador._tipo}`
 
             //Para o caso de ser Docente mostrar os campos deste
             let divDocente = document.getElementById('docente-div')
@@ -1555,7 +1657,7 @@ window.onload = function () {
                 for (let k = 0; k < eventos[i].inscritos.length; k++) {
                     if (eventos[i].inscritos[k] == loUtilizador._id) {
                         this.console.log('ata ata')
-                        contadori++;
+
                         if (logged == true) mostrar = paNaoSei(eventos[i].userId)
 
                         if (eventos[i].data[0] != undefined) {
@@ -1565,7 +1667,7 @@ window.onload = function () {
                                 eventos[i].data[0].split(';')[0],
                                 eventos[i].data[0].split(';')[1],
                                 eventos[i].pontuacao
-                                , i, mostrar, 'eventosParticipados')
+                                , contadori, mostrar, 'eventosParticipados')
                         }
                         else if (eventos[i].data[0] == undefined) {
                             preencherCatalogo(eventos[i].nome,
@@ -1574,8 +1676,10 @@ window.onload = function () {
                                 "Por Anunciar",
                                 "Por Anunciar",
                                 eventos[i].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
-                                , i, mostrar, 'eventosParticipados')
+                                , contadori, mostrar, 'eventosParticipados')
                         }
+
+                        contadori++;
                     }
                 }
             }
@@ -1590,7 +1694,7 @@ window.onload = function () {
                     console.log(arrayRecomendados[k])
                     if (eventos[i].id == arrayRecomendados[k]) {
                         console.log('ata')
-                        contadorii++;
+
                         if (logged == true) mostrar = paNaoSei(eventos[i].userId)
 
                         if (eventos[i].data[0] != undefined) {
@@ -1600,7 +1704,7 @@ window.onload = function () {
                                 eventos[i].data[0].split(';')[0],
                                 eventos[i].data[0].split(';')[1],
                                 eventos[i].pontuacao
-                                , i, mostrar, 'eventosRecomendados')
+                                , contadorii, mostrar, 'eventosRecomendados')
                         }
                         else if (eventos[i].data[0] == undefined) {
                             preencherCatalogo(eventos[i].nome,
@@ -1609,8 +1713,10 @@ window.onload = function () {
                                 "Por Anunciar",
                                 "Por Anunciar",
                                 eventos[i].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
-                                , i, mostrar, 'eventosRecomendados')
+                                , contadorii, mostrar, 'eventosRecomendados')
                         }
+
+                        contadorii++;
                     }
                 }
             }
@@ -1635,8 +1741,6 @@ window.onload = function () {
                 const textareaLecionadas = document.createElement('div')
                 const textareaFormacao = document.createElement('div')
                 const textareaNome = document.createElement('div')
-
-
 
                 //Limpar os campos de docente
                 nome.innerHTML = ""
@@ -1807,7 +1911,7 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
     else div1.setAttribute('class', 'carousel-item col-sm-4')
     //Cartão
     let div2 = document.createElement('div')
-    div2.setAttribute('class', 'card')
+    div2.setAttribute('class', 'card x')
 
     //Meter o cartão dentro do seu container
     div1.appendChild(div2)
@@ -1828,12 +1932,15 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
     div2.appendChild(cardBody)
 
     //Titulo
-    let titulo = document.createElement('h4')
+    let titulo = document.createElement('h6')
     titulo.setAttribute('class', 'card-title')
     titulo.textContent = cardName
 
     cardBody.appendChild(titulo)
 
+    let hr = document.createElement('hr')
+    hr.setAttribute('size', '10')
+    cardBody.appendChild(hr)
     //Descrição
     let descricao = document.createElement('p')
 
@@ -1843,15 +1950,6 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
 
     cardBody.appendChild(descricao)
 
-    //Botão + (Ver detalhes)
-    let btnDetalhes = document.createElement('a')
-    btnDetalhes.setAttribute('class', 'btn btn-primary ' + eventos[indice].id)
-    btnDetalhes.setAttribute('href', 'projeto2_Evento.html')
-    btnDetalhes.addEventListener('click', verEvento)
-    btnDetalhes.innerHTML = 'Saber Mais'
-    //Adicionar uma funçao que provavelmente já existe a este botao
-
-    cardBody.appendChild(btnDetalhes)
 
     //Detalhes do Evento
     if (cardPontuacao == undefined) cardPontuacao = "Por Pontuar"
@@ -1861,7 +1959,7 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
     detalhes.innerHTML = `Data: ${cardData} ||  
                         Hora: ${cardHora}
                         <br>
-                        Pontuação ${cardPontuacao}` //Fica melhor com 3,5 / 5
+                        Pontuação: ${cardPontuacao}` //Fica melhor com 3,5 / 5
 
     // let detalhes2 = document.createElement('p')
     // detalhes2.setAttribute('class', 'card-text desricao-card-carrosel')
@@ -1870,8 +1968,19 @@ function preencherCarrosel(cardName, cardImage, cardDescricao, cardData, cardHor
     div2.appendChild(detalhes)
     // div2.appendChild(detalhes2)
 
-    container.appendChild(div1)
 
+    //Botão + (Ver detalhes)
+    let btnDetalhes = document.createElement('a')
+    btnDetalhes.setAttribute('class', 'btn btn-primary ' + eventos[indice].id)
+    btnDetalhes.setAttribute('href', 'projeto2_Evento.html')
+    btnDetalhes.addEventListener('click', verEvento)
+    btnDetalhes.innerHTML = 'Saber Mais'
+    //Adicionar uma funçao que provavelmente já existe a este botao
+
+    div2.appendChild(btnDetalhes)
+
+
+    container.appendChild(div1)
 }
 
 //Função para preencher o catálogo ao entrar na página
@@ -2042,21 +2151,25 @@ function preencherCatalogo(cardName, cardImage, cardDescricao, cardData, cardHor
 
     let botaoVer = document.createElement('a')
     botaoVer.setAttribute('href', 'projeto2_Evento.html')
-    botaoVer.setAttribute('class', 'btn btn-orange ' + eventos[indice].id)
+    botaoVer.setAttribute('class', 'btn btn-orange' + eventos[indice].id + ' btn-saberMais')
     botaoVer.textContent = "Saber Mais"
     botaoVer.addEventListener('click', verEvento)
-    corpitoJeitoso.appendChild(botaoVer)
+
 
     //Meter o corpo no cartão... Eu daqui a uns anos, get it, sem abrigo eheh
     cartao.appendChild(corpitoJeitoso)
+    cartao.appendChild(botaoVer)
 
 
+    console.log(indice)
     //Esta div leva 4 cards, fazer um if aqui para dizer se ficam na linha ou é criada outra, como   fazer esta filha da putice
     if (indice % 3 == 0 || indice == 0) {
         linhaContainer = document.createElement('div')
         linhaContainer.setAttribute('class', 'row linha-cards')
         linhaContainer.style.width = "100%"
+        // console.log('atata')
     }
+    console.log(linhaContainer)
 
     //Mats
     // contador += indice
@@ -2157,12 +2270,12 @@ function verPerfil(esconder) {
 
 
 //Função para verificar se o nome existe
-function verificar(lemerde) { //Tentar fazer esta função reutilizavel para outros arrays e para outros campos sem ser o nome
+function verificar(nomeDoEvento) { //Tentar fazer esta função reutilizavel para outros arrays e para outros campos sem ser o nome
 
     let sbe = true;
 
     for (let i = 0; i < eventos.length; i++) {
-        if (eventos[i].nome == lemerde) {
+        if (eventos[i].nome == nomeDoEvento) {
             sbe = false;
         }
     }
@@ -2198,7 +2311,7 @@ function marcarDias(mes) { //Por acabar, vai ter que receber o mes para depois p
             //console.log(eventos[i]._data[0].split(';')[0].split('-')[2])
             if (diasComEventos(dias[k].innerHTML, mes)) {
                 dias[k].setAttribute('class', 'btn-primary')
-                dias[k].style.background = "green"
+                dias[k].style.background = "orange"
             }
         }
     }
@@ -2438,24 +2551,36 @@ function calendarioFixe(mes, ano) { //TEm que ser o numero do mês
 
     //Assinalar no calendário o dia em que estamos
     let diaDeHoje = new Date()
+    //Mês atual
+    let esteMes = diaDeHoje.getMonth() + 1
+    //Dia atual
     diaDeHoje = diaDeHoje.toString().split(' ')[2]
-    console.log('Dia de Hoje = ' + diaDeHoje)
+    // console.log('Dia de Hoje = ' + diaDeHoje)
+
     //############################################
+    //Linhas da tabela
     let dias = document.getElementsByClassName('Dias')
 
+    //Dia 1 do mês atual
     let diaUm = mes + "/01/" + ano
 
-    let data = new Date(diaUm) //Inicio do mês
+    //Inicio do mês
+    let data = new Date(diaUm)
 
+    //Inicio do mês em String
     let data1 = data.toString().split(' ') //[0]- Dia da semana, [1]- Mês, [2]- Dia, [3]- Ano, etc...
 
+    //Dia fim do mês 
     let fimMes = fimDoMes(mes)
+
+    //Dia do fim do Mês anterior
     let fimDoMesAnterior = fimDoMes(mes - 1)
 
     //console.log(fimDoMesAnterior)
     let indici = inicioDoMes(data1[0])
     //console.log("O indice devolvido é - " + indici)
 
+    //Saber quantos dias do mês anterior que vão para o calendário
     let contadorDiasQueFaltam = fimDoMesAnterior - indici
     // console.log(contadorDiasQueFaltam)
     // console.log(indici)
@@ -2476,8 +2601,9 @@ function calendarioFixe(mes, ano) { //TEm que ser o numero do mês
                 if (k < indici && i == 0) dias[i].children[k].innerHTML = `<i style="color:grey">${contadorDiasQueFaltam}<i>`
                 else {
                     dias[i].children[k].innerHTML = contadorDias
-                    if (contadorDias == diaDeHoje) {
-                        dias[i].children[k].style.background = "#ff950b"
+                    if (contadorDias == diaDeHoje && mes == esteMes) {
+                        dias[i].children[k].style.background = "grey"
+                        dias[i].children[k].style.color = "white"
                     }
                     else {
                         dias[i].children[k].removeAttribute('style') //Acho que é preciso, porque senão vai pintando todos os dias à medida que o tempo passa
@@ -2487,7 +2613,7 @@ function calendarioFixe(mes, ano) { //TEm que ser o numero do mês
                 }
             }
             else {
-                dias[i].children[k].innerHTML = `<i style="color:green">${contadorDiasUltimos}<i>`
+                dias[i].children[k].innerHTML = `<i style="color:grey">${contadorDiasUltimos}<i>`
                 contadorDiasUltimos++;
             }
         }
@@ -2577,15 +2703,39 @@ function eventosRealizadosENemPorIsso() { //Que cria o arrayDosMili
 function melhorPontuados() {
 
     let array1 = eventos.concat()
-
-    array1.sort(function (a, b) { return b.pontuacao - a.pontuacao })
-
     let array2 = []
+    let tamanho = array1.length
+    // array1.sort(function (a, b) { 
+    // if(a.pontuacao != undefined && b.pontuacao != undefined) {
+    //     console.log( a.pontuacao, b.pontuacao)
+    //     return b.pontuacao - a.pontuacao} 
+    // })
 
-    for (let i = 0; i < array1.length; i++) {
-        array2.push(array1[i])
+    let eventosNaoPontuados = 0;
+    let posicao = 0
+    while (array2.length != tamanho) {
+        let maior = 0;
+        console.log(array1)
+        for (let i = 0; i < array1.length; i++) {
+            if (array1[i].pontuacao != undefined) {
+                if (array1[i].pontuacao > maior) {
+                    maior = array1[i].pontuacao
+                    posicao = i
+                }
+            }
+
+        }
+        array2.push(array1[posicao])
+        console.log(array1[posicao])
+        array1.splice(posicao, 1)
+
+        console.log(array2)
+        //console.log(tamanho)
     }
 
+    let array3 = array2.filter(function (biba) {
+        if (biba != undefined) return biba.pontuacao != undefined
+    })
     return array2 //Array com os 5 eventos mais bem classificados, nah, se depois quisermos só os cinco melhores pegamos nos cinco primeiros do array devolvido
 
 }
@@ -2602,7 +2752,7 @@ function ordenharPorData() {
     console.log(auxiliar)
 
     let mostrar = ""
-
+    let contador = 0
     for (let i = 0; i < auxiliar.length; i++) {
         for (let k = 0; k < eventos.length; k++) {
             if (auxiliar[i].split('-')[1] == eventos[k].id) {
@@ -2615,7 +2765,7 @@ function ordenharPorData() {
                         eventos[k].data[0].split(';')[0],
                         eventos[k].data[0].split(';')[1],
                         eventos[k].pontuacao
-                        , i, mostrar, 'ohPaEle')
+                        , contador, mostrar, 'ohPaEle')
                 }
                 else if (eventos[k].data[0] == undefined) {
                     preencherCatalogo(eventos[k].nome,
@@ -2624,8 +2774,9 @@ function ordenharPorData() {
                         "Por Anunciar",
                         "Por Anunciar",
                         eventos[k].pontuacao //Fazer alguma coisa quando a pontuação não estiver definida
-                        , i, mostrar, 'ohPaEle')
+                        , contador, mostrar, 'ohPaEle')
                 }
+                contador++
             }
         }
     }
@@ -2710,10 +2861,12 @@ function filtrarPorData(arrayLindo, filtration /*Que data vai ser filtrada*/) { 
         intervalo2 = new Date(mu[1] + "/" + mu[0] + "/" + dataHoje.getFullYear())
 
         intervalo2.setTime(intervalo2.getTime() + 604800000)
-        // console.log(intervalo2)
+        console.log(intervalo1)
+        console.log(intervalo2.getDate())
 
         for (let i = 0; i < arrayLindo.length; i++) {
             if (arrayLindo[i].data[0] != undefined) {
+
                 let nateDias = arrayLindo[i].data[0]
                     .split(';')[0]
                     .split('-')[2]
@@ -2722,10 +2875,30 @@ function filtrarPorData(arrayLindo, filtration /*Que data vai ser filtrada*/) { 
                     .split(';')[0]
                     .split('-')[1] //Acho que isto é o mes
 
-                console.log(mu[1], parseInt(nateMes))
-
+                nateMes = parseInt(nateMes)
+                console.log(mu[1])
+                console.log('nateMes - ' + nateMes)
+                let continuar = false;
+                console.log(continuar)
                 if (nateMes == mu[1] || nateMes == mu[1] + 1) {
-                    if (nateDias >= intervalo1 && nateDias <= intervalo2.getDate()) {
+                    //Matemáticas para o caso de a próxima semana acabar no mês a seguir
+                    console.log(intervalo2.getMonth() + 1, parseInt(mu[1]) + 1)
+                    if (intervalo2.getMonth() + 1 == parseInt(mu[1]) + 1) {
+                        let fimMesAtual = fimDoMes(intervalo2.getMonth() + 1)
+                        let x = mu[0];
+                        while (x != intervalo2.getDate()) {
+                            if (x == fimMesAtual) {
+                                x = 0
+                            }
+                            x++
+                            console.log(x, parseInt(nateDias))
+                            if (parseInt(nateDias) == x) continuar = true
+                        }
+
+
+                    }
+                    console.log(continuar)
+                    if (nateDias >= intervalo1 && nateDias <= intervalo2.getDate() || continuar == true) {
                         console.log("entrou2")
                         arrayDevolver.push(arrayLindo[i])
                     }
@@ -3481,7 +3654,19 @@ let valorDeMercado = 0; //Valor que vai seer adicionado à pontuação
 
 function botaoPontuar(e) { //Isto vai abrir um botão para deixar pontuar, cada utilizador só vai pontuar o evento 1 vez, secalhar adicionar um bolleano para dizer se já pontoou ou não
 
-    if (logged && utilizadores[indexUtilizador].pontoou == false) {
+    let eventito = JSON.parse(localStorage.getItem('eventoMostrar'))
+    let jaPontoou = false
+
+    if (utilizadores[indexUtilizador].pontoou.length > 0) {
+        for (let i = 0; i < utilizadores[indexUtilizador].pontoou.length; i++) {
+            console.log(eventito._id)
+            if (utilizadores[indexUtilizador].pontoou[i] == eventito._id) {
+                jaPontoou = true
+            }
+        }
+    }
+
+    if (logged && jaPontoou == false) {
         let botaozao = document.getElementById('botaoPontuar')
         let estrelasPontuar = document.getElementsByClassName('btn btn-default btn-grey btn-sm')
 
@@ -3492,11 +3677,6 @@ function botaoPontuar(e) { //Isto vai abrir um botão para deixar pontuar, cada 
         else valorDeMercado = parseInt(e.target.id)
         let botone = document.getElementById('botaoPontuar')
         botone.addEventListener('click', realmentePontuar)
-
-        //Agora, pintar as estrelas
-
-
-
 
         console.log(valorDeMercado)
 
@@ -3510,7 +3690,7 @@ function botaoPontuar(e) { //Isto vai abrir um botão para deixar pontuar, cada 
         }
     }
     else {
-        if(utilizadores[indexUtilizador].pontoou == false) alert('Já pontuaste este evento')
+        if (jaPontoou == true) alert('Já pontuaste este evento')
         else alert("Tens que estar logado para pontuar")
     }
 
@@ -3529,16 +3709,16 @@ function realmentePontuar() { //Em principio as matemáticas vão ser feitas na 
         }
     }
 
-    //Matemáticas
     console.log(eventos[elIndex].nome) //Dá o que quero
     console.log(valorDeMercado)
     eventos[elIndex].pontuacao = valorDeMercado
     document.getElementById('pontuacaoMedia').innerHTML = `${eventos[elIndex].pontuacao} <small style="font-size:20px">/5</small>`
+    localStorage.removeItem('eventos')
     localStorage.setItem('eventos', JSON.stringify(eventos))
     //Fazer com que o utilizador não possa voltar a pontuar
-    utilizadores[indexUtilizador].pontoou = true
+    utilizadores[indexUtilizador].pontoou = a._id
     localStorage.setItem('utilizadores', JSON.stringify(utilizadores))
-    
+    localStorage.removeItem('eventoMostrar')
     localStorage.setItem('eventoMostrar', JSON.stringify(eventos[elIndex]))
 }
 
@@ -3607,6 +3787,7 @@ function cabeconas(arrayPassar) { //Este array deve ser o array que é devolvido
 }
 
 function preencherTestemunhos() {
+    console.log(testemunhos)
 
     let leDiv = document.getElementById('containerTestemunhos')
     leDiv.innerHTML = ""
@@ -3629,7 +3810,7 @@ function preencherTestemunhos() {
         }
 
 
-        div1.setAttribute('class', 'col-xs-12 col-sm-6 col-md-4 leTestamento')
+        div1.setAttribute('class', 'col-md-4 leTestamento')
 
         let div2 = document.createElement('div')
         div1.appendChild(div2)
@@ -3639,7 +3820,7 @@ function preencherTestemunhos() {
         div2.appendChild(div3)
 
         let div4 = document.createElement('div')
-        div4.setAttribute('class', 'card')
+        div4.setAttribute('class', 'card testemunhos')
         div3.appendChild(div4)
 
         let div5 = document.createElement('div')
@@ -3676,12 +3857,16 @@ function preencherTestemunhos() {
 
         div5.appendChild(h5)
 
+        let hr = document.createElement('hr')
+        div5.appendChild(hr)
+
         let p = document.createElement('p')
         p.setAttribute('class', 'texto-testemunho')
         p.textContent = testemunhos[i].testemunho
-        console.log(testemunhos[i].testemunho)
+        //console.log(testemunhos[i].testemunho)
 
         div5.appendChild(p)
+        console.log('ata')
     }
 }
 
@@ -3763,7 +3948,7 @@ function preencherListaDeParcerias() {
 
             console.log(parcerias[i].link)
             if (parcerias[i].link != "") a.innerHTML = parcerias[i].link
-            else a.innerHTML = "Está mal"
+            else a.innerHTML = "Não tem Link"
 
             li2.appendChild(a)
 
@@ -3793,239 +3978,7 @@ function Mapa() {
     let map = new google.maps.Map(document.getElementById('map'), {
         center: location,
         zoom: 14,
-        styles: [
-            {
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#1d2c4d"
-                    }
-                ]
-            },
-            {
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#8ec3b9"
-                    }
-                ]
-            },
-            {
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "color": "#1a3646"
-                    }
-                ]
-            },
-            {
-                "featureType": "administrative.country",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {
-                        "color": "#4b6878"
-                    }
-                ]
-            },
-            {
-                "featureType": "administrative.land_parcel",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#64779e"
-                    }
-                ]
-            },
-            {
-                "featureType": "administrative.province",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {
-                        "color": "#4b6878"
-                    }
-                ]
-            },
-            {
-                "featureType": "landscape.man_made",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {
-                        "color": "#334e87"
-                    }
-                ]
-            },
-            {
-                "featureType": "landscape.natural",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#023e58"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#283d6a"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#6f9ba5"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "color": "#1d2c4d"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "geometry.fill",
-                "stylers": [
-                    {
-                        "color": "#023e58"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#3C7680"
-                    }
-                ]
-            },
-            {
-                "featureType": "road",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#304a7d"
-                    }
-                ]
-            },
-            {
-                "featureType": "road",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#98a5be"
-                    }
-                ]
-            },
-            {
-                "featureType": "road",
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "color": "#1d2c4d"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#2c6675"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {
-                        "color": "#255763"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#b0d5ce"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "color": "#023e58"
-                    }
-                ]
-            },
-            {
-                "featureType": "transit",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#98a5be"
-                    }
-                ]
-            },
-            {
-                "featureType": "transit",
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "color": "#1d2c4d"
-                    }
-                ]
-            },
-            {
-                "featureType": "transit.line",
-                "elementType": "geometry.fill",
-                "stylers": [
-                    {
-                        "color": "#283d6a"
-                    }
-                ]
-            },
-            {
-                "featureType": "transit.station",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#3a4762"
-                    }
-                ]
-            },
-            {
-                "featureType": "water",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#0e1626"
-                    }
-                ]
-            },
-            {
-                "featureType": "water",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#4e6d70"
-                    }
-                ]
-            }
-        ]
+
     });
 
     // Ponto no mapa....

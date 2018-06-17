@@ -2,6 +2,96 @@
   background-size: cover;
 /* } */
 /* #MudarOTipoDeUtilizador > li */
+Login:hover {
+  /*alterado!!!*/
+  background-color: #FFAF00;
+  color: white;
+  animation-delay: 2ms;
+ }
+ #Registar:hover {
+  /*alterado!!!*/
+  background-color: #FFAF00;
+  color: white;
+  animation-delay: 2ms;
+ }
+#ButoneEditar:hover{
+  background-color: #FFAF00;
+  cursor: pointer;
+  color: white;
+}
+#ButoneEditar{
+  background-color: green;
+  color: white;
+  border-radius: 15%;
+}
+.btn-saberMais, #btnPesquisaAvancada{
+  background-color: #FFAF00;
+  width: 100%;
+  color: #000000;
+}
+
+#tipoDeUtilizador, #NomeUtilizador{
+  color: #001124;
+}
+.searchbar-perfil{
+  margin:auto;
+  display:block;
+ }
+
+ .btn.saber-mais{
+  background-color: #FFAF00;
+  border:none;
+  color: white;
+ }
+.btn.add-evento{
+  background-color: #FFAF00;
+  border:none;
+  width: 50%;
+  color: white;
+ }
+ .btn.add-parceria{
+  background-color: #FFAF00;
+  border:none;
+  width: 50%;
+  color: white;
+}
+
+.button-inscrever {
+  width: 100%;
+  background-color: #FFAF00;
+  border:none;
+ }
+ 
+ .button-comentar{
+  background-color: #FFAF00;
+  border:none;
+ }
+.sobrenos {
+  background-color: white !important; 
+}
+.footerimg{
+  max-width: 100px;
+  max-height: 20px;
+}
+#pesquisaAvançada, #btnAdicionarEventos{
+background-color:#FFAF00;
+color:white !important;
+margin: auto;
+display:block;
+}
+.btn.qualquer{
+  background-color: #FFAF00 !important;
+  color:white;
+}
+#aboutus{
+  text-align: center;
+}
+.card.testemunhos{
+  border: 1px solid rgba(0, 0, 0, 0.808); 
+}
+#imagemEvento{
+  max-height: 50vh;
+}
 #homepagesection {
   background: url("images/home.png") 50% 0 repeat-y fixed;
   display: flex;
@@ -31,6 +121,7 @@
  }
  .absolute {
  margin:200px;
+ opacity: 50%;
  }
  .absolute h1 {
   color:white;
@@ -43,18 +134,19 @@
      margin-right: auto;
      display: block;
  }
-
- .equipa-style{
-   height: auto;
+ 
+ .about-team{
+  background-color: inherit;
  }
+ 
  .teamm > p{
  text-align: center;
  }
 
- 
  .p-footer{
- color:white !important;
- }
+  color:white !important;
+  font-size: 12px;
+}
  
  .iconFooter{
   width: 25px;
@@ -73,6 +165,10 @@
 .card{
   background-color: inherit;
   border-width: 0px;
+  border-radius: 5%;
+}
+.card.x{
+  height: 87vh;
 }
 .card-body.h, .card-text.desricao-card-carrosel{
   border-width: 4px;
@@ -97,12 +193,13 @@ width: 100%;
 max-height: auto;
 }
 .card.col-lg-4{
-  background-color: rgb(241, 105, 42);
+  background-color: white;
   border: 1px solid rgb(226, 217, 213);
   color: black;
   font-size: 20px;
   font-weight: bold;
   max-height: auto;
+  padding:0px;
 }
 .card.col-lg-4 > div > a{
   background-color: rgb(241, 105, 42);
@@ -111,12 +208,12 @@ max-height: auto;
   background-color: white;
 }
 .searchbar-d{
-  background: rgb(255, 255, 255);
-  padding:20px;
-  margin:0px 0px 100px 0px;
-  box-shadow: 5px 5px 10px rgba(51, 51, 51, 0.7);
-  width: inherit;
+  background-color :rgb(40, 44, 53);
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 30px;
 }
+
 .barraPesquisa{ /*Não tá a fazer piça nenhuma */
   width: 100%;
 }
@@ -132,17 +229,19 @@ max-height: auto;
   padding:0px;
 }
 #myCarousel{
-  background-color: #f7b244a1 ;
-  padding: 30px;
-  width: auto;
-  height: 103vh;
-  /* padding: 0px; */
+  
+    background-color: #f7b244a1 ;
+    padding: 30px;
+    width: auto;
+    height: 103vh;
+    /* padding: 0px; */
+  
 }
 .carousel-control-next-icon, .carousel-control-prev-icon{
   padding: 20px;
-  background-color: black;
+  background-color: orangered;
   border-radius: 80%;
- }
+}
 .card-img-top.c{
   position: relative;
   float: left;
@@ -154,7 +253,8 @@ max-height: auto;
 }
 .iconNav{
   margin-right: 5px;
-  color: rgb(241, 105, 42);
+  /*ALTERADO!!*/
+  color: #F92C0B;
 }
 #Logoff{
   background: orange;
@@ -195,8 +295,8 @@ footer {
   margin: 0;
   background: #282C35;
   color: rgba(255, 255, 255, 0.774);
- }
-
+  font-size: 12px;
+}
 #map{
     height: 200px;
     width: 100%;
@@ -205,11 +305,6 @@ footer {
 #searchBar > div{
     margin: 0px !important;
     padding: 0 !important;
-}
-
-.card{
-  border-radius: 5%;
-  height: 87vh;
 }
 
 .card-title, .btn-evento { /*hmmm... o botão não está a funcionar com isto mas o resto está*/
@@ -261,14 +356,6 @@ figure img {
   border-radius: 50%;
 }
 
-.sobrenos {
-  
-  background-color: white !important;
-
-}
-#aboutus{
-  text-align: center;
-}
 .about img {
 	margin-left: auto;
 	margin-right: auto;
@@ -304,6 +391,7 @@ section#testemunhos > div.row{
   border-width: 1px;
   border-color: black;
   background: inherit;
+  height: auto !important;
 }
 .cardsAdmin >div> a{
   text-decoration: none;
@@ -375,7 +463,7 @@ section#testemunhos > div.row{
 /* olha a navbar, que linda*/
 #containerCarrossel{
   background: linear-gradient(90deg,  rgba(0, 0, 255) ,  #ffa42c);
-  
+  margin-bottom: 20px;
 }
 #chupaAsMinhasTolas{
   background: WHITE;
@@ -385,29 +473,20 @@ section#testemunhos > div.row{
   border:0;
 }
 #linhaQueSepara{
-  border: 0.5px solid rgb(0, 0, 0);
+  border: 0.5px solid #fff;
   cursor: default;
   margin-right: 10px;
 }
 
-#Login{
-  color: rgb(0, 0, 0);
+/* #Login{
+  color: white;
   margin: 0px 0px 0px 20px;
 }
 
 #Registar{
-  color:rgb(0, 0, 0);
-}
-#Login:hover {
-  background-color: #ea9c00;
-  color: white;
-  animation-delay: 2ms;
-}
-#Registar:hover {
-  background-color: #ea9c00;
-  color: white;
-  animation-delay: 2ms;
-}
+  color:white;
+} */
+
 .nav-item{
   list-style-type: none;
   display: inline-block;
@@ -416,24 +495,24 @@ section#testemunhos > div.row{
   text-align: center;
 }
 
-.nav-link:nth-child(1){
+/* .nav-link:nth-child(1){
   color: black;
-}
+} */
 /* #gandas botoes do navbar */
 .nav-link {
   font-family: 'Source Sans Pro', sans-serif;
   display: block;
-  color: white;
+  color: black;
   padding: 8px 16px;
   text-decoration: none;
   margin:0 20px 0 20px;
 }
 
-/* Mudar a cor do hover */
+/* Mudar a cor do hober ma wiggas */
 .nav-link:hover {
   background-color: #ea9c00;
   color: white;
-  animation-delay: 2ms;
+  animation-delay: 10ms;
 }
 
 /* Aqui, foi o jobem Michael*/
@@ -454,7 +533,7 @@ button.navbar-toggler-1{
 
 .ordenhados{
   font-size: 14px;
-  color: black;
+  color: white;
 }
 .ordenhar{
   padding-left: 10px; 
@@ -463,10 +542,6 @@ button.navbar-toggler-1{
 #eventimg {
   width: 100%;
   max-height: 50vh;
- }
-
-.button-inscrever {
-  width: 100%
 }
 
 .evento-dados {

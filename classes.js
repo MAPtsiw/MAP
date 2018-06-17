@@ -2,6 +2,8 @@
 //Isto mal possa vai para um ficheiro à parte, Done alalalalalalalalalalalalalala
 class Utilizador {
     constructor(nome, pass, mail, foto, tipo, cv, aulas, formacao, pontoou) { //Por agora vai ficar assim, não é dificil de acrescentar merdas
+        this._pontoou = []
+
         this.nome = nome
         this.password = pass
         this.mail = mail
@@ -76,11 +78,15 @@ class Utilizador {
         this._tipo = valor
     }
 
-    get pontoou(){
+    get pontoou() {
         return this._pontoou
     }
-    set pontoou(valor){
-        this._pontoou = valor
+    set pontoou(valor) {
+        valor = parseInt(valor)
+        // console.log(typeof valor)
+        if (valor != 0 && valor != NaN){
+            this._pontoou.push(valor)
+        }
     }
     get id() {
         return this._id
@@ -160,21 +166,22 @@ class Evento {
     }
 
     set inscritos(valor) {
-        //console.log(valor)
-        let meter = true;
-        if (valor != 0) {
+        console.log(valor)
+        valor = parseInt(valor)
+        let continuar = false
+        if(isNaN(valor) == false)  continuar = true
+        if (valor != 0 && continuar == true) {
             if (this._inscritos.length == 0) {
                 this._inscritos.push(valor)
-                meter = false
             }
             else {
-                for (let i = 0; i < this._inscritos.length; i++) {
-                    if (this._inscritos[i] == valor) return
+                if (this._inscritos.indexOf(valor) == -1) {
+                    this._inscritos.push(valor)
+                    console.log(this._inscritos)
                 }
             }
-
-            if (meter) this._inscritos.push(valor) //vai guardar os id's dos utilizadores que se inscreveram
         }
+
     }
 
     get descricao() {
@@ -195,15 +202,15 @@ class Evento {
         console.log(valor)
         let categorias = ""
 
-        if(valor.includes(',') == true){
+        if (valor.includes(',') == true) {
             console.log('ata')
             categorias = valor.split(',')
-        } 
+        }
         else categorias = valor.split(' ')
 
         for (let i = 0; i < categorias.length; i++) {
-            if(this._categoria.length == 0) this._categoria.push(categorias[i])      
-            else if(this._categoria.indexOf(categorias[i]) == -1) this._categoria.push(categorias[i])            
+            if (this._categoria.length == 0) this._categoria.push(categorias[i])
+            else if (this._categoria.indexOf(categorias[i]) == -1) this._categoria.push(categorias[i])
         }
     }
 
@@ -262,7 +269,7 @@ class Evento {
 
         let media = 0, soma = 0, contador = 0, maixUmaVariavel = 0;
         Evento._contador++
-       
+
         // Evento._pontuar = this._pontuacao
 
         if (Evento._contador == 0) maixUmaVariavel = Evento._contador
@@ -271,15 +278,15 @@ class Evento {
         console.log(Evento._contador)
         soma = Evento._pontuar * maixUmaVariavel
 
-       
-        
+
+
         soma += mamilos
         console.log("Soma - " + soma)
         media = soma / Evento._contador
         Evento._pontuar = media
         console.log("Pontuacao - " + Evento._pontuar)
 
-        
+
 
         return media
     }
