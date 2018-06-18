@@ -1,148 +1,74 @@
-/* .imagem-fundo-utilizador{
-  background-size: cover;
-/* } */
-/* #MudarOTipoDeUtilizador > li */
+/*Navbar*/
 Login:hover {
-  /*alterado!!!*/
   background-color: #FFAF00;
-  color: white;
+  color: white !important;
   animation-delay: 2ms;
  }
+
  #Registar:hover {
-  /*alterado!!!*/
   background-color: #FFAF00;
   color: white;
   animation-delay: 2ms;
  }
-#ButoneEditar:hover{
-  background-color: #FFAF00;
+
+ .iconNav{
+  margin-right: 5px;
+  color: #F92C0B;
+}
+ #Logoff{
+  background: #FFAF00;
+}
+
+/*Background da Navbar*/
+#NavBar{
+  background: white;
+  box-shadow: 0 10px 10px 0 rgba(16, 50, 240, 0.2) ;
+  border-radius: 0;
+  position: sticky;
+  border:0;
+}
+
+/*botoes na navbar*/
+.nav-link {
+  font-family: 'Source Sans Pro', sans-serif;
+  display: block;
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin:0 20px 0 20px;
+}
+
+/*Muda a cor do hover dos botoes na navbar*/
+.nav-link:hover {
+  background-color: #ea9c00;
+  color: white;
+  animation-delay: 10ms;
+}
+
+.nav-item{
+  list-style-type: none;
+  display: inline-block;
+  line-height: 40 px;
   cursor: pointer;
-  color: white;
-}
-#ButoneEditar{
-  background-color: green;
-  color: white;
-  border-radius: 15%;
-}
-.btn-saberMais, #btnPesquisaAvancada{
-  background-color: #FFAF00;
-  width: 100%;
-  color: #000000;
-}
-
-#tipoDeUtilizador, #NomeUtilizador{
-  color: #001124;
-}
-.searchbar-perfil{
-  margin:auto;
-  display:block;
- }
-
- .btn.saber-mais{
-  background-color: #FFAF00;
-  border:none;
-  color: white;
- }
-.btn.add-evento{
-  background-color: #FFAF00;
-  border:none;
-  width: 50%;
-  color: white;
- }
- .btn.add-parceria{
-  background-color: #FFAF00;
-  border:none;
-  width: 50%;
-  color: white;
-}
-
-.button-inscrever {
-  width: 100%;
-  background-color: #FFAF00;
-  border:none;
- }
- 
- .button-comentar{
-  background-color: #FFAF00;
-  border:none;
- }
-.sobrenos {
-  background-color: white !important; 
-}
-.footerimg{
-  max-width: 100px;
-  max-height: 20px;
-}
-#pesquisaAvançada, #btnAdicionarEventos{
-background-color:#FFAF00;
-color:white !important;
-margin: auto;
-display:block;
-}
-.btn.qualquer{
-  background-color: #FFAF00 !important;
-  color:white;
-}
-#aboutus{
   text-align: center;
+  padding: 20 20 20 20;
 }
-.card.testemunhos{
-  border: 1px solid rgba(0, 0, 0, 0.808); 
-}
-#imagemEvento{
-  max-height: 50vh;
-}
-#homepagesection {
-  background: url("images/home.png") 50% 0 repeat-y fixed;
-  display: flex;
-  height: 100vh;
-  position: relative;
-  text-align: center;
- }
- .parallax-section {
-  background-attachment: fixed !important;
-  background-size: cover !important;
- }
- .discover-btn:focus,
- .discover-btn:hover {
-  background:#000000 ;
-  color: #ffffff;
- }
- .discover-btn {
-  background: #f0f0f0;
-  border: none;
-  border-radius: 50px;
-  color: #000000;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 1.5px;
-  padding: 18px 32px;
-  text-transform: uppercase;
- }
- .absolute {
- margin:200px;
- opacity: 50%;
- }
- .absolute h1 {
-  color:white;
- }
- .absolute h4 {
-  color:white;
- }
- .team-div img {
-     margin-left: auto;
-     margin-right: auto;
-     display: block;
- }
- 
- .about-team{
-  background-color: inherit;
- }
- 
- .teamm > p{
- text-align: center;
- }
 
+#logobar {
+  width: 50%;
+  height:50%;
+}
+
+
+#linhaQueSepara{
+  border: 0.5px solid black;
+  cursor: default;
+  margin-right: 10px;
+}
+
+ /*------------------------------------------------------*/
+
+ /*Footer*/
  .p-footer{
   color:white !important;
   font-size: 12px;
@@ -152,244 +78,40 @@ display:block;
   width: 25px;
   color:rgb(253, 157, 46);
  }
-#containerTags{
-  padding: 10px;
-}
-#containerTags > a{ /*Editar o conteudo dos das tags na página de utilizador*/
-  text-align: center;
-}
-.card-header{
-  width: 100%;
-  padding: 0px;
-}
-.card{
-  background-color: inherit;
-  border-width: 0px;
-  border-radius: 5%;
-}
-.card.x{
-  height: 87vh;
-}
-.card-body.h, .card-text.desricao-card-carrosel{
-  border-width: 4px;
-  background-color: white;
-}
-.passarRato{
-  cursor: pointer;
-}
-#MudarOTipoDeUtilizador > a:hover{
-  background-color: #ff950b !important;
-}
-.campos-docente{
-  width: 100%;
-  border-width: 10;
-  border-color: black;
-  /* background-color: red; */
-  min-height: 220px;
-  display: inline-block;
-}
-#docente-div{
-width: 100%;
-max-height: auto;
-}
-.card.col-lg-4{
-  background-color: white;
-  border: 1px solid rgb(226, 217, 213);
-  color: black;
-  font-size: 20px;
-  font-weight: bold;
-  max-height: auto;
-  padding:0px;
-}
-.card.col-lg-4 > div > a{
-  background-color: rgb(241, 105, 42);
-}
-.card.col-lg-4 > .card-header, .card.col-lg-4 > .card-body{
-  background-color: white;
-}
-.searchbar-d{
-  background-color :rgb(40, 44, 53);
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 30px;
-}
 
-.barraPesquisa{ /*Não tá a fazer piça nenhuma */
-  width: 100%;
-}
-.card-img-top.h{
-  position: relative;
-  float: left;
-  width:  100%;
-  height: 200px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-.carousel2{
-  padding:0px;
-}
-#myCarousel{
-  
-    background-color: #f7b244a1 ;
-    padding: 30px;
-    width: auto;
-    height: 103vh;
-    /* padding: 0px; */
-  
-}
-.carousel-control-next-icon, .carousel-control-prev-icon{
-  padding: 20px;
-  background-color: orangered;
-  border-radius: 80%;
-}
-.card-img-top.c{
-  position: relative;
-  float: left;
-  width:  100%;
-  height: 200px;
-  background-position: 50% 50%;
-  background-repeat:   no-repeat;
-  background-size:     cover;
-}
-.iconNav{
-  margin-right: 5px;
-  /*ALTERADO!!*/
-  color: #F92C0B;
-}
-#Logoff{
-  background: orange;
-}
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0; padding: 0;
-    display: block;  
-    background-color: #f8faf6;
-  color: black;
-  }
-#MsgErroRegistar, #MsgErroLogin, #MsgErroRegistarEventos{ /*Para mexer nos dois ao mesmo tempo é só por a virgula no meio*/
-
-  text-transform: uppercase;
-  color: red;
-}
-
-/*adicionado pelo jabardoum aka 9170287*/
-h1 {
-    font-family:  'Source Sans Pro', sans-serif;;
-    font-size: 56px;
-    line-height: 80px;
-}
-      /*adicionado pelo jabardoum - part 2 (agora nos cinemas)*/
-p {
-    font-family: 'Source Sans Pro', sans-serif;;
-    font-size: 16px;
-    line-height: 25px;
-}
-
-/* p{
-  text-align: justify;
-} */
-
-footer {
+ footer {
   padding: 10px;
   margin: 0;
   background: #282C35;
   color: rgba(255, 255, 255, 0.774);
   font-size: 12px;
 }
-#map{
-    height: 200px;
-    width: 100%;
-}
 
-#searchBar > div{
-    margin: 0px !important;
-    padding: 0 !important;
-}
 
-.card-title, .btn-evento { /*hmmm... o botão não está a funcionar com isto mas o resto está*/
-    text-align: center;
-}
+ /*------------------------------------------------------*/
 
-.linha-cards{
-  margin: 10px 0px 10px 0px;
-  width: 100% !important; 
-}
-
-/* Calendário */
-#container-Calendario{
-  margin: 0;
-  padding: 0;
-  
-}
-#calendario{
+ /*Mapa*/
+ #map{
+  height: 200px;
   width: 100%;
-  box-shadow: 10px 10px 5px grey;
-  margin-top: 60px;
 }
 
-thead th {
-  background: rgba(252, 134, 0, 0.801);
-  color: black;
-}
+ /*------------------------------------------------------*/
 
-.dias-semana > th{
-  background-color: #ff950b;
-}
 
-tbody:nth-child(even) {background-color: white;}
-tr:nth-child(even) {background-color: white;}
-/* fim de calendário */
+ /*Página Home*/
 
-.mnac{
-  font-size: small;
-  margin: 0px;
-}
 
-#logobar {
-  width: 50%;
-  height:50%;
-}
-figure img {
-  width: 90px;
-  height:90px;
-  border-radius: 50%;
-}
 
-.about img {
-	margin-left: auto;
-	margin-right: auto;
-	display: block;
-}
+ /*------------------------------------------------------*/
 
-.about p {
-  text-align: center;
-}
-.desricao-card-carrosel{
-  font-size: 12px;
-  color: black;
-  font-weight: bold;
-  text-align: center;
-}
 
-/*Novas merdas Minhas*/
-.lixinho{
-  width: 32px;
-  height:27px;
-  background: inherit;
-}
-.pilasMaximus{
-  text-align: center;
-}
-textarea{
-  resize: vertical;
-}
-section#testemunhos > div.row{
-  margin: 0px;
-}
-.cardsAdmin{
-  border-width: 1px;
-  border-color: black;
+ /*Página Admin*/
+
+ .cardsAdmin{
+  border-width: 1px !important ;
+  border-color: black !important ;
+  border-radius: 0% !important ;
   background: inherit;
   height: auto !important;
 }
@@ -403,255 +125,311 @@ section#testemunhos > div.row{
   font-size: 20px;
   font-weight: bold;
 }
-/* Dropdown Content (Hidden by Default) */
-/* .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f6f6f6;
-  min-width: 230px;
-  border: 1px solid #ddd;
-  z-index: 1;
-  overflow: auto;
-  width: 100%;
-} */
 
-/* Links inside the dropdown */
-/* .dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-} */
-
-/* Change color of dropdown links on hover */
-/* .dropdown-content a:hover {background-color: #f1f1f1} */
-
-#pesquisarUtilizador {
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 100%; /* Full-width */ 
-  font-size: 16px; /* Increase font-size */
-  border: 1px solid #ddd; /* Add a grey border */
-}
-
-#Cenas {
-  /* Remove default list styling */
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  overflow: auto;
-}
-
-#Cenas li a {
-  border: 1px solid #ddd; /* Add a border to all links */
-  margin-top: -1px; /* Prevent double borders */
-  background-color: #f6f6f6; /* Grey background color */
-  padding: 12px; /* Add some padding */
-  text-decoration: none; /* Remove default text underline */
-  font-size: 18px; /* Increase the font-size */
-  color: black; /* Add a black text color */
-  display: block; /* Make it into a block element to fill the whole list */
-}
-
-#Cenas li a:hover:not(.header) {
-  background-color: grey; /* Add a hover effect to all links, except for headers */
-}
-/*###########################################################################################*/
-/*Merdas do Miguel*/
-/*Daqui*/
-/* olha a navbar, que linda*/
-#containerCarrossel{
-  background: linear-gradient(90deg,  rgba(0, 0, 255) ,  #ffa42c);
-  margin-bottom: 20px;
-}
-#chupaAsMinhasTolas{
-  background: WHITE;
-  box-shadow: 0 10px 10px 0 rgba(16, 50, 240, 0.2);
-  border-radius: 0;
-  position: sticky;
-  border:0;
-}
-#linhaQueSepara{
-  border: 0.5px solid #fff;
-  cursor: default;
-  margin-right: 10px;
-}
-
-/* #Login{
-  color: white;
-  margin: 0px 0px 0px 20px;
-}
-
-#Registar{
-  color:white;
-} */
-
-.nav-item{
-  list-style-type: none;
-  display: inline-block;
-  line-height: 40 px;
-  cursor: pointer;
-  text-align: center;
-}
-
-/* .nav-link:nth-child(1){
-  color: black;
-} */
-/* #gandas botoes do navbar */
-.nav-link {
-  font-family: 'Source Sans Pro', sans-serif;
-  display: block;
-  color: black;
-  padding: 8px 16px;
-  text-decoration: none;
-  margin:0 20px 0 20px;
-}
-
-/* Mudar a cor do hober ma wiggas */
-.nav-link:hover {
-  background-color: #ea9c00;
-  color: white;
-  animation-delay: 10ms;
-}
-
-/* Aqui, foi o jobem Michael*/
-/*########################################################3*/
-
-/*Usar esta merda para fazer o menu nos cards*/
-.navbar-toggler-1 .navbar-toggler-icon{
-  background-image: url('https://mdbootstrap.com/img/svg/hamburger8.svg?color=000000');
-  color: #001124;
-}
-
-button.navbar-toggler-1{ 
-  margin: 0px;
-  padding: 0px;
-  border: 0;
-  background-color: inherit;
-}
-
-.ordenhados{
-  font-size: 14px;
-  color: white;
-}
-.ordenhar{
-  padding-left: 10px; 
-}
-/*Novas Merdas - Pedro*/
-#eventimg {
-  width: 100%;
-  max-height: 50vh;
-}
-
-.evento-dados {
-  background-color: rgb(238, 238, 238);
-}
-
-.p-descricao {
-  padding:20px;
-  text-align: justify !important;
-}
-
-.pessoas-inscritas {
-  width: 50px !important;
-  height:50px !important;
-  border-radius: 50% !important;
-}
-
-
-.tags a{
-  background-color:#756f5d;
-  padding:10px; color:#fff;
-  display:inline-block;
-  font-size:11px;
-  text-transform:uppercase;
-  line-height:11px;
-  border-radius:2px;
-  margin-bottom:5px;
-  margin-right:2px;
-  text-decoration:none;
-}
-
-.searchbar-perfil{
-  margin-left:12px;
-} 
-
-/*TESTE*/
-
-.comment-box {
-  margin-top: 30px !important;
-}
-
-.comment-box img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%
-}
-.comment-box .media-left {
-  padding-right: 10px;
-  width: 65px;
-}
-.comment-box .media-body p {
-  border: 1px solid #ddd;
-  padding: 10px;
-  font-size: 15px;
-}
-.comment-box .media-body .media p {
-  margin-bottom: 0;
+#btnAdicionarEventos{
+  background-color:#FFAF00;
+  color:black !important;
+  margin: auto;
+  display:block;
+  }
   
-}
-.comment-box .media-heading {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  padding: 7px 10px;
-  position: relative;
-  margin-bottom: -1px;
-  font-size: 15px;
-}
-.comment-box .media-heading:before {
-  content: "";
-  width: 12px;
-  height: 12px;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-width: 1px 0 0 1px;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  position: absolute;
-  top: 10px;
-  left: -6px;
-}
-/*Mais cenas Perro*/
-/* NOOOOOOOOOOVO */
-.btn-yellow{
-  color:white;
-}
-.btn-grey{
-background-color:#D8D8D8;
-color:#FFF;
+
+  /*------------------------------------------------------*/
+
+
+ /*Página Agenda*/
+
+ .btn.add-evento{
+  background-color: #FFAF00;
+  border:none;
+  width: 50%;
+  color: black;
+ }
+
+ .btn.add-evento:hover{
+  background-color: #F92C0B;
+  border:none;
+  width: 50%;
+  color:White;
+ }
+
+ .btn.add-parceria{
+  background-color: #FFAF00;
+  border:none;
+  width: 50%;
+  color: black;
 }
 
-.btn-orange{
+.btn.add-parceria:hover{
+  background-color: #F92C0B;
+  border:none;
+  width: 50%;
   color: white;
-  background-color: rgb(255, 202, 103);
 }
 
-.profile {
-  margin: 20px 0;
+  .searchbar-d{
+    background-color :rgb(40, 44, 53);
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 30px;
+  }
+  #pesquisaAvançada{
+    background-color:#FFAF00;
+    color:black !important;
+    margin: auto;
+    display:block;
 }
 
-.card-img-top.v{
+#pesquisaAvançada:hover{
+  background-color:#F92C0B;
+  color:white !important;
+  margin: auto;
+  display:block;
+}
+
+#btnPesquisaAvancada{
+  background-color:#FFAF00;
+  color:black !important;
+  margin: auto;
+  display:block;
+}
+
+#btnPesquisaAvancada:hover{
+  background-color:#F92C0B;
+  color:white !important;
+  margin: auto;
+  display:block;
+}
+
+.btn.LimparCatálogo{
+  background-color:#FFAF00;
+  color:black !important;
+  padding-top: 40px;
+  width: 100%;
+}
+
+  /*------------------------------------------------------*/
+
+
+  /*Página Evento*/
+
+  .button-inscrever {
+    width: 100%;
+    background-color: #FFAF00;
+    color:black;
+    border:none;
+   }
+
+   .button-inscrever:hover{
+    width: 100%;
+    background-color: #F92C0B;
+    border:none;
+   }
+   
+   .button-comentar{
+    background-color: #FFAF00;
+    color:black;
+    border:none;
+   }
+
+   .button-comentar:hover{
+    background-color: #F92C0B;
+    border:none;
+   }
+
+   .btnRecomendar{
+    width: 30%;
+    margin-bottom: 10px;
+    align-content: center;
+    padding-bottom: 10px;
+   }
+
+   #eventimg {
+    width: 100%;
+    max-height: 50vh;
+  }
+  
+  .evento-dados {
+    background-color: rgb(238, 238, 238);
+  }
+  
+  .p-descricao {
+    padding:20px;
+    text-align: justify !important;
+  }
+  
+  .pessoas-inscritas {
+    width: 50px !important;
+    height:50px !important;
+    border-radius: 50% !important;
+  }
+  
+  
+  .tags a{
+    background-color:#756f5d;
+    padding:10px; color:#fff;
+    display:inline-block;
+    font-size:11px;
+    text-transform:uppercase;
+    line-height:11px;
+    border-radius:2px;
+    margin-bottom:5px;
+    margin-right:2px;
+    text-decoration:none;
+  }
+
+  .comment-box {
+    margin-top: 30px !important;
+  }
+  
+  .comment-box img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%
+  }
+  .comment-box .media-left {
+    padding-right: 10px;
+    width: 65px;
+  }
+  .comment-box .media-body p {
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 15px;
+  }
+  .comment-box .media-body .media p {
+    margin-bottom: 0;
+    
+  }
+  .comment-box .media-heading {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 7px 10px;
     position: relative;
-    float: left;
-    width:  100%;
-    height: 100px;
-    background-position: 50% 50%;
-    background-repeat:   no-repeat;
-    background-size:     cover;
-}
+    margin-bottom: -1px;
+    font-size: 15px;
+  }
+  .comment-box .media-heading:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-width: 1px 0 0 1px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 10px;
+    left: -6px;
+  }
 
-/* Profile sidebar */
+
+  /*------------------------------------------------------*/
+
+
+  /*Página Parcerias*/
+
+  .parcerias-list {
+    list-style: none;
+    font-family: 'Lato', sans-serif;
+    margin: 0px;
+    padding: 0px;
+  }
+  .parcerias-list > li {
+    box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.7);
+    padding: 0px;
+    margin: 0px 0px 25px;
+  }
+  
+  .parcerias-list > li > .parc {
+    padding-top: 5px;
+    text-align: center;
+  }
+  .parcerias-list > li > .parc > .title {
+    font-size: 17pt;
+    font-weight: 700;
+    margin: 0px;
+  }
+  .parcerias-list > li > .parc > .loc {
+    font-size: 13pt;
+    font-weight: 300;
+    margin: 0px;
+  }
+  .parcerias-list > li > .parc > ul
+  {
+    display: table;
+    list-style: none;
+    margin: 10px 0px 0px;
+    padding: 0px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .parcerias-list > li > .parc > ul > li
+  {
+    display: table-cell;
+    cursor: pointer;
+    color: rgb(30, 30, 30);
+    font-size: 11pt;
+    font-weight: 300;
+    padding: 3px 0px;
+  }
+    .parcerias-list > li > .parc > ul > li > a {
+    display: block;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+  } 
+  
+  
+  .parcerias-list > li > .parc > ul > li:hover{
+    color: rgb(30, 30, 30);
+    background-color:  rgba(255,175,0,0.9);
+  }
+
+  .parcerias-list > li {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 120px;
+    padding: 0px;
+  }
+
+  .parcerias-list > li > .parc {
+    overflow: hidden;
+    background: linear-gradient(to left, rgba(255,0,0,0),#FFAF00);
+  }
+
+  .parcerias-list > li > .parc {
+    position: relative;
+    height: 120px;
+    text-align: left;
+    padding-right: 40px;
+  }	
+  .parcerias-list > li > .parc > .title, 
+  .parcerias-list > li > .parc > .loc {
+    padding: 0px 10px;
+  }
+  .parcerias-list > li > .parc > ul {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+  }
+
+.parcerias-list > li{
+  width: auto ;
+}
+  
+
+
+  /*------------------------------------------------------*/
+
+
+  /*Página Perfil*/
+  .profile {
+    margin: 20px 0;
+  }
+
+  /* Profile sidebar */
 .profile-sidebar {
   padding: 20px 0 10px 0;
   background: #fff;
@@ -716,6 +494,494 @@ color:#FFF;
   background: #fff;
   min-height: 460px;
 }
+
+#ButoneEditar:hover{
+  background-color:none;
+  cursor: pointer;
+  color: #FFAF00;
+  text-decoration: underline;
+}
+
+#ButoneEditar{
+  background-color: none;
+  color: #FFAF00;
+  border: none;
+}
+
+.searchbar-perfil{
+  margin:auto;
+  display:block;
+ }
+
+ 
+.searchbar-perfil{
+  margin-left:12px;
+} 
+
+.btn.ProcurarUser{
+  background-color: #FFAF00;
+  border:none;
+  color:black;
+}
+
+
+  /*------------------------------------------------------*/
+
+
+  /*Página Testemunhos*/
+
+
+
+/*------------------------------------------------------*/
+
+
+  /*Body*/
+
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0; padding: 0;
+    display: block;  
+    background-color: #f8faf6;
+  color: black;
+  }
+
+  /*------------------------------------------------------*/
+
+
+  /*Letras e títulos*/
+
+  h1 {
+    font-family:  'Source Sans Pro', sans-serif;;
+    font-size: 56px;
+    line-height: 80px;
+}
+
+  p {
+    font-family: 'Source Sans Pro', sans-serif;;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+
+  /*------------------------------------------------------*/
+
+ 
+
+
+
+
+.btn-saberMais, #btnPesquisaAvancada{
+  background-color: #FFAF00;
+  width: 100%;
+  color: #000000;
+}
+
+#tipoDeUtilizador, #NomeUtilizador{
+  color: #001124;
+}
+
+
+ .btn.saber-mais{
+  background-color: #FFAF00;
+  border:none;
+  color: black;
+ }
+
+
+.sobrenos {
+  background-color: white !important; 
+}
+.footerimg{
+  max-width: 100px;
+  max-height: 20px;
+}
+
+
+.btn.qualquer{
+  background-color: #FFAF00 !important;
+  color:black;
+}
+#aboutus{
+  text-align: center;
+}
+.card.testemunhos{
+  border: 1px solid rgba(0, 0, 0, 0.808); 
+}
+#imagemEvento{
+  max-height: 50vh;
+}
+#homepagesection {
+  background: url("images/home.png") 50% 0 repeat-y fixed;
+  display: flex;
+  height: 100vh;
+  position: relative;
+  text-align: center;
+ }
+ .parallax-section {
+  background-attachment: fixed !important;
+  background-size: cover !important;
+ }
+ .discover-btn:focus,
+ .discover-btn:hover {
+  background:#000000 ;
+  color: #ffffff;
+ }
+ .discover-btn {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 50px;
+  color: #000000;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  padding: 18px 32px;
+  text-transform: uppercase;
+ }
+ .absolute {
+ margin:200px;
+ opacity: 50%;
+ }
+ .absolute h1 {
+  color:white;
+ }
+ .absolute h4 {
+  color:white;
+ }
+ .team-div img {
+     margin-left: auto;
+     margin-right: auto;
+     display: block;
+ }
+ 
+ .about-team{
+  background-color: inherit;
+ }
+ 
+ .teamm > p{
+ text-align: center;
+ }
+
+
+#containerTags{
+  padding: 10px;
+}
+#containerTags > a{ /*Editar o conteudo dos das tags na página de utilizador*/
+  text-align: center;
+}
+.card-header{
+  width: 100%;
+  padding: 0px;
+}
+.card{
+  background-color: inherit;
+  border-width: 0px;
+  border-radius: 5%;
+}
+.card.x{
+  height: 87vh;
+}
+.card-body.h, .card-text.desricao-card-carrosel{
+  border-width: 4px;
+  background-color: white;
+}
+.passarRato{
+  cursor: pointer;
+}
+#MudarOTipoDeUtilizador > a:hover{
+  background-color: #ff950b !important;
+}
+.campos-docente{
+  width: 100%;
+  border-width: 10;
+  border-color: black;
+  /* background-color: red; */
+  min-height: 220px;
+  display: inline-block;
+}
+#docente-div{
+width: 100%;
+max-height: auto;
+}
+.card.col-lg-4{
+  background-color: white;
+  border: 1px solid rgb(226, 217, 213);
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  max-height: auto;
+  padding:0px;
+}
+.card.col-lg-4 > div > a{
+  background-color: rgb(241, 105, 42);
+}
+.card.col-lg-4 > .card-header, .card.col-lg-4 > .card-body{
+  background-color: white;
+}
+
+
+.card-img-top.h{
+  position: relative;
+  float: left;
+  width:  100%;
+  height: 200px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.carousel2{
+  padding:0px;
+}
+#myCarousel{
+  
+    background-color: #f7b244a1 ;
+    padding: 30px;
+    width: auto;
+    height: 103vh;
+
+}
+.carousel-control-next-icon, .carousel-control-prev-icon{
+  padding: 20px;
+  background-color: orangered;
+  border-radius: 80%;
+}
+.card-img-top.c{
+  position: relative;
+  float: left;
+  width:  100%;
+  height: 200px;
+  background-position: 50% 50%;
+  background-repeat:   no-repeat;
+  background-size:     cover;
+}
+
+
+#MsgErroRegistar, #MsgErroLogin, #MsgErroRegistarEventos{ /*Para mexer nos dois ao mesmo tempo é só por a virgula no meio*/
+
+  text-transform: uppercase;
+  color: red;
+}
+
+/*adicionado pelo Miguel*/
+
+#searchBar > div{
+    margin: 0px !important;
+    padding: 0 !important;
+}
+
+.card-title, .btn-evento { /*hmmm... o botão não está a funcionar com isto mas o resto está*/
+    text-align: center;
+}
+
+.linha-cards{
+  margin: 10px 0px 10px 0px;
+  width: 100% !important; 
+}
+
+/* Calendário */
+#container-Calendario{
+  margin: 0;
+  padding: 0;
+  
+}
+#calendario{
+  width: 100%;
+  box-shadow: 10px 10px 5px grey;
+  margin-top: 60px;
+}
+
+thead th {
+  background: #FFAF00;
+  color: black;
+}
+
+.dias-semana > th{
+  background-color:#FFAF00;
+}
+
+tbody:nth-child(even) {background-color: white;}
+tr:nth-child(even) {background-color: white;}
+/* fim de calendário */
+
+.mnac{
+  font-size: small;
+  margin: 0px;
+}
+
+
+figure img {
+  width: 90px;
+  height:90px;
+  border-radius: 50%;
+}
+
+.about img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.about p {
+  text-align: center;
+}
+.desricao-card-carrosel{
+  font-size: 12px;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+}
+
+/*Novas merdas Minhas*/
+.lixinho{
+  width: 32px;
+  height:27px;
+  background: inherit;
+}
+.pilasMaximus{
+  text-align: center;
+}
+textarea{
+  resize: vertical;
+}
+section#testemunhos > div.row{
+  margin: 0px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+/* .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f6f6f6;
+  min-width: 230px;
+  border: 1px solid #ddd;
+  z-index: 1;
+  overflow: auto;
+  width: 100%;
+} */
+
+/* Links inside the dropdown */
+/* .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+} */
+
+/* Change color of dropdown links on hover */
+/* .dropdown-content a:hover {background-color: #f1f1f1} */
+
+#pesquisarUtilizador {
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 100%; /* Full-width */ 
+  font-size: 16px; /* Increase font-size */
+  border: 1px solid #ddd; /* Add a grey border */
+}
+
+#Cenas {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  overflow: auto;
+}
+
+#Cenas li a {
+  border: 1px solid #ddd; /* Add a border to all links */
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6; /* Grey background color */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove default text underline */
+  font-size: 18px; /* Increase the font-size */
+  color: black; /* Add a black text color */
+  display: block; /* Make it into a block element to fill the whole list */
+}
+
+#Cenas li a:hover:not(.header) {
+  background-color: grey; /* Add a hover effect to all links, except for headers */
+}
+/*###########################################################################################*/
+
+#containerCarrossel{
+  background: linear-gradient(90deg,  rgba(0, 0, 255) ,  #ffa42c);
+  margin-bottom: 20px;
+}
+
+
+/* #Login{
+  color: white;
+  margin: 0px 0px 0px 20px;
+}
+
+#Registar{
+  color:white;
+} */
+
+
+/* .nav-link:nth-child(1){
+  color: black;
+} */
+/* #gandas botoes do navbar */
+
+
+/* Aqui, foi o jobem Michael*/
+/*########################################################3*/
+
+/*Usar esta merda para fazer o menu nos cards*/
+.navbar-toggler-1 .navbar-toggler-icon{
+  background-image: url('https://mdbootstrap.com/img/svg/hamburger8.svg?color=000000');
+  color: #001124;
+}
+
+button.navbar-toggler-1{ 
+  margin: 0px;
+  padding: 0px;
+  border: 0;
+  background-color: inherit;
+}
+
+.ordenhados{
+  font-size: 14px;
+  color: white;
+}
+.ordenhar{
+  padding-left: 10px; 
+}
+/*Novas Merdas - Pedro*/
+
+/*TESTE*/
+
+
+/*Mais cenas Perro*/
+/* NOOOOOOOOOOVO */
+.btn-yellow{
+  color:white;
+}
+.btn-grey{
+background-color:#D8D8D8;
+color:#FFF;
+}
+
+.btn-orange{
+  color: white;
+  background-color: rgb(255, 202, 103);
+}
+
+.profile {
+  margin: 20px 0;
+}
+
+.card-img-top.v{
+    position: relative;
+    float: left;
+    width:  100%;
+    height: 100px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+}
+
+
 /*Mais merdas do pedro*/
 .fa-1x {
   font-size: 2.0rem;
@@ -723,98 +989,9 @@ color:#FFF;
 
 }
 
-.parcerias-list {
-  list-style: none;
-  font-family: 'Lato', sans-serif;
-  margin: 0px;
-  padding: 0px;
-}
-.parcerias-list > li {
-  box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.7);
-  padding: 0px;
-  margin: 0px 0px 25px;
-}
-
-.parcerias-list > li > .parc {
-  padding-top: 5px;
-  text-align: center;
-}
-.parcerias-list > li > .parc > .title {
-  font-size: 17pt;
-  font-weight: 700;
-  margin: 0px;
-}
-.parcerias-list > li > .parc > .loc {
-  font-size: 13pt;
-  font-weight: 300;
-  margin: 0px;
-}
-.parcerias-list > li > .parc > ul
-{
-  display: table;
-  list-style: none;
-  margin: 10px 0px 0px;
-  padding: 0px;
-  width: 100%;
-  text-align: center;
-}
-
-.parcerias-list > li > .parc > ul > li
-{
-  display: table-cell;
-  cursor: pointer;
-  color: rgb(30, 30, 30);
-  font-size: 11pt;
-  font-weight: 300;
-  padding: 3px 0px;
-}
-  .parcerias-list > li > .parc > ul > li > a {
-  display: block;
-  width: 100%;
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-} 
-
-
-.parcerias-list > li > .parc > ul > li:hover{
-  color: rgb(30, 30, 30);
-  background-color:rgb(255, 187, 0);
-}
 
 @media (min-width: 144px) {
-  .parcerias-list > li {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 120px;
-    padding: 0px;
-  }
-
-  .parcerias-list > li > .parc {
-    overflow: hidden;
-    background: linear-gradient(to left, rgba(255,0,0,0), rgb(255, 173, 97));
-  }
-
-  .parcerias-list > li > .parc {
-    position: relative;
-    height: 120px;
-    text-align: left;
-    padding-right: 40px;
-  }	
-  .parcerias-list > li > .parc > .title, 
-  .parcerias-list > li > .parc > .loc {
-    padding: 0px 10px;
-  }
-  .parcerias-list > li > .parc > ul {
-    position: absolute;
-    left: 0px;
-    bottom: 0px;
-  }
-
-}
-.parcerias-list > li{
-  width: auto ;
-}
+ 
 /*-----------------------------------------------------------------------------------------------------------------------------*/
 
 
