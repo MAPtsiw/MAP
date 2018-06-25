@@ -1,0 +1,16 @@
+{
+  "name": "nodemailer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "projeto2.js",
+  "dependencies": {
+    "common-js": "^0.3.8",
+    "nodemailer": "^4.6.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

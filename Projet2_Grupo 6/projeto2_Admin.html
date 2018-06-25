@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Página Admin</title>
+    <link rel="icon" href="images/favicon.png" type="image">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!-- Minhas Merdas -->
+    <link rel="stylesheet" href="projeto2.css">
+    <script src="classes.js"></script>
+    <script src="projeto2.js"></script>
+
+    <!-- Script para o google maps-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWwaEDkLeJWWeW2VzjqxXCJsqXuzqPLRc&callback=Mapa">
+    </script>
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+        crossorigin="anonymous">
+</head>
+
+<body>
+
+    <!-- Navbar que vai ser igual para todos -->
+    <nav id="chupaAsMinhasTolas" class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="projeto2.html">
+            <img id="logobar" src="images/MAP.png">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars fa-1x"></span>
+        </button>
+
+        <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+        <div class="navbar-collapse collapse w-100 order-3" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a id="notificacoes" class="nav-link" href="#" data-toggle="modal" data-target="#eventos2Dias" style="color: red; display: none">
+                        <!-- Fazer um dropdown com os eventos -->
+                        <i class="fas fa-bell iconNav"></i>(1)</a>
+                </li>
+                <li class="nav-item">
+                    <!-- Tinha active na class -->
+                    <a class="nav-link w3-bar-item w3-button" style="padding: 20 20 20 20" href="projeto2.html">
+                        <i class="fas fa-home iconNav"></i>Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="projeto2_Agenda.html">
+                        <i class="far fa-calendar-alt iconNav"></i>Catálogo</a>
+                </li>
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="projeto2_Testemunhos.html">
+                        <i class="fas fa-comments iconNav"></i>Testemunho Estudantes</a>
+                </li>
+
+                <li id="Perfil" class="nav-item" style="display: none">
+                    <!-- Para tirar esta opçao remove se o "style" -->
+                    <a href="projeto2_Perfil.html" class="nav-link">
+                        <i class="fas fa-user iconNav"></i>Perfil</a>
+                </li>
+
+                <li id="Admin" class="nav-item" style="display: none">
+                    <a href="projeto2_Admin.html" class="nav-link">
+                        <i class="fas fa-user iconNav"></i>Admin</a>
+                </li>
+
+                <li id="linhaQueSepara">
+                </li>
+
+                <li class="nav-item">
+                    <!-- Botao de Login -->
+                    <a id="Login" class="nav-link" value="Log-In" data-toggle="modal" data-target="#ModalLogin">Log-In</a>
+                </li>
+
+                <!-- Botao de Logoff -->
+                <input id="Logoff" class="form-inline my-2 my-lg-0 btn btn-primary green" type="button" value="Log-Off" style="display: none;">
+                <!-- com block não funciona, tem que ser com inline-block-->
+                <li class="nav-item">
+                    <!-- Botao de Registar -->
+                    <a id="Registar" class="nav-link" value="Registar" data-toggle="modal" data-target="#ModalRegistar">Registar</a>
+
+                </li>
+
+                </li>
+            </ul>
+        </div>
+        <!-- <form class="form-inline my-2 my-lg-0"> O que fazer com isto????
+            
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form> -->
+        <!-- </div> -->
+    </nav>
+
+    <!-- ####################################### Tudo O resto #######################################-->
+
+
+    <!-- Detalhes sobre o site, nº inscritos, nº Eventos, etc  -->
+    <div class="row" style="margin: 20px 10px 0px 10px">
+        <div class="card col-md-3 cardsAdmin">
+            <div class="text-center">
+                <a href="#corpoEventos">Nº de Eventos:</a>
+            </div>
+            <div class="card-body">
+                <h4 id="contadorEventos" class="card-title cardsAdminTitulo">
+                    50
+                </h4>
+            </div>
+        </div>
+
+
+        <div class="card col-md-3 cardsAdmin">
+            <div class=" text-center">
+                <a href="#bodyUtilizadores"> Nº de Utilizadores:</a>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title cardsAdminTitulo">
+                    <p id="contadorDocentes">Docentes: 50</p>
+                    <p id="contadorEstudantes">Estudantes: 50</p>
+                </h4>
+            </div>
+        </div>
+
+
+        <div class="card col-md-3 cardsAdmin">
+            <div class=" text-center">
+                <a href="#containerTags"> Nº de Categorias:</a>
+            </div>
+            <div class="card-body">
+                <h4 id="contadorCategorias" class="card-title cardsAdminTitulo">
+                    50
+                </h4>
+            </div>
+        </div>
+
+
+        <div class="card col-md-3 cardsAdmin">
+            <div class=" text-center">
+                <a href="#tableParcerias">Nº de Parceiras:</a>
+            </div>
+            <div class="card-body">
+                <h4 id="contadorParcerias" class="card-title cardsAdminTitulo">
+                    50
+                </h4>
+            </div>
+        </div>
+    </div>
+    <!-- Duas tabelas -> Utilizadores e eventos -->
+    <div class="row">
+
+        <!-- Tabela de Utilizadores -->
+        <div class="form-group col-md-6">
+            <h1 class="text-center">Utilizadores</h1>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">X</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Mail</th>
+                        <th scope="col">Tipo</th>
+                        <!-- <th scope="col">Handle</th> -->
+                    </tr>
+                </thead>
+                <tbody id="bodyUtilizadores">
+                    <!-- <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-user-times"></i>
+                            </button>
+                        </th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-user-times"></i>
+                            </button>
+                        </th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-user-times"></i>
+                            </button>
+                        </th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tabela de Eventos -->
+        <div class="form-group col-md-6">
+            <h1 class="text-center">Eventos</h1>
+            <div class="row">
+                <button type="button" class="btn mx-auto add-evento" style="width: 50%;" data-toggle="modal" data-target="#ModalAdicionnarEventos">
+                    <!-- Não vai ser esta modal que vai ser aberta -->
+                    <i class="">Adicionar Evento</i>
+                </button>
+            </div>
+            <br>
+            <table id="tabelaEventos" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">X</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Botones</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoEventos">
+                    <!-- <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr> -->
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <hr class="md-2">
+
+    <!-- Duas tabelas -> Categorias e Parcerias -->
+    <div class="row">
+
+        <!-- Categorias -->
+        <div class="form-group col-md-6">
+            <h1 class="text-center">Categorias</h1>
+            <div class="tags">
+                <div id="containerTags">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Parcerias -->
+        <div class="form-group col-md-6">
+            <h1 class="text-center">Parcerias</h1>
+            <div class="row">
+                <button type="button" class="btn mx-auto add-parceria" style="width: 50%;" data-toggle="modal" data-target="#ModalParceria">
+                    <i class="">Adicionar Parceria</i>
+                </button>
+            </div>
+            <br>
+            <table id="tableParcerias" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">X</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Link</th>
+                        <th scope="col">Editari</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoParcerias">
+                    <!-- <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- ####################################### Fim de Tudo o Resto ####################################### -->
+
+
+
+    <!-- ###################################### FOOTER ####################################-->
+    <div id="map" class="col-xs-12 col-sm-3 col-md-12"></div>
+
+    <footer>
+        <div class="container">
+            <div class="row text-center text-xs-center text-sm-left text-md-left">
+                <div class="col-xs-12 col-sm-3 col-md-4">
+                    <h5>Navegação</h5>
+                    <ul class="list-unstyled quick-links ">
+                        <li>
+                            <a class="iconFooter" href="javascript:void();">
+                                <i class="fa fa-angle-double-right iconFooter"></i> Home</a>
+                        </li>
+                        <li>
+                            <a class="iconFooter" href="#aboutus">
+                                <i class="fa fa-angle-double-right iconFooter"></i> About Us</a>
+                        </li>
+                        <li>
+                            <a class="iconFooter" href="javascript:void();">
+                                <i class="fa fa-angle-double-right iconFooter"></i> Catálogo</a>
+                        </li>
+                        <li>
+                            <a class="iconFooter" href="projeto2_Parcerias.html">
+                                <i class="fa fa-angle-double-right iconFooter"></i> Parcerias</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-4">
+                    <h5>Contactos</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li>
+                            <p class="p-footer">mapmepmip@gmail.com</p>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-facebook iconFooter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-twitter iconFooter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-instagram iconFooter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="javascript:void();">
+                                <i class="fab fa-youtube iconFooter"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-4">
+                    <h5>ESMAD</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="https://www.esmad.ipp.pt/" class="p-footer"> Escola Superior de Media Artes e Design</a>
+                        </li>
+                    </ul>
+                    <img class="footerimg" src="images/logo_pporto_branco.png">
+                </div>
+
+            </div>
+
+
+        </div>
+    </footer>
+
+
+
+
+    <!-- Modais -->
+    <!-- Modal Registo -->
+    <div class="modal fade" id="ModalRegistar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Formulário -->
+                    <form id="FormRegisto">
+                        <div class="form-group">
+                            <label for="Nome">Nome</label>
+                            <input id="Nome" type="text" class="form-control" placeholder="Nome..." value="Jajão" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="Mail">Email address</label>
+                            <input id="Mail" type="email" class="form-control" placeholder="Enter email" value="ad@gmail.com" required>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="PassRegisto">Password</label>
+                            <input id="PassRegisto" type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ConfPassRegisto">Confirmar Password</label>
+                            <input id="ConfPassRegisto" type="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Fotografia">Fotografia
+                                <small style="color: gray; font-size: 10px">(Opcional)</small>
+                            </label>
+                            <input id="Fotografia" type="url" class="form-control" placeholder="Link da foto">
+                        </div>
+                        <div class="form-group">
+                            <select name="" id="tipoUtilizador">
+                                <option disabled selected hidden>Tipo Utilizador</option>
+                                <option value="Docente">Docente</option>
+                                <option value="Estudante">Estudante</option>
+                            </select>
+                        </div>
+                        <!-- <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div> -->
+                        <!-- Esta div só vai aparecer caso se escolha Docente
+                    Ao alterar para Estudante deve desaparecer  -->
+                        <!-- Por esta merda Bonita -->
+                        <div id="caLeindo" style="display: none">
+                            <div class="form-group">
+                                <p>Formação</p>
+                                <textarea id="formacao" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <p>Unidades Curriculares Selecionadas</p>
+                                <textarea id="unidadesCurriculares" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-goup">
+                                <p>Short CV</p>
+                                <textarea id="shortCV" style="width: auto;" rows="10"></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <p id="MsgErroRegistar" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Registar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Login-->
+    <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Log-In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Formulário -->
+                    <form id="FormLogin">
+                        <div class="form-group">
+                            <label for="mailLogin">Email address</label>
+                            <input id="mailLogin" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        </div>
+                        <div class="form-group">
+                            <label for="passLogin">Password</label>
+                            <input id="passLogin" type="password" class="form-control" placeholder="Password">
+                        </div>
+                        <!-- <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <p id="MsgErroLogin" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Log-In</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para registar uma Parceria -->
+
+
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalParceria">
+        Launch demo modal
+    </button> -->
+
+    <!-- Modal Parceria -->
+    <div class="modal fade" id="ModalParceria" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Registar Parceria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formParceria">
+
+                        <label for="nomeP">Nome: </label>
+                        <input id="nomeP" class="form-control" type="text" placeholder="Nome da Empresa">
+
+                        <label for="nomeL">Localização: </label>
+                        <input id="nomeL" class="form-control" type="text" placeholder="Localização da Empresa">
+
+                        <label for="nomeLink">Link: </label>
+                        <input id="nomeLink" class="form-control" type="text" placeholder="Link da Empresa">
+
+                </div>
+                <div class="modal-footer">
+                    <p id="MensagemMamaAquiNaPila"></p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alterar Parceria -->
+    <div class="modal fade" id="ModalAlterarParceria" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Alterar Parceria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAlterarParceria">
+
+                        <label for="nomePAlt">Nome: </label>
+                        <input id="nomePAlt" class="form-control" type="text" required>
+
+                        <label for="nomeLAlt">Localização: </label>
+                        <input id="nomeLAlt" class="form-control" type="text">
+
+                        <label for="nomeLinkAlt">Link: </label>
+                        <input id="nomeLinkAlt" class="form-control" type="text">
+
+                </div>
+                <div class="modal-footer">
+                    <p id="MensagemMamaAquiNaPilaalt"></p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+                <p id="mensagem"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Evento -->
+    <div class="modal fade" id="ModalAdicionnarEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Evento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Formulário -->
+                    <form id="FormRegistarEvento">
+                        <div class="form-group">
+                            <label for="NomeEvento">Nome</label>
+                            <input id="NomeEvento" type="text" class="form-control" placeholder="Introdução ao JS" value="Introdução ao JS" required>
+
+                        </div>
+                        <div class="form-row">
+
+                            <!-- Data -->
+                            <label for="DataEvento">Data</label>
+                            <input id="DataEvento" type="date" class="form-group" required>
+                            <!-- Deixar alterar esta merda também -->
+
+                            <!-- Hora, maneira simples -->
+                            <label for="HoraEvento">Hora</label>
+                            <input id="HoraEvento" type="time" class="form-group">
+
+                            <!-- Hora, esta merda ainda não está a funcionar -->
+                            <!-- <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control" value="13:14">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                </div> -->
+                            <!-- <script type="text/javascript">
+                                    $('.clockpicker').clockpicker();
+                                </script> -->
+
+                        </div>
+                        <div class="form-group">
+                            <label for="DescriçãoEvento">Descrição</label>
+                            <textarea id="DescriçãoEvento" class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="CategoriaEvento">Categoria</label>
+                            <!-- <br> -->
+                            <small style="color: gray; font-size: 10px">(Mais que uma categoria tem que ser separada por espaços)</small>
+                            <!-- Pode ser um select depois -->
+                            <input id="CategoriaEvento" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="FotografiaEvento">Fotografia
+                                <small style="color: gray; font-size: 10px">(Opcional)</small>
+                            </label>
+                            <input id="FotografiaEvento" type="url" class="form-control" placeholder="Link da foto">
+                        </div>
+                        <div class="form-group">
+                            <label for="ResponsavelEvento">Responsável pelo Evento</label>
+                            <input id="ResponsavelEvento" type="text" class="form-control" placeholder="Docente Responsável" required>
+                        </div>
+                        <!-- <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                        </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <p id="MsgErroRegistarEventos" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Registar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal para modificar Evento -->
+    <div class="modal fade" id="ModalAdicionnarEventosAlt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adicionar Evento</h5>
+                    <!-- Mudar o nome disto quando for para editar o evento, nah -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Formulário -->
+                    <form id="FormRegistarEventoAlt">
+                        <div class="form-group">
+                            <label for="NomeEventoAlt">Nome</label>
+                            <input id="NomeEventoAlt" type="text" class="form-control" placeholder="Introdução ao JS" value="Introdução ao JS" required>
+
+                        </div>
+                        <div class="form-row">
+
+                            <!-- Data -->
+                            <label for="DataEventoAlt">Data</label>
+                            <input id="DataEventoAlt" type="date" class="form-group" required>
+                            <!-- Deixar alterar esta merda também -->
+
+                            <!-- Hora, maneira simples -->
+                            <label for="HoraEventoAlt">Hora</label>
+                            <input id="HoraEventoAlt" type="time" class="form-group">
+
+                            <!-- Hora, esta merda ainda não está a funcionar -->
+                            <!-- <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                    <input type="text" class="form-control" value="13:14">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                </div> -->
+                            <!-- <script type="text/javascript">
+                                    $('.clockpicker').clockpicker();
+                                </script> -->
+
+                        </div>
+                        <div class="form-group">
+                            <label for="DescriçãoEventoAlt">Descrição</label>
+                            <textarea id="DescriçãoEventoAlt" class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="CategoriaEventoAlt">Categoria</label>
+                            <!-- Pode ser um select depois -->
+                            <small style="color: gray; font-size: 10px">Para adicionar várias, deixar espaço entre cada uma!</small>
+                            <input id="CategoriaEventoAlt" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="FotografiaEventoAlt">Fotografia
+                                <small style="color: gray; font-size: 10px">(Opcional)</small>
+                            </label>
+                            <input id="FotografiaEventoAlt" type="url" class="form-control" placeholder="Link da foto">
+                        </div>
+                        <div class="form-group">
+                            <label for="ResponsavelEventoAlt">Responsável pelo Evento</label>
+                            <input id="ResponsavelEventoAlt" type="text" class="form-control" placeholder="Docente Responsável" required>
+                        </div>
+                        <!-- <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                        </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+                <p id="MsgErroRegistarEventos" class="mx-auto"></p>
+                <!-- Vai servir para por mensagens de Erro -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Registar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="eventos2Dias" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eventos dentro de 2 dias</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="containerEventos2Dias" class="mx-auto">
+                        <li class="listaEventos">
+                            <div class="row rowEbentos">
+                                <div class="col-4 divDaImagem">
+                                    <img class="imagemEvento" src="images/1.png" alt="">
+                                </div>
+                                <div class="col-8">
+                                    <div class="nomeDele">Nome Do Evento</div>
+                                    <button class="btn saber-mais btnModal">Saber Mais</button>
+                                    <div class="tempoQueFalta">Daqui a 2 dias</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="listaEventos">
+                            <div class="row rowEbentos">
+                                <div class="col-3 divDaImagem">
+                                    <img class="imagemEvento" src="images/1.png" alt="">
+                                </div>
+                                <div class="col-9">
+                                    <div class="nomeDele">Nome Do Evento</div>
+                                    <button class="btn saber-mais btnModal">Saber Mais</button>
+                                    <div class="tempoQueFalta">Daqui a 2 dias</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
